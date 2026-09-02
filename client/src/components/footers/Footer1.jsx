@@ -103,10 +103,10 @@ export default function Footer1({ bgColor = "" }) {
                       </p>
                     </li>
                   </ul>
-                  <Link to={`/contact-1`} className="tf-btn btn-line">
+                  <a href="#" className="tf-btn btn-line">
                     Get direction
                     <i className="icon icon-arrow1-top-left" />
-                  </Link>
+                  </a>
                   <ul className="tf-social-icon d-flex gap-10">
                     <li>
                       <a
