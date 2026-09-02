@@ -268,13 +268,12 @@ export default function Footer1({ bgColor = "" }) {
                     © {new Date().getFullYear()} SmartCart Store. All Rights
                     Reserved
                   </div>
-                  <div className="tf-payment">
+                  <div className="tf-payment d-flex align-items-center justify-content-center justify-content-md-start gap-3 flex-wrap">
                     {paymentImages.map((image, index) => (
                       <img
                         key={index}
                         src={image.src}
-                        width={image.width}
-                        height={image.height}
+                        style={{ height: "24px", width: "auto", objectFit: "contain", mixBlendMode: "multiply" }}
                         alt={image.alt}
                       />
                     ))}
