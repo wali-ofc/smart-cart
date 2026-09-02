@@ -15,8 +15,8 @@ export const aboutLinks = [
   { href: "/login", text: "Account" },
 ];
 export const paymentImages = [
-  { src: "https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg", alt: "Visa" },
-  { src: "https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg", alt: "Mastercard" },
-  { src: "https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg", alt: "PayPal" },
-  { src: "https://upload.wikimedia.org/wikipedia/commons/f/fa/American_Express_logo_%282018%29.svg", alt: "Amex" },
+  { src: "https://cdn.simpleicons.org/visa/1434CB", alt: "Visa" },
+  { src: "https://cdn.simpleicons.org/mastercard/EB001B", alt: "Mastercard" },
+  { src: "https://cdn.simpleicons.org/paypal/00457C", alt: "PayPal" },
+  { src: "https://cdn.simpleicons.org/americanexpress/002663", alt: "Amex" },
 ];
