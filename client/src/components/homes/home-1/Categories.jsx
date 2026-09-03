@@ -83,7 +83,7 @@ export default function Categories() {
           <div className="col-xl-3 col-lg-4 col-md-4">
             <div className="discovery-new-item">
               <h5>Discovery all new items</h5>
-              <Link to={`/shop-collection-list`}>
+              <Link to={`/shop-default`}>
                 <i className="icon-arrow1-top-left" />
               </Link>
             </div>
