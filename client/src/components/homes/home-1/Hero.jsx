@@ -20,8 +20,8 @@ export default function Hero() {
               <img
                 alt="fashion-slideshow"
                 src={slide.imgSrc}
-                width="2000"
-                height="1125"
+                className="hero-image-responsive"
+                style={{ objectPosition: "85% center", width: "100%", height: "100%", objectFit: "cover" }}
               />
               <div className="box-content">
                 <div className="container">
