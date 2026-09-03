@@ -172,7 +172,7 @@ function App() {
               <Route path="/">
                 <Route index element={<HomePage1 />} />
                 <Route path="products" element={<ShopDefaultPage />} />
-                <Route path="product/:id" element={<ProductDetailPage />} />
+                <Route path="product-detail/:id" element={<ProductDetailPage />} />
                 <Route path="cart" element={<ViewCartPage />} />
                 <Route path="checkout" element={<CheckoutPage />} />
                 

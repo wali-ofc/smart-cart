@@ -292,7 +292,7 @@ export default function ShopCart() {
                   </div>
                   <div className="tf-mini-cart-view-checkout">
                     <Link
-                      to={`/view-cart`}
+                      to={`/cart`}
                       className="tf-btn btn-outline radius-3 link w-100 justify-content-center"
                     >
                       View cart
