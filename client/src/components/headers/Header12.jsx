@@ -34,15 +34,19 @@ export default function Header12() {
           </div>
           <div className="col-xl-9 col-md-4 col-6">
             <div className="wrap-header-left">
-              <Link to={`/`} className="logo-header">
-                <img
-                  alt="logo"
-                  className="logo"
-                  src="/images/logo/logo-blue.svg"
-                  width={136}
-                  height={21}
-                />
-              </Link>
+              <Link to={'/'} className="logo-header" style={{ textDecoration: "none" }}>
+  <span style={{ 
+    fontFamily: "'Montserrat', sans-serif", 
+    fontSize: "26px", 
+    fontWeight: "400", 
+    letterSpacing: "2px",
+    textTransform: "uppercase",
+    color: "#111111",
+    textShadow: "0px 0px 8px rgba(255,255,255,0.9), 0px 0px 15px rgba(255,255,255,0.8)"
+  }}>
+    SmartCart
+  </span>
+</Link>
               <nav className="box-navigation text-center">
                 <ul className="box-nav-ul d-flex align-items-center justify-content-center gap-30">
                   <Nav textColor="text_blue-1" />

@@ -75,15 +75,18 @@ export default function Footer7({ bgColor = "" }) {
               <div className="col-xl-3 col-md-6 col-12">
                 <div className="footer-infor">
                   <div className="footer-logo">
-                    <Link to={`/`}>
-                      <img
-                        alt="image"
-                        src="/images/logo/logo.svg"
-                        width="136"
-                        height="21"
-                      />
-                    </Link>
-                  </div>
+  <Link to={'/'} className="logo-footer" style={{ textDecoration: "none" }}>
+    <span style={{ 
+      fontFamily: "'Montserrat', sans-serif", 
+      fontSize: "26px", 
+      fontWeight: "400", 
+      letterSpacing: "2px",
+      textTransform: "uppercase" 
+    }}>
+      <span style={{ color: "#111111" }}>SMART</span><span style={{ color: "#5DB838" }}>CART</span>
+    </span>
+  </Link>
+</div>
                   <ul>
                     <li>
                       <p>

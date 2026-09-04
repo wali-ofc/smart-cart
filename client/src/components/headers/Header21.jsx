@@ -50,15 +50,19 @@ export default function Header21() {
             </nav>
           </div>
           <div className="col-xl-2 col-md-4 col-6 text-center">
-            <Link to={`/`} className="logo-header">
-              <img
-                alt="logo"
-                className="logo"
-                src="/images/logo/logo-white@2x.png"
-                width="272"
-                height="42"
-              />
-            </Link>
+            <Link to={'/'} className="logo-header" style={{ textDecoration: "none" }}>
+  <span style={{ 
+    fontFamily: "'Montserrat', sans-serif", 
+    fontSize: "26px", 
+    fontWeight: "400", 
+    letterSpacing: "2px",
+    textTransform: "uppercase",
+    color: "#111111",
+    textShadow: "0px 0px 8px rgba(255,255,255,0.9), 0px 0px 15px rgba(255,255,255,0.8)"
+  }}>
+    SmartCart
+  </span>
+</Link>
           </div>
           <div className="col-xxl-5 col-md-4 col-3">
             <ul className="nav-icon d-flex justify-content-end align-items-center gap-20">
