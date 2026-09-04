@@ -34,8 +34,8 @@ export default function Features({
             pagination={{ clickable: true, el: ".spd103" }}
           >
             {iconBoxData.map((elm, i) => (
-              <SwiperSlide key={i} className="swiper-slide">
-                <div className="tf-icon-box style-border-line text-center">
+              <SwiperSlide key={i} className="swiper-slide" style={{ height: "auto" }}>
+                <div className="tf-icon-box style-border-line text-center" style={{ height: "100%" }}>
                   <div className="icon">
                     <i className={elm.iconClass} />
                   </div>
