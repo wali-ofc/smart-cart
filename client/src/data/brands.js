@@ -34,13 +34,7 @@ export const brandData = [
     alt: "image-brand-06",
     width: 398,
     height: 164,
-  },
-  {
-    src: "/images/brand/brand-04.png",
-    alt: "image-brand-04",
-    width: 398,
-    height: 164,
-  },
+  }
 ];
 export const brandData2 = [
   {

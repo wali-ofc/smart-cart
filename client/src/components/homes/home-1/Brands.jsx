@@ -13,10 +13,10 @@ export default function Brands() {
           loop={false} // Equivalent to data-loop="false"
           autoplay={false} // Equivalent to data-play="false"
           spaceBetween={0} // Equivalent to data-space-lg
-          slidesPerView={5.95} // Equivalent to data-preview
+          slidesPerView={6} // Equivalent to data-preview
           breakpoints={{
             1024: {
-              slidesPerView: 5.95, // Equivalent to data-tablet
+              slidesPerView: 6, // Equivalent to data-tablet
               spaceBetween: 0, // Equivalent to data-space-md
             },
             640: {
