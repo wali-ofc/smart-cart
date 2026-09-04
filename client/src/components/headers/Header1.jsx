@@ -6,7 +6,7 @@ import CartLength from "../common/CartLength";
 import WishlistLength from "../common/WishlistLength";
 export default function Header1() {
   return (
-    <header id="header" className="header-default header-absolute">
+    <header id="header" className="header-default" style={{ backgroundColor: "#fff", borderBottom: "1px solid #ebebeb" }}>
       <div className="px_15 lg-px_40">
         <div className="row wrapper-header align-items-center">
           <div className="col-md-4 col-3 tf-lg-hidden">
