@@ -32,6 +32,7 @@ import ViewCartPage from "./pages/otherPages/view-cart";
 import CheckoutPage from "./pages/otherPages/checkout";
 import PaymentCOnfirmationPage from "./pages/otherPages/payment-confirmation";
 import PaymentFailurePage from "./pages/otherPages/payment-failure";
+import AdminIframe from "./pages/dashboard/AdminIframe";
 
 import MyAccountPage from "./pages/dashboard/my-account";
 import MyAccountOrderPage from "./pages/dashboard/my-account-orders";
@@ -179,7 +180,8 @@ function App() {
                 <Route path="view-cart" element={<ViewCartPage />} />
                 <Route path="checkout" element={<CheckoutPage />} />
                 
-                <Route path="profile" element={<MyAccountPage />} />
+                <Route path="admin/*" element={<AdminIframe />} />
+                  <Route path="profile" element={<MyAccountPage />} />
                 <Route path="orders" element={<MyAccountOrderPage />} />
                 <Route path="likes" element={<WishlistPage />} />
 
