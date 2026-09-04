@@ -16,7 +16,7 @@ export default function Hero() {
       >
         {slides.map((slide, index) => (
           <SwiperSlide className="swiper-slide" key={index}>
-            <div className="wrap-slider">
+            <div className="wrap-slider" style={{ height: "75vh", minHeight: "500px", maxHeight: "800px" }}>
               <img
                 alt="fashion-slideshow"
                 src={slide.imgSrc}
