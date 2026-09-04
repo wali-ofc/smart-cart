@@ -8,6 +8,8 @@ exports.getAnalytics = async (req, res) => {
     const totalProducts = await Product.countDocuments();
     const totalCustomers = await User.countDocuments({ role: 'customer' });
     const outOfStock = await Product.countDocuments({ stock: 0 });
+    const deliveredOrders = await Order.countDocuments({ status: 'delivered' });
+    const cancelledOrders = await Order.countDocuments({ status: 'cancelled' });
     
     // Revenue
     const revenueAgg = await Order.aggregate([
@@ -26,7 +28,7 @@ exports.getAnalytics = async (req, res) => {
         totalProducts,
         totalCustomers,
         totalRevenue,
-        outOfStock,
+        outOfStock, deliveredOrders, cancelledOrders,
         recentOrders,
         topProducts
       }
@@ -48,7 +50,7 @@ exports.getProducts = async (req, res) => {
 
 exports.getOrders = async (req, res) => {
   try {
-    const orders = await Order.find().populate('customerId', 'username email').sort({ createdAt: -1 });
+    const orders = await Order.find().populate('customerId', 'username email profileImage').sort({ createdAt: -1 });
     res.json({ success: true, data: orders });
   } catch (error) {
     res.status(500).json({ success: false, error: 'Server Error' });
@@ -74,3 +76,5 @@ exports.updateOrderStatus = async (req, res) => {
     res.status(500).json({ success: false, error: 'Server Error' });
   }
 };
+
+

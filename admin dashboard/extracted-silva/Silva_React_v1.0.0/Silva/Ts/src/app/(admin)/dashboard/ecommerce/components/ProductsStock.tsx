@@ -1,7 +1,19 @@
+import { useState, useEffect } from 'react';
+import api from '@/helpers/api';
 import IconifyIcon from '@/component/wrapper/IconifyIcon'
 import { Card, CardBody, CardHeader, Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'react-bootstrap'
 
 const ProductsStock = () => {
+    const [products, setProducts] = useState<any[]>([]);
+
+    useEffect(() => {
+        api.get('/admin/products').then(res => {
+            if(res.data.success) {
+                setProducts(res.data.data.slice(0, 5)); // Limit to 5 for the widget
+            }
+        }).catch(err => console.error("Error fetching products", err));
+    }, []);
+
     return (
         <Col xl={8}>
             <Card className="overflow-hidden">
@@ -37,67 +49,29 @@ const ProductsStock = () => {
                             </thead>
 
                             <tbody>
-                                <tr>
-                                    <td>Audio HD3</td>
-                                    <td className="text-muted">#PFR-1045</td>
-                                    <td className="text-muted">29 Mar, 2024</td>
-                                    <td className="text-muted">$1487</td>
-                                    <td>
-                                        <span className="badge bg-danger-subtle text-danger fw-semibold fs-13">Out of Stock</span>
-                                    </td>
-                                    <td>46 Pics</td>
-                                </tr>
-                                <tr>
-                                    <td>Smartwatch</td>
-                                    <td className="text-muted">#PFR-1045</td>
-                                    <td className="text-muted">17 Dec, 2024</td>
-                                    <td className="text-muted">$1028</td>
-                                    <td>
-                                        <span className="badge bg-warning-subtle text-warning fw-semibold fs-13">Low Stock</span>
-                                    </td>
-                                    <td>18 Pics</td>
-                                </tr>
-                                <tr>
-                                    <td>AirPods Max</td>
-                                    <td className="text-muted">#PFR-1045</td>
-                                    <td className="text-muted">15 Apr, 2024</td>
-                                    <td className="text-muted">$1487</td>
-                                    <td>
-                                        <span className="badge bg-danger-subtle text-danger fw-semibold fs-13">Out of Stock</span>
-                                    </td>
-                                    <td>587 Pics</td>
-                                </tr>
-                                <tr>
-                                    <td>Women Pink Heels</td>
-                                    <td className="text-muted">#PFR-1045</td>
-                                    <td className="text-muted">13 Feb, 2024</td>
-                                    <td className="text-muted">$1487</td>
-                                    <td>
-                                        <span className="badge bg-primary-subtle text-primary fw-semibold fs-13">In Stock</span>
-                                    </td>
-                                    <td>42 Pics</td>
-                                </tr>
-                                <tr>
-                                    <td>Pixel 8 Pro</td>
-                                    <td className="text-muted">#PFR-1045</td>
-                                    <td className="text-muted">22 July, 2024</td>
-                                    <td className="text-muted">$1487</td>
-                                    <td>
-                                        <span className="badge bg-warning-subtle text-warning fw-semibold fs-13">Low Stock</span>
-                                    </td>
-                                    <td>784 Pics</td>
-                                </tr>
-                                <tr>
-                                    <td>HP Monitor</td>
-                                    <td className="text-muted">#PFR-1045</td>
-                                    <td className="text-muted">19 Dec, 2024</td>
-                                    <td className="text-muted">$1487</td>
-                                    <td>
-                                        <span className="badge bg-primary-subtle text-primary fw-semibold fs-13">In Stock</span>
-                                    </td>
-                                    <td>78 Pics</td>
-                                </tr>
-                            </tbody>
+    {products.length === 0 ? (
+        <tr><td colSpan={6} className="text-center">No products found</td></tr>
+    ) : (
+        products.map((item: any, idx: number) => (
+            <tr key={idx}>
+                <td>{item.title}</td>
+                <td className="text-muted">#{item._id.slice(-6).toUpperCase()}</td>
+                <td className="text-muted">{new Date(item.createdAt).toLocaleDateString()}</td>
+                <td className="text-muted">${item.price}</td>
+                <td>
+                    {item.stock > 10 ? (
+                        <span className="badge bg-success-subtle text-success fw-semibold fs-13">In Stock</span>
+                    ) : item.stock > 0 ? (
+                        <span className="badge bg-warning-subtle text-warning fw-semibold fs-13">Low Stock</span>
+                    ) : (
+                        <span className="badge bg-danger-subtle text-danger fw-semibold fs-13">Out of Stock</span>
+                    )}
+                </td>
+                <td>{item.stock} Items</td>
+            </tr>
+        ))
+    )}
+</tbody>
                         </table>
                     </div>
                 </CardBody>
