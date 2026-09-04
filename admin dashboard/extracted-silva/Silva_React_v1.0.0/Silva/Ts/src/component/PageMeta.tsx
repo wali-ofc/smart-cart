@@ -5,10 +5,11 @@ const PageMeta = ({ title }: Pagedata) => {
   return (
     <title>
       {title
-        ? `${title} |  Silva - Responsive Admin Dashboard Template`
-        : " Silva - Responsive Admin Dashboard Template"}
+        ? `${title} |  Smart Cart - Responsive Admin Dashboard Template`
+        : " Smart Cart - Responsive Admin Dashboard Template"}
     </title>
   );
 };
 
 export default PageMeta;
+

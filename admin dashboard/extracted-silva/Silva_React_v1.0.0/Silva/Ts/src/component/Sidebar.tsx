@@ -26,7 +26,10 @@ const Sidebar = () => {
                                 <img src={logoSm} alt="logo" height="22" />
                             </span>
                             <span className="logo-lg">
-                                <img src={logoLight} alt="logo" height="24" />
+                                <div className="d-flex align-items-center justify-content-center">
+                                <img src={logoSm} alt="logo" height="24" />
+                                <h4 className="mb-0 ms-2 text-white fw-bold" style={{letterSpacing: '1px'}}>Smart Cart</h4>
+                            </div>
                             </span>
                         </Link>
                         <Link to="/dashboard/ecommerce" className="logo logo-dark">
@@ -34,7 +37,10 @@ const Sidebar = () => {
                                 <img src={logoSm} alt="logo" height="22" />
                             </span>
                             <span className="logo-lg">
-                                <img src={logoDark} alt="logo" height="24" />
+                                <div className="d-flex align-items-center justify-content-center">
+                                <img src={logoSm} alt="logo" height="24" />
+                                <h4 className="mb-0 ms-2 text-dark fw-bold" style={{letterSpacing: '1px'}}>Smart Cart</h4>
+                            </div>
                             </span>
                         </Link>
                     </div>

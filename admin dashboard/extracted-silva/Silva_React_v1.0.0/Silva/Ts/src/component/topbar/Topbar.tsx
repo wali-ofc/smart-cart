@@ -14,7 +14,7 @@ const Topbar = () => {
           <ul className="list-unstyled topnav-menu mb-0 d-flex align-items-center">
             <MenuSize />
             <li className="d-none d-lg-block">
-              <h5 className="mb-0">Good Morning, John Smith</h5>
+              <h5 className="mb-0">Good Morning, Abdullah</h5>
             </li>
           </ul>
 

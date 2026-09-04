@@ -35,7 +35,7 @@ const Logout = () => {
 
                                             <div className="text-center auth-title-section">
                                                 <h3 className="text-dark fs-20 fw-medium mb-2">You are Logged Out</h3>
-                                                <p className="text-muted fs-15">Thank you for using Silva admin template</p>
+                                                <p className="text-muted fs-15">Thank you for using Smart Cart</p>
                                             </div>
 
                                             <div className="text-center">

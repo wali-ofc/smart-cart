@@ -17,7 +17,7 @@ const ProfileNotification = () => {
             <DropdownToggle as={'a'} className="nav-link nav-user me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                 <img src={userImg5} alt="user-image" className="rounded-circle" />
                 <span className="pro-user-name ms-1">
-                    John Smith <IconifyIcon icon="mdi:chevron-down"></IconifyIcon>
+                    Abdullah <IconifyIcon icon="mdi:chevron-down"></IconifyIcon>
                 </span>
             </DropdownToggle>
             <DropdownMenu className="dropdown-menu-end profile-dropdown ">
