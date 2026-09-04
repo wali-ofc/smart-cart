@@ -15,6 +15,13 @@ exports.protect = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret123');
+    
+    // Handle hardcoded admin session
+    if (decoded.id === 'admin_hardcoded_id') {
+      req.user = { _id: 'admin_hardcoded_id', role: 'seller', username: 'Admin' };
+      return next();
+    }
+    
     req.user = await User.findById(decoded.id);
     
     if (!req.user) {
