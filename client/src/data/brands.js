@@ -1,13 +1,13 @@
 export const brandData = [
   {
-    src: "/images/brand/burberry.png",
-    alt: "Burberry",
+    src: "/images/brand/calvin-klein-1-logo.png",
+    alt: "Calvin Klein",
     width: 398,
     height: 164,
   },
   {
-    src: "/images/brand/asos.png",
-    alt: "ASOS",
+    src: "/images/brand/christian-dior.png",
+    alt: "Dior",
     width: 398,
     height: 164,
   },
@@ -30,8 +30,8 @@ export const brandData = [
     height: 164,
   },
   {
-    src: "/images/brand/armani.png",
-    alt: "Armani",
+    src: "/images/brand/hugo-boss-logo.png",
+    alt: "Hugo Boss",
     width: 398,
     height: 164,
   }
