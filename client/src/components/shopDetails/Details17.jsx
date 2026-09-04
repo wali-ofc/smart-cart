@@ -216,15 +216,7 @@ export default function Details17({ product }) {
                         <span className="icon icon-check" />
                       </a>
                       <div className="w-100">
-                        <a href="#" className="btns-full">
-                          Buy with{" "}
-                          <img
-                            alt="image"
-                            width={64}
-                            height={18}
-                            src="https://cdn.simpleicons.org/paypal/00457C"
-                          />
-                        </a>
+                        <a href="#" className="btns-full">Buy now</a>
                         <a href="#" className="payment-more-option">
                           More payment options
                         </a>

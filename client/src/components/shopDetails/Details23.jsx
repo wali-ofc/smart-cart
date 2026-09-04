@@ -181,13 +181,7 @@ export default function Details23({ product }) {
                           href="#"
                           className="btns-full btns-sold-out cursor-auto btns-sold-out"
                         >
-                          Buy with{" "}
-                          <img
-                            alt="image"
-                            src="https://cdn.simpleicons.org/paypal/00457C"
-                            width={64}
-                            height={18}
-                          />
+                          Buy now
                         </a>
                         <a href="#" className="payment-more-option">
                           More payment options
