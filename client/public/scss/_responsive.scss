@@ -5032,7 +5032,10 @@
   }
   .tf-slideshow {
     .wrap-slider {
-      height: 450px;
+      height: 320px;
+      img {
+        object-position: 85% 30% !important;
+      }
     }
     .banner-wrapper {
       height: 500px;
