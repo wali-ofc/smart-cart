@@ -39,15 +39,15 @@ export default function Hero() {
           font-family: 'Poppins', sans-serif !important;
           text-transform: uppercase !important;
           line-height: 1.05 !important;
-          color: #111 !important;
+          color: #ffffff !important;
           margin-bottom: 35px !important;
           letter-spacing: -1px !important;
         }
         .bellroy-btn {
-          background-color: #000 !important;
-          color: #fff !important;
+          background-color: #d15024 !important;
+          color: #ffffff !important;
           text-transform: uppercase !important;
-          font-weight: 700 !important;
+          font-weight: 800 !important;
           font-size: 14px !important;
           letter-spacing: 1.5px !important;
           padding: 16px 36px !important;
@@ -72,7 +72,7 @@ export default function Hero() {
         }
         .tf-slideshow .swiper-pagination-bullet {
           background: transparent !important;
-          border: 2px solid #000 !important;
+          border: 2px solid #ffffff !important;
           opacity: 1 !important;
           width: 10px !important;
           height: 10px !important;
@@ -81,7 +81,7 @@ export default function Hero() {
           transition: all 0.3s ease !important;
         }
         .tf-slideshow .swiper-pagination-bullet-active {
-          background: #000 !important;
+          background: #ffffff !important;
           width: 26px !important;
           border-radius: 10px !important;
         }
@@ -93,7 +93,7 @@ export default function Hero() {
             min-height: 500px !important;
           }
           .custom-hero-slider img {
-            object-position: 70% top !important;
+            object-position: center top !important;
           }
           .bellroy-content {
             top: auto !important;
@@ -120,10 +120,13 @@ export default function Hero() {
         {slides.map((slide, index) => (
           <SwiperSlide className="swiper-slide" key={index}>
             <div className="wrap-slider custom-hero-slider">
-              <img
-                alt="fashion-slideshow"
-                src={slide.imgSrc}
-              />
+              <picture>
+                <source media="(max-width: 768px)" srcSet={slide.mobileImgSrc || slide.imgSrc} />
+                <img
+                  alt="fashion-slideshow"
+                  src={slide.imgSrc}
+                />
+              </picture>
               <div className="bellroy-content">
                 <div className="container">
                   <h1 className="fade-item fade-item-1 bellroy-heading">
