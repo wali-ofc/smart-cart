@@ -17,11 +17,11 @@ export default function Hero() {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          object-position: center top !important;
+          object-position: center 15% !important;
         }
         .bellroy-content {
           position: absolute !important;
-          top: 50% !important;
+          top: 55% !important;
           transform: translateY(-50%) !important;
           left: 0;
           right: 0;
@@ -93,11 +93,11 @@ export default function Hero() {
             min-height: 500px !important;
           }
           .custom-hero-slider img {
-            object-position: center top !important;
+            object-position: center 15% !important;
           }
           .bellroy-content {
             top: auto !important;
-            bottom: 12% !important;
+            bottom: 8% !important;
             transform: none !important;
           }
           .bellroy-heading {
