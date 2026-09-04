@@ -78,13 +78,14 @@ export default function Footer1({ bgColor = "" }) {
                   <div className="footer-logo">
                     <Link to={`/`} style={{ textDecoration: "none" }}>
                       <span style={{ 
-                        fontFamily: "'Michroma', sans-serif", 
-                        fontSize: "24px", 
+                        fontFamily: "'Montserrat', sans-serif", 
+                        fontSize: "26px", 
                         fontWeight: "400", 
-                        letterSpacing: "-1px",
+                        letterSpacing: "2px",
+                        textTransform: "uppercase",
                         color: "#111111"
                       }}>
-                        Smart<span style={{ color: "#0A71B5" }}>Cart</span>
+                        Smart<span style={{ color: "#5DB838" }}>Cart</span>
                       </span>
                     </Link>
                   </div>
