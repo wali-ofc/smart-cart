@@ -7,13 +7,6 @@ export const slides = [
     btnText: "BESTSELLERS",
   },
   {
-    imgSrc: "/images/slider/bellroy-slide2-desktop.jpg",
-    mobileImgSrc: "/images/slider/bellroy-slide2-mobile.jpg",
-    title: "OUTLET RESTOCKED",
-    text: "",
-    btnText: "SHOP UP TO 35% OFF",
-  },
-  {
     imgSrc: "/images/slider/bellroy-slide3-desktop.jpg",
     mobileImgSrc: "/images/slider/bellroy-slide3-mobile.jpg",
     title: "WE'VE GOT\nYOUR BACK",
