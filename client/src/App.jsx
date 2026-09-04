@@ -23,6 +23,7 @@ import ToolbarShop from "@/components/modals/ToolbarShop";
 import ScrollTop from "@/components/common/ScrollTop";
 import { Route, Routes, useLocation } from "react-router-dom";
 import HomePage1 from "./pages/page";
+import BlogGridPage from "./pages/BlogGridPage";
 import WOW from "@/utlis/wow";
 
 import ShopDefaultPage from "./pages/shop/shop-default";
@@ -176,6 +177,7 @@ function App() {
                 <Route path="shop-collection-list" element={<ShopDefaultPage />} />
                 <Route path="shop-collection-sub" element={<ShopDefaultPage />} />
                 <Route path="product-detail/:id" element={<ProductDetailPage />} />
+                <Route path="blog-grid" element={<BlogGridPage />} />
                 <Route path="cart" element={<ViewCartPage />} />
                 <Route path="view-cart" element={<ViewCartPage />} />
                 <Route path="checkout" element={<CheckoutPage />} />
@@ -226,3 +228,4 @@ function App() {
 }
 
 export default App;
+

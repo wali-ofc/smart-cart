@@ -22,6 +22,12 @@ export default function Nav({ isArrow = true, textColor = "", Linkfs = "" }) {
           My Orders
         </Link>
       </li>
+      
+      <li className="menu-item">
+        <Link to="/blog-grid" className={`item-link ${Linkfs} ${textColor} ${isActive("/blog-grid")}`}>
+          Blog
+        </Link>
+      </li>
       <li className="menu-item position-relative">
         <a href="#" className={`item-link ${Linkfs} ${textColor} ${isActive("/profile") ? "activeMenu" : ""}`}>
           Account

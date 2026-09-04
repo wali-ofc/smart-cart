@@ -222,63 +222,49 @@ export const blogArticles5 = [
 ];
 
 export const blogPosts = [
-  {
-    id: 28,
-    imgSrc: "/images/blog/blog-2.jpg",
-    alt: "img-blog",
-    category: "Accessories",
-    title: "The next generation of leather alternatives",
-  },
-  {
-    id: 29,
-    imgSrc: "/images/blog/blog-3.jpg",
-    alt: "img-blog",
-    category: "Accessories",
-    title: "An Exclusive Clothing Collaboration",
-  },
-  {
-    id: 30,
-    imgSrc: "/images/blog/blog-4.jpg",
-    alt: "img-blog",
-    category: "Accessories",
-    title: "Hello Fashion by Colombian-American",
-  },
-  {
-    id: 31,
-    imgSrc: "/images/blog/blog-5.jpg",
-    alt: "img-blog",
-    category: "Accessories",
-    title: "Christine Is A True Style Icon",
-  },
-  {
-    id: 32,
-    imgSrc: "/images/blog/blog-6.jpg",
-    alt: "img-blog",
-    category: "Design",
-    title: "Effortlessly Blends The Carefree Style",
-  },
-  {
-    id: 33,
-    imgSrc: "/images/blog/blog-7.jpg",
-    alt: "",
-    category: "Accessories",
-    title: "The Variety Of Styles And Prices Are Endless",
-  },
-  {
-    id: 34,
-    imgSrc: "/images/blog/blog-8.jpg",
-    alt: "",
-    category: "Design",
-    title: "Something About This Style Of Jeans",
-  },
-  {
-    id: 35,
-    imgSrc: "/images/blog/blog-9.jpg",
-    alt: "",
-    category: "Tech",
-    title: "One Of The Most Iconic Fashion Bloggers",
-  },
-];
+    {
+      id: 1,
+      imgSrc: "/images/blog/blog-1.jpg",
+      alt: "E-Commerce Future",
+      category: "Technology",
+      title: "The Future of E-Commerce in 2026",
+    },
+    {
+      id: 2,
+      imgSrc: "/images/blog/blog-2.jpg",
+      alt: "Smart Cart",
+      category: "Updates",
+      title: "Introducing Smart Cart 2.0 Features",
+    },
+    {
+      id: 3,
+      imgSrc: "/images/blog/blog-3.jpg",
+      alt: "Shopping Experience",
+      category: "Tips",
+      title: "How to Maximize Your Shopping Experience",
+    },
+    {
+      id: 4,
+      imgSrc: "/images/blog/blog-4.jpg",
+      alt: "Seller Guide",
+      category: "Business",
+      title: "Top 5 Tips for Smart Cart Sellers",
+    },
+    {
+      id: 5,
+      imgSrc: "/images/blog/blog-5.jpg",
+      alt: "Mobile Commerce",
+      category: "Technology",
+      title: "Why Mobile Responsiveness is Crucial",
+    },
+    {
+      id: 6,
+      imgSrc: "/images/blog/blog-6.jpg",
+      alt: "Holiday Sales",
+      category: "Marketing",
+      title: "Preparing for the Holiday Sales Rush",
+    },
+  ];
 
 export const blogArticles6 = [
   {
