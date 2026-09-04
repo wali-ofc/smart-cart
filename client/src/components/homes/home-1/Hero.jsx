@@ -18,12 +18,12 @@ export default function Hero() {
         }
         @media (max-width: 768px) {
           .custom-hero-slider {
-            height: 55vh !important;
-            min-height: 350px !important;
+            height: 60vh !important;
+            min-height: 400px !important;
           }
           .custom-hero-slider img {
-            transform: scale(1.4) !important;
-            transform-origin: 85% 25% !important;
+            transform: scale(1.6) !important;
+            transform-origin: 85% 0% !important;
             object-position: 85% top !important;
           }
         }
