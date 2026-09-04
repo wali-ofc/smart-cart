@@ -1,7 +1,7 @@
 export const testimonials = [
   {
     heading: "Best Online Fashion Site",
-    text: "“ I always find something stylish and affordable on this web fashion site ”",
+    text: "\"I always find something stylish and affordable on this web fashion site\"",
     name: "Robert Smith",
     metas: "Customer from USA",
     imageSrc: "/images/shop/products/img-p2.png",
@@ -30,14 +30,34 @@ export const testimonials = [
     delay: ".2s",
   },
   {
-    heading: "Great Selection and Quality",
-    text: "I love the variety of styles and the high-quality clothing on this web fashion site.",
+    heading: "Amazing Delivery Speed",
+    text: "I was shocked at how fast my order arrived! The quality of the fabric is exceptional as always.",
     name: "Hellen Ase",
     metas: "Customer from Japan",
     imageSrc: "/images/shop/products/img-p5.png",
-    productTitle: "Customer from Japan",
+    productTitle: "V-neck knitted vest",
     price: "$16.95",
     delay: ".3s",
+  },
+  {
+    heading: "Perfect Fit Every Time",
+    text: "Everything I buy from here fits perfectly. I never have to worry about sizing issues.",
+    name: "Sarah Jenkins",
+    metas: "Customer from UK",
+    imageSrc: "/images/shop/products/img-p6.png",
+    productTitle: "Oversized printed T-shirt",
+    price: "$22.50",
+    delay: ".4s",
+  },
+  {
+    heading: "Trendy and Affordable",
+    text: "Finally a store that keeps up with the latest trends without charging luxury prices. My favorite shop!",
+    name: "Emily Wang",
+    metas: "Customer from Canada",
+    imageSrc: "/images/shop/products/img-p1.png",
+    productTitle: "Ribbed Tank Top",
+    price: "$12.99",
+    delay: ".5s",
   },
 ];
 
