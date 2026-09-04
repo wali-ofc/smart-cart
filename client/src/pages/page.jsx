@@ -30,8 +30,8 @@ export default function HomePage1() {
       <Products />
       <Lookbook />
       <Testimonials />
-      <Brands />
       <ShopGram />
+      <Brands />
       <Features />
       <Footer1 />
     </>
