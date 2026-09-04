@@ -12,10 +12,16 @@ export default function Hero() {
           height: 85vh;
           min-height: 600px;
         }
+        .custom-hero-slider img {
+          object-position: 85% top;
+        }
         @media (max-width: 768px) {
           .custom-hero-slider {
-            height: 60vh;
-            min-height: 400px;
+            height: 50vh;
+            min-height: 320px;
+          }
+          .custom-hero-slider img {
+            object-position: 85% 30%;
           }
         }
       `}</style>
@@ -32,7 +38,7 @@ export default function Hero() {
               <img
                 alt="fashion-slideshow"
                 src={slide.imgSrc}
-                style={{ objectPosition: "85% top", width: "100%", height: "100%", objectFit: "cover" }}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
               <div className="box-content">
                 <div className="container">
