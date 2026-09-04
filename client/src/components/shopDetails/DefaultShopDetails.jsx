@@ -237,7 +237,7 @@ export default function DefaultShopDetails({ product }) {
                           Buy with
                           <img
                             alt="image"
-                            src="/images/payments/paypal.png"
+                            src="https://cdn.simpleicons.org/paypal/00457C"
                             width={64}
                             height={18}
                           />

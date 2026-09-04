@@ -222,7 +222,7 @@ export default function Details17({ product }) {
                             alt="image"
                             width={64}
                             height={18}
-                            src="/images/payments/paypal.png"
+                            src="https://cdn.simpleicons.org/paypal/00457C"
                           />
                         </a>
                         <a href="#" className="payment-more-option">

@@ -232,31 +232,31 @@ export default function Details28({ product }) {
                     <div className="tf-payment">
                       <img
                         alt=""
-                        src="/images/payments/visa.png"
+                        src="https://cdn.simpleicons.org/visa/1434CB"
                         width={48}
                         height={30}
                       />
                       <img
                         alt=""
-                        src="/images/payments/img-1.png"
+                        src="https://cdn.simpleicons.org/mastercard/EB001B"
                         width={49}
                         height={30}
                       />
                       <img
                         alt=""
-                        src="/images/payments/img-2.png"
+                        src="https://cdn.simpleicons.org/paypal/00457C"
                         width={48}
                         height={30}
                       />
                       <img
                         alt=""
-                        src="/images/payments/img-3.png"
+                        src="https://cdn.simpleicons.org/americanexpress/002663"
                         width={57}
                         height={30}
                       />
                       <img
                         alt=""
-                        src="/images/payments/img-4.png"
+                        src="https://cdn.simpleicons.org/discover/E55C20"
                         width={49}
                         height={30}
                       />

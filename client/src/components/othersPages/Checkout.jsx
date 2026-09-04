@@ -1,6 +1,9 @@
 import { useContextElement } from "@/context/Context";
 
 import { Link } from "react-router-dom";
+import React from "react";
+import { paymentImages } from "@/data/singleProductOptions";
+
 export default function Checkout() {
   const { cartProducts, setCartProducts, totalPrice } = useContextElement();
   return (
@@ -323,9 +326,29 @@ export default function Checkout() {
                     </label>
                   </div>
                 </div>
-                <button className="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center">
-                  Place order
-                </button>
+                  <button className="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center mb_20">
+                    Place order
+                  </button>
+
+                  {/* Payment Icons */}
+                  <div className="tf-product-trust-mess mt_20">
+                    <i className="icon-safe" />
+                    <p className="fw-6">
+                      Guarantee Safe <br />
+                      Checkout
+                    </p>
+                  </div>
+                  <div className="tf-payment d-flex gap-10 mt_10">
+                    {paymentImages.map((image, index) => (
+                      <img
+                        key={index}
+                        alt={image.alt}
+                        src={image.src}
+                        width={image.width}
+                        height={image.height}
+                      />
+                    ))}
+                  </div>
               </form>
             </div>
           </div>

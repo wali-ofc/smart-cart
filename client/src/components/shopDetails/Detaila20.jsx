@@ -215,7 +215,7 @@ export default function Detaila20({ product }) {
                           Buy with{" "}
                           <img
                             alt="image"
-                            src="/images/payments/paypal.png"
+                            src="https://cdn.simpleicons.org/paypal/00457C"
                             width={64}
                             height={18}
                           />

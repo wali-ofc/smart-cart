@@ -135,12 +135,12 @@ export const sizeOptions = [
 ];
 
 export const paymentImages = [
-  { src: "/images/payments/visa.png", width: 48, height: 30, alt: "" },
-  { src: "/images/payments/img-1.png", width: 49, height: 30, alt: "" },
-  { src: "/images/payments/img-2.png", width: 48, height: 30, alt: "" },
-  { src: "/images/payments/img-3.png", width: 57, height: 30, alt: "" },
-  { src: "/images/payments/img-4.png", width: 49, height: 30, alt: "" },
-];
+    { src: "https://cdn.simpleicons.org/visa/1434CB", width: 48, height: 30, alt: "Visa" },
+    { src: "https://cdn.simpleicons.org/mastercard/EB001B", width: 48, height: 30, alt: "Mastercard" },
+    { src: "https://cdn.simpleicons.org/paypal/00457C", width: 48, height: 30, alt: "PayPal" },
+    { src: "https://cdn.simpleicons.org/americanexpress/002663", width: 48, height: 30, alt: "Amex" },
+    { src: "https://cdn.simpleicons.org/discover/E55C20", width: 48, height: 30, alt: "Discover" },
+  ];
 
 export const options = [
   { value: "Beige / S", label: "Beige / S" },
