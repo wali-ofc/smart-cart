@@ -24,6 +24,7 @@ import ScrollTop from "@/components/common/ScrollTop";
 import { Route, Routes, useLocation } from "react-router-dom";
 import HomePage1 from "./pages/page";
 import BlogGridPage from "./pages/BlogGridPage";
+import BlogDetailPage from "./pages/BlogDetailPage";
 import WOW from "@/utlis/wow";
 
 import ShopDefaultPage from "./pages/shop/shop-default";
@@ -178,6 +179,7 @@ function App() {
                 <Route path="shop-collection-sub" element={<ShopDefaultPage />} />
                 <Route path="product-detail/:id" element={<ProductDetailPage />} />
                 <Route path="blog-grid" element={<BlogGridPage />} />
+                <Route path="blog-detail/:id" element={<BlogDetailPage />} />
                 <Route path="cart" element={<ViewCartPage />} />
                 <Route path="view-cart" element={<ViewCartPage />} />
                 <Route path="checkout" element={<CheckoutPage />} />
