@@ -76,13 +76,16 @@ export default function Footer1({ bgColor = "" }) {
               <div className="col-xl-3 col-md-6 col-12">
                 <div className="footer-infor">
                   <div className="footer-logo">
-                    <Link to={`/`}>
-                      <img
-                        alt="image"
-                        src="/images/logo/logo.svg"
-                        width="136"
-                        height="21"
-                      />
+                    <Link to={`/`} style={{ textDecoration: "none" }}>
+                      <span style={{ 
+                        fontFamily: "'Poppins', sans-serif", 
+                        fontSize: "28px", 
+                        fontWeight: "700", 
+                        letterSpacing: "-0.5px",
+                        color: "#000000"
+                      }}>
+                        Smart Cart
+                      </span>
                     </Link>
                   </div>
                   <ul>
