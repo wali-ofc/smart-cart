@@ -21,22 +21,22 @@ const Sidebar = () => {
             <SimplebarClient className="h-100">
                 <div id="sidebar-menu">
                     <div className="logo-box">
-                        <Link to="/dashboard/ecommerce" className="logo logo-light">
+                        <a href="/" target="_top" className="logo logo-light">
                             <span className="logo-sm">
                                 <img src={logoSm} alt="logo" height="22" />
                             </span>
                             <span className="logo-lg">
                                 <img src={logoLight} alt="logo" height="24" />
                             </span>
-                        </Link>
-                        <Link to="/dashboard/ecommerce" className="logo logo-dark">
+                        </a>
+                        <a href="/" target="_top" className="logo logo-dark">
                             <span className="logo-sm">
                                 <img src={logoSm} alt="logo" height="22" />
                             </span>
                             <span className="logo-lg">
                                 <img src={logoDark} alt="logo" height="24" />
                             </span>
-                        </Link>
+                        </a>
                     </div>
 
                     <AppMenu menuItems={MENU_ITEMS} />

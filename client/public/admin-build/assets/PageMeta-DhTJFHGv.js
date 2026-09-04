@@ -1,0 +1,1 @@
+import{j as e}from"./index-EhiVr5Es.js";const t=({title:a})=>e.jsx("title",{children:a?`${a} |  Smart Cart - Responsive Admin Dashboard Template`:" Smart Cart - Responsive Admin Dashboard Template"});export{t as P};
