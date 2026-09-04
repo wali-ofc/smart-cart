@@ -8,7 +8,7 @@ export default function Header1() {
   return (
     <header id="header" className="header-default" style={{ backgroundColor: "#fff", borderBottom: "1px solid #ebebeb" }}>
       <div className="px_15 lg-px_40">
-        <div className="row wrapper-header align-items-center">
+        <div className="row wrapper-header align-items-center" style={{ minHeight: "60px", padding: "5px 0" }}>
           <div className="col-md-4 col-3 tf-lg-hidden">
             <a
               href="#mobileMenu"
@@ -32,11 +32,10 @@ export default function Header1() {
           <div className="col-xl-3 col-md-4 col-6">
             <Link to={`/`} className="logo-header">
               <img
-                alt="logo"
+                alt="Smart Cart Logo"
                 className="logo"
-                src="/images/logo/logo.svg"
-                width="136"
-                height="21"
+                src="/images/logo/smart-cart-logo.jpg"
+                style={{ height: "45px", width: "auto", mixBlendMode: "multiply" }}
               />
             </Link>
           </div>
