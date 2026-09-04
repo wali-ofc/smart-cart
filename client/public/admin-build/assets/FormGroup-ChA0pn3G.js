@@ -1,0 +1,1 @@
+import{r as o,j as e}from"./index-Diu5w2P4.js";import{F as p}from"./FormLabel-snK9J85p.js";const x=o.forwardRef(({controlId:r,as:s="div",...t},a)=>{const m=o.useMemo(()=>({controlId:r}),[r]);return e.jsx(p.Provider,{value:m,children:e.jsx(s,{...t,ref:a})})});x.displayName="FormGroup";export{x as F};
