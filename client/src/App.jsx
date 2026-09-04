@@ -21,7 +21,6 @@ import ToolbarBottom from "@/components/modals/ToolbarBottom";
 import ToolbarShop from "@/components/modals/ToolbarShop";
 
 import ScrollTop from "@/components/common/ScrollTop";
-import RtlToggle from "@/components/common/RtlToggle";
 import { Route, Routes, useLocation } from "react-router-dom";
 import HomePage1 from "./pages/page";
 import WOW from "@/utlis/wow";
@@ -203,7 +202,6 @@ function App() {
               </Route>
             </Routes>
           </div>
-          <RtlToggle />
           <HomesModal /> 
           <QuickView />
           <QuickAdd />
