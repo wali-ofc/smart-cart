@@ -30,11 +30,21 @@ export default function Header1() {
             </a>
           </div>
           <div className="col-xl-3 col-md-4 col-6">
-            <Link to={`/`} className="logo-header" style={{ textDecoration: "none" }}>
-              <span style={{ fontFamily: "'Poppins', sans-serif", fontSize: "28px", fontWeight: "700", color: "#000", letterSpacing: "-0.5px" }}>
-                Smart Cart
-              </span>
-            </Link>
+              <Link to={`/`} className="logo-header" style={{ textDecoration: "none" }}>
+                <span style={{ 
+                  fontFamily: "'Poppins', sans-serif", 
+                  fontSize: "28px", 
+                  fontWeight: "700", 
+                  letterSpacing: "-0.5px",
+                  background: "linear-gradient(to right, #ffffff, #ff0000)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  color: "transparent"
+                }}>
+                  Smart Cart
+                </span>
+              </Link>
           </div>
           <div className="col-xl-6 tf-md-hidden">
             <nav className="box-navigation text-center">
