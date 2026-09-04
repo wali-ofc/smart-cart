@@ -102,12 +102,12 @@ const Login = () => {
 <div className="form-group mb-3">
 
                                                         <label htmlFor="emailaddress" className="form-label">Email address</label>
-                                                        <input className="form-control" type="email" id="emailaddress" required placeholder="Enter your email" defaultValue="shahidabdullah15042@gmail.com" />
+                                                        <input className="form-control" type="email" id="emailaddress" required placeholder="Enter your email"  />
                                                     </div>
 
                                                     <div className="form-group mb-3">
                                                         <label htmlFor="password" className="form-label">Password</label>
-                                                        <input className="form-control" type="password" required id="password" placeholder="Enter your password" defaultValue="abdullah1215" />
+                                                        <input className="form-control" type="password" required id="password" placeholder="Enter your password"  />
                                                     </div>
 
                                                     <div className="form-group d-flex mb-3">
