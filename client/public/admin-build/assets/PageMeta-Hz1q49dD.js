@@ -1,1 +1,0 @@
-import{j as e}from"./index-B08WS41B.js";const t=({title:a})=>e.jsx("title",{children:a?`${a} |  Smart Cart - Responsive Admin Dashboard Template`:" Smart Cart - Responsive Admin Dashboard Template"});export{t as P};
