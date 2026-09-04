@@ -7,6 +7,18 @@ import React from "react";
 export default function Hero() {
   return (
     <div className="tf-slideshow slider-effect-fade position-relative">
+      <style>{`
+        .custom-hero-slider {
+          height: 85vh;
+          min-height: 600px;
+        }
+        @media (max-width: 768px) {
+          .custom-hero-slider {
+            height: 60vh;
+            min-height: 400px;
+          }
+        }
+      `}</style>
       <Swiper
         dir="ltr"
         className="swiper tf-sw-slideshow"
@@ -16,11 +28,11 @@ export default function Hero() {
       >
         {slides.map((slide, index) => (
           <SwiperSlide className="swiper-slide" key={index}>
-            <div className="wrap-slider" style={{ height: "85vh", minHeight: "600px" }}>
+            <div className="wrap-slider custom-hero-slider">
               <img
                 alt="fashion-slideshow"
                 src={slide.imgSrc}
-                style={{ objectPosition: "center top", width: "100%", height: "100%", objectFit: "cover" }}
+                style={{ objectPosition: "85% top", width: "100%", height: "100%", objectFit: "cover" }}
               />
               <div className="box-content">
                 <div className="container">
