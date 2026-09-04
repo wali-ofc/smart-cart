@@ -16,12 +16,11 @@ export default function Hero() {
       >
         {slides.map((slide, index) => (
           <SwiperSlide className="swiper-slide" key={index}>
-            <div className="wrap-slider" style={{ height: "75vh", minHeight: "500px", maxHeight: "800px" }}>
+            <div className="wrap-slider" style={{ height: "85vh", minHeight: "600px" }}>
               <img
                 alt="fashion-slideshow"
                 src={slide.imgSrc}
-                className="hero-image-responsive"
-                style={{ objectPosition: "85% center", width: "100%", height: "100%", objectFit: "cover" }}
+                style={{ objectPosition: "center top", width: "100%", height: "100%", objectFit: "cover" }}
               />
               <div className="box-content">
                 <div className="container">
