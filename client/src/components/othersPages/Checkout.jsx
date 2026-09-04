@@ -20,7 +20,7 @@ export default function Checkout() {
                     required
                     type="text"
                     id="first-name"
-                    placeholder="Themesflat"
+                    placeholder="John"
                   />
                 </fieldset>
                 <fieldset className="fieldset">
@@ -173,6 +173,14 @@ export default function Checkout() {
                   </select>
                 </div>
               </fieldset>
+                  <fieldset className="box fieldset">
+                    <label htmlFor="first-name">First Name</label>
+                    <input type="text" id="first-name" placeholder="John" />
+                  </fieldset>
+                  <fieldset className="box fieldset">
+                    <label htmlFor="last-name">Last Name</label>
+                    <input type="text" id="last-name" placeholder="Doe" />
+                  </fieldset>
               <fieldset className="box fieldset">
                 <label htmlFor="city">Town/City</label>
                 <input required type="text" id="city" />

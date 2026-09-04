@@ -311,7 +311,7 @@ export default function AccountAddress() {
           </div>
         </form>
         <h6 className="mb_20">Default</h6>
-        <p>themesflat</p>
+        <p>John Doe</p>
         <p>1234 Fashion Street, Suite 567</p>
         <p>New York</p>
         <p>info@fashionshop.com</p>

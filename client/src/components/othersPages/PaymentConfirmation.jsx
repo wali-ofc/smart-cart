@@ -22,7 +22,7 @@ export default function PaymentConfirmation() {
               </div>
               <div className="d-flex align-items-center justify-content-between mb_15">
                 <div className="fs-18">Cardholder name</div>
-                <p>Themesflat</p>
+                <p>Customer</p>
               </div>
               <div className="d-flex align-items-center justify-content-between mb_15">
                 <div className="fs-18">Email</div>
