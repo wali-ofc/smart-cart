@@ -1,0 +1,1 @@
+import{r as t,y as i,S as d}from"./index-Bu33HrY4.js";import{u as m}from"./useMergedRefs-kS0en1Q-.js";function h({children:r,in:e,onExited:c,mountOnEnter:o,unmountOnExit:l}){const n=t.useRef(null),s=t.useRef(e),u=i(c);t.useEffect(()=>{e?s.current=!0:u(n.current)},[e,u]);const a=m(n,d(r)),f=t.cloneElement(r,{ref:a});return e?f:l||!s.current&&o?null:f}export{h as N};

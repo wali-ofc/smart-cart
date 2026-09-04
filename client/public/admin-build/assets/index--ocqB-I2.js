@@ -1,1 +1,0 @@
-import{j as t}from"./index-D_7P5_yV.js";import{P as e}from"./PageBreadcrumb-DhEdGdKK.js";import{P as r}from"./PageMeta-DdUA5Tfw.js";const m=()=>t.jsxs(t.Fragment,{children:[t.jsx(r,{title:"Starter"}),t.jsx(e,{title:"Starter",PageTitle:"Pages",SubTitlte:"Starter"})]});export{m as default};
