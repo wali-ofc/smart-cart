@@ -9,19 +9,19 @@ export default function Hero() {
     <div className="tf-slideshow slider-effect-fade position-relative">
       <style>{`
         .custom-hero-slider {
-          height: 85vh;
-          min-height: 600px;
+          height: 85vh !important;
+          min-height: 600px !important;
         }
         .custom-hero-slider img {
-          object-position: 85% top;
+          object-position: 85% top !important;
         }
         @media (max-width: 768px) {
           .custom-hero-slider {
-            height: 50vh;
-            min-height: 320px;
+            height: 50vh !important;
+            min-height: 320px !important;
           }
           .custom-hero-slider img {
-            object-position: 85% 30%;
+            object-position: 85% 30% !important;
           }
         }
       `}</style>
