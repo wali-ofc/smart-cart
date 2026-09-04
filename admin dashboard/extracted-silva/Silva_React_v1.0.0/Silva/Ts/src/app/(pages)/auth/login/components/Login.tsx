@@ -38,6 +38,8 @@ const Login = () => {
             console.error("Login error:", error);
             if (error.response && error.response.data && error.response.data.error) {
                 setAuthError(error.response.data.error);
+            } else if (error.message === "Network Error" || !error.response) {
+                setAuthError("Cannot connect to backend server. Is it running?");
             } else {
                 setAuthError("Invalid email or password");
             }
@@ -132,7 +134,7 @@ const Login = () => {
                                                 </form>
 
                                                 <div className="text-center text-muted mb-4">
-                                                    <p className="mb-0">Don't have an account ? <Link className='text-primary ms-2 fw-medium' to='/auth/register'>Sing up</Link></p>
+                                                    
                                                 </div>
 
                                             </div>

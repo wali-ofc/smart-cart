@@ -1,0 +1,1 @@
+import{j as s}from"./index-Dh9uNRna.js";import{C as d,a as t,c as i,b as c}from"./Card-Dy52CTpm.js";const l=({title:a,children:r,CardClass:e,titleClass:m})=>{const o=`mb-0 ${m||""}`.trim();return s.jsxs(d,{className:e,children:[s.jsx(t,{children:s.jsx(i,{as:"h5",className:o,children:a})}),s.jsx(c,{children:r})]})};export{l as C};
