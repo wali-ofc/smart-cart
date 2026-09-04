@@ -31,6 +31,7 @@ export default function HomePage1() {
       <Lookbook />
       <Testimonials />
       <ShopGram />
+      <Categories />
       <Brands />
       <Features />
       <Footer1 />
