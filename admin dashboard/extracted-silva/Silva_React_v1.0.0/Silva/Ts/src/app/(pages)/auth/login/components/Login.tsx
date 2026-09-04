@@ -39,7 +39,15 @@ const Login = () => {
             if (error.response && error.response.data && error.response.data.error) {
                 setAuthError(error.response.data.error);
             } else if (error.message === "Network Error" || !error.response) {
-                setAuthError("Cannot connect to backend server. Is it running?");
+                // FALLBACK FOR VERCEL DEMO: If backend is unreachable, but credentials match, let them in
+                if (email === 'shahidabdullah15042@gmail.com' && password === 'abdullah1215') {
+                    localStorage.setItem('adminToken', 'demo_offline_token');
+                    localStorage.setItem('adminAuth', 'true');
+                    setAuthError("");
+                    navigate('/dashboard/ecommerce');
+                } else {
+                    setAuthError("Cannot connect to backend server. Is it running?");
+                }
             } else {
                 setAuthError("Invalid email or password");
             }
