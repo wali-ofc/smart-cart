@@ -1,0 +1,1 @@
+import{j as a}from"./index-CHqGCZbx.js";const i=({title:e})=>a.jsx("title",{children:e?`${e} |  Silva - Responsive Admin Dashboard Template`:" Silva - Responsive Admin Dashboard Template"});export{i as P};

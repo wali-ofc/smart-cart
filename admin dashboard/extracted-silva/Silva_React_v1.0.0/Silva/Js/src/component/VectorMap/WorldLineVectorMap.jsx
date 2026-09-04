@@ -1,0 +1,15 @@
+import 'jsvectormap';
+import 'jsvectormap/dist/maps/world-merc';
+
+//components
+import BaseVectorMap from './BaseVectorMap';
+import { getMarkersLine } from '@/app/(admin)/maps/vector/data';
+const WorldLineVectorMap = ({
+  width,
+  height
+}) => {
+  return <>
+      <BaseVectorMap width={width} height={height} options={getMarkersLine} type="world" />
+    </>;
+};
+export default WorldLineVectorMap;

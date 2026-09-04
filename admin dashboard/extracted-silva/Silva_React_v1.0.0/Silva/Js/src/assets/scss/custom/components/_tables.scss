@@ -1,0 +1,140 @@
+// 
+// tables.scss
+//
+
+.table-traffic td {
+    font-weight: 400;
+    vertical-align: middle;
+    font-size: 14px;
+    padding: 11px 11px;
+}
+
+.table-traffic thead th {
+    padding: 0px 11px;
+    background-color: $white;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    font-weight: 600;
+}
+
+.table-traffic tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table-traffic tr th:first-child,
+.table-traffic tr td:first-child {
+    padding-left: 1.25rem;
+}
+
+.table-traffic tr th:last-child,
+.table-traffic tr td:last-child {
+    padding-right: 1.25rem;
+}
+
+
+// 
+// table stock
+// 
+.table-stock td {
+    font-weight: 400;
+    vertical-align: middle;
+    font-size: 14px;
+    padding: 13px 13px;
+}
+
+.table-stock thead th {
+    padding: 0px 11px;
+    background-color: $white;
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    font-weight: 600;
+}
+
+.table-stock tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table-stock tr th:first-child,
+.table-stock tr td:first-child {
+    padding-left: 1.25rem;
+}
+
+.table-stock tr th:last-child,
+.table-stock tr td:last-child {
+    padding-right: 1.25rem;
+}
+
+// 
+.table-card td {
+    font-weight: 400;
+    vertical-align: middle;
+    font-size: 14px;
+    padding: .75rem .6rem;
+}
+
+.table-card th {
+    padding: .75rem .6rem;
+}
+
+.table-card thead th {
+    font-weight: 600;
+}
+
+.table-card thead th:first-child {
+    border-radius: 5px 0 0 5px;
+}
+
+.table thead th:last-child {
+    border-radius: 0 8px 8px 0;
+}
+
+table.dataTable tbody tr.selected {
+    color: white !important;
+}
+
+table.dataTable tbody tr.selected a {
+    color: #a2d4ed !important;
+}
+
+
+.multi-select-no-bg table.dataTable tbody tr.selected,
+.multi-select-no-bg table.dataTable tbody tr.selected:hover,
+.multi-select-no-bg tbody tr.selected,
+.multi-select-no-bg tbody tr.selected:hover {
+    background-color: transparent !important;
+    background: transparent !important;
+    color: inherit !important;
+}
+
+.multi-select-no-bg table.dataTable tbody tr.selected td,
+.multi-select-no-bg table.dataTable tbody tr.selected:hover td,
+.multi-select-no-bg tbody tr.selected td,
+.multi-select-no-bg tbody tr.selected:hover td {
+    background-color: transparent !important;
+    background: transparent !important;
+    color: inherit !important;
+    box-shadow: none !important;
+}
+
+.multi-select-no-bg table.dataTable tbody tr.selected>*,
+.multi-select-no-bg table.dataTable tbody tr.selected:hover>* {
+    background-color: transparent !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.multi-select-no-bg .dt-select-info-cell {
+    background-color: transparent !important;
+    background: transparent !important;
+}
+
+.multi-select-no-bg .selected {
+    background-color: transparent !important;
+    background: transparent !important;
+}
+
+.multi-select-no-bg .table-striped tbody tr.selected:nth-of-type(odd) td,
+.multi-select-no-bg .table-striped tbody tr.selected:nth-of-type(even) td {
+    background-color: transparent !important;
+    background: transparent !important;
+}
