@@ -11,10 +11,12 @@ export default function Hero() {
         .custom-hero-slider {
           height: 85vh !important;
           min-height: 600px !important;
-          overflow: hidden !important;
         }
         .custom-hero-slider img {
           object-position: 85% top !important;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
         @media (max-width: 768px) {
           .custom-hero-slider {
@@ -22,9 +24,7 @@ export default function Hero() {
             min-height: 400px !important;
           }
           .custom-hero-slider img {
-            transform: scale(1.6) !important;
-            transform-origin: 85% 0% !important;
-            object-position: 85% top !important;
+            object-position: center !important;
           }
         }
       `}</style>
@@ -38,11 +38,13 @@ export default function Hero() {
         {slides.map((slide, index) => (
           <SwiperSlide className="swiper-slide" key={index}>
             <div className="wrap-slider custom-hero-slider">
-              <img
-                alt="fashion-slideshow"
-                src={slide.imgSrc}
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
+              <picture>
+                <source media="(max-width: 768px)" srcSet={slide.mobileImgSrc || slide.imgSrc} />
+                <img
+                  alt="fashion-slideshow"
+                  src={slide.imgSrc}
+                />
+              </picture>
               <div className="box-content">
                 <div className="container">
                   <h1 className="fade-item fade-item-1">
