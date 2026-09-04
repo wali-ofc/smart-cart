@@ -11,17 +11,20 @@ export default function Hero() {
         .custom-hero-slider {
           height: 85vh !important;
           min-height: 600px !important;
+          overflow: hidden !important;
         }
         .custom-hero-slider img {
           object-position: 85% top !important;
         }
         @media (max-width: 768px) {
           .custom-hero-slider {
-            height: 50vh !important;
-            min-height: 320px !important;
+            height: 55vh !important;
+            min-height: 350px !important;
           }
           .custom-hero-slider img {
-            object-position: 85% 30% !important;
+            transform: scale(1.4) !important;
+            transform-origin: 85% 25% !important;
+            object-position: 85% top !important;
           }
         }
       `}</style>
