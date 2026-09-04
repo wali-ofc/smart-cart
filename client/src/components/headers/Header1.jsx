@@ -32,13 +32,14 @@ export default function Header1() {
           <div className="col-xl-3 col-md-4 col-6">
             <Link to={`/`} className="logo-header" style={{ textDecoration: "none" }}>
               <span style={{ 
-                fontFamily: "'Poppins', sans-serif", 
-                fontSize: "28px", 
-                fontWeight: "700", 
-                letterSpacing: "-0.5px",
-                color: "#ffffff"
+                fontFamily: "'Michroma', sans-serif", 
+                fontSize: "24px", 
+                fontWeight: "400", 
+                letterSpacing: "-1px",
+                color: "#111111",
+                textShadow: "0px 0px 8px rgba(255,255,255,0.9), 0px 0px 15px rgba(255,255,255,0.8)"
               }}>
-                Smart Cart
+                Smart<span style={{ color: "#0A71B5" }}>Cart</span>
               </span>
             </Link>
           </div>
