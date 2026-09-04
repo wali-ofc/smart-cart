@@ -40,7 +40,7 @@ export default function Header1() {
                 color: "#111111",
                 textShadow: "0px 0px 8px rgba(255,255,255,0.9), 0px 0px 15px rgba(255,255,255,0.8)"
               }}>
-                Smart<span style={{ color: "#5DB838" }}>Cart</span>
+                SmartCart
               </span>
             </Link>
           </div>
