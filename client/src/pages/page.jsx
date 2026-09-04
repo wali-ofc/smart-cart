@@ -26,11 +26,9 @@ export default function HomePage1() {
       <Header1 />
       <Hero />
       <Marquee />
-      <Categories />
       <Products />
       <Lookbook />
       <Testimonials />
-      <ShopGram />
       <Categories />
       <Brands />
       <Features />
