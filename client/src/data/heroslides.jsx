@@ -7,18 +7,18 @@ export const slides = [
     btnText: "BESTSELLERS",
   },
   {
-    imgSrc: "/images/slider/bellroy-desktop.jpg",
-    mobileImgSrc: "/images/slider/bellroy-mobile.jpg",
-    title: "CARRY SMART.\nMOVE FREE.\nGO FAR.",
+    imgSrc: "/images/slider/bellroy-slide2-desktop.jpg",
+    mobileImgSrc: "/images/slider/bellroy-slide2-mobile.jpg",
+    title: "OUTLET RESTOCKED",
     text: "",
-    btnText: "BESTSELLERS",
+    btnText: "SHOP UP TO 35% OFF",
   },
   {
-    imgSrc: "/images/slider/bellroy-desktop.jpg",
-    mobileImgSrc: "/images/slider/bellroy-mobile.jpg",
-    title: "CARRY SMART.\nMOVE FREE.\nGO FAR.",
+    imgSrc: "/images/slider/bellroy-slide3-desktop.jpg",
+    mobileImgSrc: "/images/slider/bellroy-slide3-mobile.jpg",
+    title: "WE'VE GOT\nYOUR BACK",
     text: "",
-    btnText: "BESTSELLERS",
+    btnText: "SHOP BACKPACKS",
   },
 ];
 
