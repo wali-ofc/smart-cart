@@ -180,8 +180,7 @@ function App() {
                 <Route path="view-cart" element={<ViewCartPage />} />
                 <Route path="checkout" element={<CheckoutPage />} />
                 
-                <Route path="admin/*" element={<AdminIframe />} />
-                  <Route path="profile" element={<MyAccountPage />} />
+                <Route path="profile" element={<MyAccountPage />} />
                 <Route path="orders" element={<MyAccountOrderPage />} />
                 <Route path="likes" element={<WishlistPage />} />
 
@@ -193,7 +192,7 @@ function App() {
                 <Route path="my-account-wishlist" element={<MyAccountWishlistPage />} />
                 <Route path="my-account-orders-details" element={<MyAccountOrderDetailsPage />} />
 
-                <Route path="seller" element={<SellerDashboard />} />
+                <Route path="seller/*" element={<AdminIframe />} />
                 <Route path="delivery" element={<DeliveryDashboard />} />
 
                 <Route path="payment-failure" element={<PaymentFailurePage />} />
