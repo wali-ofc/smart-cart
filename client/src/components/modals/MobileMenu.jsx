@@ -66,7 +66,7 @@ export default function MobileMenu() {
           </ul>
           <div className="mb-other-content">
             <div className="d-flex group-icon">
-              <Link to="/likes" className="site-nav-icon">
+              <Link to="/wishlist" className="site-nav-icon">
                 <i className="icon icon-heart" />
                 Wishlist
               </Link>

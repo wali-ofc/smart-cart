@@ -182,7 +182,7 @@ function App() {
                 
                 <Route path="profile" element={<MyAccountPage />} />
                 <Route path="orders" element={<MyAccountOrderPage />} />
-                <Route path="likes" element={<WishlistPage />} />
+                <Route path="wishlist" element={<WishlistPage />} />
 
                 {/* Dashboard Sub-routes */}
                 <Route path="my-account" element={<MyAccountPage />} />
