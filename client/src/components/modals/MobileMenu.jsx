@@ -30,6 +30,12 @@ export default function MobileMenu() {
                 My Orders
               </Link>
             </li>
+
+            <li className="nav-mb-item">
+              <Link to="/blog-grid" className={`mb-menu-link ${isActive("/blog-grid")}`}>
+                Blog
+              </Link>
+            </li>
             <li className="nav-mb-item">
               <a
                 href="#accountMenu"
