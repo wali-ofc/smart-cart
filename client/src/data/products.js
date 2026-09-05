@@ -1505,13 +1505,13 @@ export const products1 = [
   },
   {
     id: 5000,
-    imgSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=800&fit=crop",
     title: "Necklace 1",
     price: 10.00,
     category: "accessories",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -1535,13 +1535,13 @@ export const products1 = [
   },
   {
     id: 5002,
-    imgSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&h=800&fit=crop",
     title: "Watch 3",
     price: 15.00,
     category: "accessories",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -1565,13 +1565,13 @@ export const products1 = [
   },
   {
     id: 5004,
-    imgSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=800&fit=crop",
     title: "Ring 5",
     price: 20.00,
     category: "accessories",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -1595,13 +1595,13 @@ export const products1 = [
   },
   {
     id: 5006,
-    imgSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&h=800&fit=crop",
     title: "Necklace 7",
     price: 25.00,
     category: "accessories",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -1625,13 +1625,13 @@ export const products1 = [
   },
   {
     id: 5008,
-    imgSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=800&fit=crop",
     title: "Watch 9",
     price: 30.00,
     category: "accessories",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -1655,13 +1655,13 @@ export const products1 = [
   },
   {
     id: 5010,
-    imgSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&h=800&fit=crop",
     title: "Ring 11",
     price: 35.00,
     category: "accessories",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -1685,13 +1685,13 @@ export const products1 = [
   },
   {
     id: 5012,
-    imgSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=800&fit=crop",
     title: "Necklace 13",
     price: 40.00,
     category: "accessories",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -1715,13 +1715,13 @@ export const products1 = [
   },
   {
     id: 5014,
-    imgSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&h=800&fit=crop",
     title: "Watch 15",
     price: 45.00,
     category: "accessories",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -1745,13 +1745,13 @@ export const products1 = [
   },
   {
     id: 5016,
-    imgSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=800&fit=crop",
     title: "Ring 17",
     price: 50.00,
     category: "accessories",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -1775,13 +1775,13 @@ export const products1 = [
   },
   {
     id: 5018,
-    imgSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&h=800&fit=crop",
     title: "Necklace 19",
     price: 55.00,
     category: "accessories",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
