@@ -1,6 +1,6 @@
 export const collections = [
   {
-    imgSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=800&fit=crop",
     altText: "Clothing",
     title: "Clothing",
   },

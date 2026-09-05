@@ -305,13 +305,13 @@ export const products1 = [
   },
   {
     id: 1000,
-    imgSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=800&fit=crop",
     title: "T-Shirt 1",
     price: 25.00,
     category: "clothing",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -320,13 +320,13 @@ export const products1 = [
   },
   {
     id: 1001,
-    imgSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=800&fit=crop",
     title: "Jacket 2",
     price: 27.50,
     category: "clothing",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -335,13 +335,13 @@ export const products1 = [
   },
   {
     id: 1002,
-    imgSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=800&fit=crop",
     title: "Jeans 3",
     price: 30.00,
     category: "clothing",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -350,13 +350,13 @@ export const products1 = [
   },
   {
     id: 1003,
-    imgSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=600&h=800&fit=crop",
     title: "Hoodie 4",
     price: 32.50,
     category: "clothing",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -365,13 +365,13 @@ export const products1 = [
   },
   {
     id: 1004,
-    imgSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=800&fit=crop",
     title: "Sweater 5",
     price: 35.00,
     category: "clothing",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -380,13 +380,13 @@ export const products1 = [
   },
   {
     id: 1005,
-    imgSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=800&fit=crop",
     title: "Dress 6",
     price: 37.50,
     category: "clothing",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -395,13 +395,13 @@ export const products1 = [
   },
   {
     id: 1006,
-    imgSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=800&fit=crop",
     title: "Skirt 7",
     price: 40.00,
     category: "clothing",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -410,13 +410,13 @@ export const products1 = [
   },
   {
     id: 1007,
-    imgSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=600&h=800&fit=crop",
     title: "T-Shirt 8",
     price: 42.50,
     category: "clothing",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -425,13 +425,13 @@ export const products1 = [
   },
   {
     id: 1008,
-    imgSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=800&fit=crop",
     title: "Jacket 9",
     price: 45.00,
     category: "clothing",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -440,13 +440,13 @@ export const products1 = [
   },
   {
     id: 1009,
-    imgSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=800&fit=crop",
     title: "Jeans 10",
     price: 47.50,
     category: "clothing",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -455,13 +455,13 @@ export const products1 = [
   },
   {
     id: 1010,
-    imgSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=800&fit=crop",
     title: "Hoodie 11",
     price: 50.00,
     category: "clothing",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -470,13 +470,13 @@ export const products1 = [
   },
   {
     id: 1011,
-    imgSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=600&h=800&fit=crop",
     title: "Sweater 12",
     price: 52.50,
     category: "clothing",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -485,13 +485,13 @@ export const products1 = [
   },
   {
     id: 1012,
-    imgSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=800&fit=crop",
     title: "Dress 13",
     price: 55.00,
     category: "clothing",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -500,13 +500,13 @@ export const products1 = [
   },
   {
     id: 1013,
-    imgSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=800&fit=crop",
     title: "Skirt 14",
     price: 57.50,
     category: "clothing",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -515,13 +515,13 @@ export const products1 = [
   },
   {
     id: 1014,
-    imgSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=800&fit=crop",
     title: "T-Shirt 15",
     price: 60.00,
     category: "clothing",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -530,13 +530,13 @@ export const products1 = [
   },
   {
     id: 1015,
-    imgSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=600&h=800&fit=crop",
     title: "Jacket 16",
     price: 62.50,
     category: "clothing",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -545,13 +545,13 @@ export const products1 = [
   },
   {
     id: 1016,
-    imgSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=800&fit=crop",
     title: "Jeans 17",
     price: 65.00,
     category: "clothing",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -560,13 +560,13 @@ export const products1 = [
   },
   {
     id: 1017,
-    imgSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=800&fit=crop",
     title: "Hoodie 18",
     price: 67.50,
     category: "clothing",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -575,13 +575,13 @@ export const products1 = [
   },
   {
     id: 1018,
-    imgSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=800&fit=crop",
     title: "Sweater 19",
     price: 70.00,
     category: "clothing",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],
@@ -590,13 +590,13 @@ export const products1 = [
   },
   {
     id: 1019,
-    imgSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop",
-    imgHoverSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=600&h=800&fit=crop",
     title: "Dress 20",
     price: 72.50,
     category: "clothing",
     colors: [
-      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop" }
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=600&h=800&fit=crop" }
     ],
     sizes: ["One Size"],
     filterCategories: ["New Arrivals"],

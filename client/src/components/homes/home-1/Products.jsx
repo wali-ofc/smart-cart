@@ -4,7 +4,7 @@ import { ProductCard } from "../../shopCards/ProductCard";
 import { Link } from "react-router-dom";
 
 const categoriesToShow = [
-  { id: "clothing", title: "Clothing", subtitle: "Upgrade your wardrobe with our latest clothing collection", imgSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop" },
+  { id: "clothing", title: "Clothing", subtitle: "Upgrade your wardrobe with our latest clothing collection", imgSrc: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=800&fit=crop" },
   { id: "sunglasses", title: "Sunglasses", subtitle: "Stay cool and protected with our new shades", imgSrc: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&h=800&fit=crop" },
   { id: "bags", title: "Bags", subtitle: "Carry your essentials in style with premium bags", imgSrc: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&h=800&fit=crop" },
   { id: "fashion", title: "Fashion", subtitle: "Explore high-end fashion and couture pieces", imgSrc: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&h=800&fit=crop" },
