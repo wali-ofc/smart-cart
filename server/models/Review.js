@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 
 const reviewSchema = new mongoose.Schema({
-  productId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Product',
-    required: true
-  },
-  userId: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
+    required: true
+  },
+  product: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Product',
     required: true
   },
   rating: {
@@ -19,12 +19,15 @@ const reviewSchema = new mongoose.Schema({
   },
   comment: {
     type: String,
-    required: true,
+    maxlength: 1000,
     trim: true
   }
 }, { timestamps: true });
 
+// Reviews for a product load by product (spec §4.2.2)
+reviewSchema.index({ product: 1 });
+
 // Ensure one review per user per product
-reviewSchema.index({ productId: 1, userId: 1 }, { unique: true });
+reviewSchema.index({ product: 1, user: 1 }, { unique: true });
 
 module.exports = mongoose.model('Review', reviewSchema);

@@ -6,9 +6,10 @@ const messageSchema = new mongoose.Schema({
     enum: ['user', 'ai'],
     required: true
   },
-  content: {
+  message: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
   timestamp: {
     type: Date,
@@ -17,12 +18,21 @@ const messageSchema = new mongoose.Schema({
 });
 
 const chatSessionSchema = new mongoose.Schema({
-  userId: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
   },
-  messages: [messageSchema]
+  messages: {
+    type: [messageSchema],
+    default: []
+  },
+  context: {
+    type: mongoose.Schema.Types.Mixed
+  }
 }, { timestamps: true });
+
+// 30-day TTL — sessions auto-expire (spec §3.5.2 / §4.2.2)
+chatSessionSchema.index({ createdAt: 1 }, { expireAfterSeconds: 30 * 24 * 3600 });
 
 module.exports = mongoose.model('ChatSession', chatSessionSchema);
