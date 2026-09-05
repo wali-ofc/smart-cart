@@ -41,8 +41,7 @@ export default function Header12() {
     fontWeight: "400", 
     letterSpacing: "2px",
     textTransform: "uppercase",
-    color: "#111111",
-    textShadow: "0px 0px 8px rgba(255,255,255,0.9), 0px 0px 15px rgba(255,255,255,0.8)"
+    color: "inherit"
   }}>
     SmartCart
   </span>

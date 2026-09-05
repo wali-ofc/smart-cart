@@ -1,17 +1,18 @@
 export const footerLinks = [
-  { href: "#", text: "Privacy Policy" },
-  { href: "#", text: "Returns + Exchanges" },
-  { href: "#", text: "Shipping" },
-  { href: "#", text: "Terms & Conditions" },
-  { href: "#", text: "FAQ’s" },
+  { href: "/privacy-policy", text: "Privacy Policy" },
+  { href: "/delivery-return", text: "Returns + Exchanges" },
+  { href: "/shipping-delivery", text: "Shipping" },
+  { href: "/terms-conditions", text: "Terms & Conditions" },
+  { href: "/faq", text: "FAQ's" },
   { href: "/products", text: "Shop" },
-  { href: "/likes", text: "My Wishlist" },
+  { href: "/wishlist", text: "My Wishlist" },
 ];
 export const aboutLinks = [
-  { href: "#", text: "Our Story" },
-  { href: "#", text: "Visit Our Store" },
-  { href: "#", text: "Contact Us" },
-  { href: "#", text: "About Us" },
+  { href: "/our-story", text: "Our Story" },
+  { href: "/store-location", text: "Visit Our Store" },
+  { href: "/contact", text: "Contact Us" },
+  { href: "/about-us", text: "About Us" },
+  { href: "/delivery", text: "Delivery" },
   { href: "/login", text: "Account" },
 ];
 export const paymentImages = [

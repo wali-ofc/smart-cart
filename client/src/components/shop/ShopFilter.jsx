@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 const categories = [
-  { id: 1, name: "Fashion", isActive: true, link: "/shop-default" },
-  { id: 2, name: "Men", isActive: false, link: "/shop-men" },
-  { id: 3, name: "Women", isActive: false, link: "/shop-women" },
-  { id: 4, name: "Denim", isActive: false, link: "/shop-default" },
-  { id: 5, name: "Dress", isActive: false, link: "/shop-default" },
+  { id: 1, name: "Clothing", isActive: false, link: "/category/clothing" },
+  { id: 2, name: "Sunglasses", isActive: false, link: "/category/sunglasses" },
+  { id: 3, name: "Bags", isActive: false, link: "/category/bags" },
+  { id: 4, name: "Fashion", isActive: false, link: "/category/fashion" },
+  { id: 5, name: "Accessories", isActive: false, link: "/category/accessories" },
 ];
 
 const filterColors = [
@@ -33,7 +33,7 @@ import Slider from "rc-slider";
 import { products1 } from "@/data/products";
 import { Link } from "react-router-dom";
 export default function ShopFilter({ setProducts, products = products1 }) {
-  const [price, setPrice] = useState([10, 20]);
+  const [price, setPrice] = useState([0, 150]);
   const handlePrice = (value) => {
     setPrice(value);
   };
@@ -148,7 +148,7 @@ export default function ShopFilter({ setProducts, products = products1 }) {
     setSelectedBrands([]);
     setSelectedAvailabilities([]);
     setSelectedSizes([]);
-    setPrice([10, 20]);
+    setPrice([0, 150]);
   };
   return (
     <div className="offcanvas offcanvas-start canvas-filter" id="filterShop">
@@ -259,8 +259,8 @@ export default function ShopFilter({ setProducts, products = products1 }) {
                   <Slider
                     formatLabel={() => ``}
                     range
-                    max={22}
-                    min={5}
+                    max={150}
+                    min={0}
                     defaultValue={price}
                     onChange={(value) => handlePrice(value)}
                     id="slider"

@@ -53,11 +53,13 @@ export default function Categories() {
                   <div className="collection-item style-left hover-img">
                     <div className="collection-inner">
                       <Link
-                        to={`/shop-default`}
+                        to={`/category/${item.title.toLowerCase()}`}
                         className="collection-image img-style"
+                        style={{ backgroundColor: "#f0f0f0", borderRadius: "8px", border: "1px solid #e0e0e0" }}
                       >
                         <img
                           className="lazyload"
+                          style={{ mixBlendMode: "multiply" }}
                           data-src={item.imgSrc}
                           alt={item.altText}
                           src={item.imgSrc}
@@ -67,7 +69,7 @@ export default function Categories() {
                       </Link>
                       <div className="collection-content">
                         <Link
-                          to={`/shop-default`}
+                          to={`/category/${item.title.toLowerCase()}`}
                           className="tf-btn collection-title hover-icon fs-15"
                         >
                           <span>{item.title}</span>

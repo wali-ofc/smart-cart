@@ -40,7 +40,7 @@ export default function MobileMenu() {
               <a
                 href="#accountMenu"
                 className={`collapsed mb-menu-link current ${
-                  isActive("/profile") || isActive("/seller") || isActive("/delivery") ? "activeMenu" : ""
+                  isActive("/profile") || isActive("/seller") ? "activeMenu" : ""
                 }`}
                 data-bs-toggle="collapse"
                 aria-expanded="false"
@@ -59,11 +59,6 @@ export default function MobileMenu() {
                   <li>
                     <Link to="/seller" className={`sub-nav-link ${isActive("/seller")}`}>
                       Seller Dashboard
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/delivery" className={`sub-nav-link ${isActive("/delivery")}`}>
-                      Delivery Dashboard
                     </Link>
                   </li>
                 </ul>
@@ -89,3 +84,4 @@ export default function MobileMenu() {
     </div>
   );
 }
+
