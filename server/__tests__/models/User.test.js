@@ -33,11 +33,6 @@ describe('User model (spec §3.2.2)', () => {
     expect(await user.comparePassword('wrongpass')).toBe(false);
   });
 
-  it('supports legacy matchPassword alias during transition', async () => {
-    const user = await User.create({ name: 'Ali', email: 'legacy@example.com', password: 'secret123' });
-    expect(await user.matchPassword('secret123')).toBe(true);
-  });
-
   it('rejects name shorter than 2 characters', async () => {
     await expect(
       User.create({ name: 'A', email: 'a@example.com', password: 'secret123' })

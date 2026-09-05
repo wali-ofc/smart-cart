@@ -13,12 +13,12 @@ exports.getAnalytics = async (req, res) => {
     
     // Revenue
     const revenueAgg = await Order.aggregate([
-      { $match: { status: { $in: ['paid', 'processing', 'shipped', 'delivered'] } } },
-      { $group: { _id: null, total: { $sum: '$totalAmount' } } }
+      { $match: { status: { $in: ['processing', 'shipped', 'delivered'] } } },
+      { $group: { _id: null, total: { $sum: '$total_price' } } }
     ]);
     const totalRevenue = revenueAgg.length > 0 ? revenueAgg[0].total : 0;
 
-    const recentOrders = await Order.find().sort({ createdAt: -1 }).limit(10).populate('customerId', 'username email profileImage');
+    const recentOrders = await Order.find().sort({ createdAt: -1 }).limit(10).populate('user', 'name email profileImage');
     const topProducts = await Product.find().sort({ stock: -1 }).limit(10);
 
     res.json({
@@ -50,7 +50,7 @@ exports.getProducts = async (req, res) => {
 
 exports.getOrders = async (req, res) => {
   try {
-    const orders = await Order.find().populate('customerId', 'username email profileImage').sort({ createdAt: -1 });
+    const orders = await Order.find().populate('user', 'name email profileImage').sort({ createdAt: -1 });
     res.json({ success: true, data: orders });
   } catch (error) {
     res.status(500).json({ success: false, error: 'Server Error' });

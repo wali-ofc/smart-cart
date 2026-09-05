@@ -1,88 +1,60 @@
-const User = require('../models/User');
-const jwt = require('jsonwebtoken');
+const { validationResult } = require('express-validator');
+const authService = require('../services/authService');
+const ApiError = require('../utils/ApiError');
 
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET || 'secret123', {
-    expiresIn: process.env.JWT_EXPIRE || '7d'
-  });
+/** httpOnly token cookie — config matches production/development splits. */
+const cookieOptions = () => ({
+  expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+  httpOnly: true,
+  sameSite: 'lax',
+  secure: process.env.NODE_ENV === 'production'
+});
+
+const failed = (req) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    throw new ApiError(400, 'Validation failed', errors.array());
+  }
 };
 
-const sendTokenResponse = (user, statusCode, res) => {
-  const token = generateToken(user._id);
-  const options = {
-    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production'
-  };
+/** POST /api/auth/register — { name, email, password, role? } */
+exports.register = async (req, res) => {
+  failed(req);
+  const { name, email, password, role = 'customer' } = req.body;
+  const { user, token } = await authService.register({ name, email, password, role });
 
-  res.status(statusCode).cookie('token', token, options).json({
+  res.status(201).cookie('token', token, cookieOptions()).json({
     success: true,
-    user: {
-      _id: user._id,
-      username: user.username,
-      email: user.email,
-      role: user.role,
-      profileImage: user.profileImage
-    }
+    token,
+    user: user.toSafeJSON()
   });
 };
 
-exports.register = async (req, res, next) => {
-  try {
-    const { username, email, passwordHash, role } = req.body;
-    const user = await User.create({
-      username,
-      email,
-      passwordHash,
-      role
-    });
-    sendTokenResponse(user, 201, res);
-  } catch (error) {
-    next(error);
-  }
+/** POST /api/auth/login — { email, password } */
+exports.login = async (req, res) => {
+  failed(req);
+  const { email, password } = req.body;
+  const { user, token } = await authService.login({ email, password });
+
+  res.status(200).cookie('token', token, cookieOptions()).json({
+    success: true,
+    token,
+    user: user.toSafeJSON()
+  });
 };
 
-exports.login = async (req, res, next) => {
-  try {
-    const { email, password } = req.body;
-    if (email === 'shahidabdullah15042@gmail.com' && password === 'abdullah1215') {
-      const token = jwt.sign({ id: 'admin_hardcoded_id', role: 'seller' }, process.env.JWT_SECRET || 'secret123', { expiresIn: '7d' });
-      return res.status(200).cookie('token', token, { expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), httpOnly: true }).json({ success: true, token, user: { _id: 'admin_hardcoded_id', email, username: 'Admin', role: 'seller' } });
-    }
-    if (!email || !password) {
-      return res.status(400).json({ success: false, error: 'Please provide email and password' });
-    }
-
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(401).json({ success: false, error: 'Invalid credentials' });
-    }
-
-    const isMatch = await user.matchPassword(password);
-    if (!isMatch) {
-      return res.status(401).json({ success: false, error: 'Invalid credentials' });
-    }
-
-    sendTokenResponse(user, 200, res);
-  } catch (error) {
-    next(error);
-  }
-};
-
+/** POST /api/auth/logout — protected; clears the token cookie */
 exports.logout = (req, res) => {
   res.cookie('token', 'none', {
     expires: new Date(Date.now() + 10 * 1000),
-    httpOnly: true
+    httpOnly: true,
+    sameSite: 'lax'
   });
   res.status(200).json({ success: true, data: {} });
 };
 
-exports.getMe = async (req, res, next) => {
-  try {
-    const user = await User.findById(req.user.id).select('-passwordHash');
-    res.status(200).json({ success: true, user });
-  } catch (error) {
-    next(error);
-  }
+/** GET /api/auth/me — protected; current user */
+exports.getMe = async (req, res) => {
+  const user = await authService.getMe(req.user.id);
+  res.status(200).json({ success: true, user: user.toSafeJSON() });
 };
-

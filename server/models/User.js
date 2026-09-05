@@ -64,10 +64,6 @@ userSchema.methods.comparePassword = async function(enteredPassword) {
   return bcrypt.compare(enteredPassword, this.password);
 };
 
-// Back-compat alias so the current authController does not crash mid-transition
-// (removed when authController lands in Phase 2)
-userSchema.methods.matchPassword = userSchema.methods.comparePassword;
-
 // Sign JWT (spec §4.2.2)
 userSchema.methods.getSignedToken = function() {
   return jwt.sign(
