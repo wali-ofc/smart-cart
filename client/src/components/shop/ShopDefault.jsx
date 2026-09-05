@@ -5,7 +5,7 @@ import Pagination from "../common/Pagination";
 import ShopFilter from "./ShopFilter";
 import Sorting from "./Sorting";
 
-export default function ShopDefault() {
+export default function ShopDefault({ initialProducts }) {
   const [gridItems, setGridItems] = useState(4);
   const [products, setProducts] = useState([]);
   const [finalSorted, setFinalSorted] = useState([]);
@@ -59,7 +59,7 @@ export default function ShopDefault() {
           </div>
         </div>
       </section>
-      <ShopFilter setProducts={setProducts} />
+      <ShopFilter setProducts={setProducts} products={initialProducts} />
     </>
   );
 }

@@ -59,6 +59,7 @@ import StoreLocationsPage from "./pages/otherPages/store-locations";
 import OurStoryPage from "./pages/otherPages/our-store";
 
 import ScrollTopBehaviour from "./components/common/ScrollToTopBehaviour";
+import CategoryPage from "./pages/shop/category";
 import { AuthProvider } from "./context/AuthContext";
 
 function App() {
@@ -188,6 +189,7 @@ function App() {
                 <Route path="shop-default" element={<ShopDefaultPage />} />
                 <Route path="shop-collection-list" element={<ShopDefaultPage />} />
                 <Route path="shop-collection-sub" element={<ShopDefaultPage />} />
+                <Route path="category/:categoryId" element={<CategoryPage />} />
                 <Route path="product-detail/:id" element={<ProductDetailPage />} />
                 <Route path="blog-grid" element={<BlogGridPage />} />
                 <Route path="blog-detail/:id" element={<BlogDetailPage />} />

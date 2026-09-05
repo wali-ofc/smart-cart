@@ -2326,6 +2326,1508 @@ export const products19 = [
     price: 95.0,
     variants: ["Dark Blue", "Cream", "Orange"],
   },
+,
+  {
+    id: 1000,
+    imgSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop",
+    title: "T-Shirt 1",
+    price: 25.00,
+    category: "clothing",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 1001,
+    imgSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop",
+    title: "Jacket 2",
+    price: 27.50,
+    category: "clothing",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 1002,
+    imgSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop",
+    title: "Jeans 3",
+    price: 30.00,
+    category: "clothing",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 1003,
+    imgSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop",
+    title: "Hoodie 4",
+    price: 32.50,
+    category: "clothing",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 1004,
+    imgSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop",
+    title: "Sweater 5",
+    price: 35.00,
+    category: "clothing",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 1005,
+    imgSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop",
+    title: "Dress 6",
+    price: 37.50,
+    category: "clothing",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 1006,
+    imgSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop",
+    title: "Skirt 7",
+    price: 40.00,
+    category: "clothing",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 1007,
+    imgSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop",
+    title: "T-Shirt 8",
+    price: 42.50,
+    category: "clothing",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 1008,
+    imgSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop",
+    title: "Jacket 9",
+    price: 45.00,
+    category: "clothing",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 1009,
+    imgSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop",
+    title: "Jeans 10",
+    price: 47.50,
+    category: "clothing",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 1010,
+    imgSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop",
+    title: "Hoodie 11",
+    price: 50.00,
+    category: "clothing",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 1011,
+    imgSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop",
+    title: "Sweater 12",
+    price: 52.50,
+    category: "clothing",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 1012,
+    imgSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop",
+    title: "Dress 13",
+    price: 55.00,
+    category: "clothing",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 1013,
+    imgSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop",
+    title: "Skirt 14",
+    price: 57.50,
+    category: "clothing",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 1014,
+    imgSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop",
+    title: "T-Shirt 15",
+    price: 60.00,
+    category: "clothing",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 1015,
+    imgSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop",
+    title: "Jacket 16",
+    price: 62.50,
+    category: "clothing",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 1016,
+    imgSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop",
+    title: "Jeans 17",
+    price: 65.00,
+    category: "clothing",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 1017,
+    imgSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop",
+    title: "Hoodie 18",
+    price: 67.50,
+    category: "clothing",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 1018,
+    imgSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop",
+    title: "Sweater 19",
+    price: 70.00,
+    category: "clothing",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 1019,
+    imgSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop",
+    title: "Dress 20",
+    price: 72.50,
+    category: "clothing",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 2000,
+    imgSrc: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&h=800&fit=crop",
+    title: "Aviator Sunglasses 1",
+    price: 15.00,
+    category: "sunglasses",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 2001,
+    imgSrc: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=800&fit=crop",
+    title: "Wayfarer Sunglasses 2",
+    price: 17.50,
+    category: "sunglasses",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 2002,
+    imgSrc: "https://images.unsplash.com/photo-1577803645773-f96470509666?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1577803645773-f96470509666?w=600&h=800&fit=crop",
+    title: "Round Sunglasses 3",
+    price: 20.00,
+    category: "sunglasses",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1577803645773-f96470509666?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 2003,
+    imgSrc: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=600&h=800&fit=crop",
+    title: "Sports Sunglasses 4",
+    price: 22.50,
+    category: "sunglasses",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 2004,
+    imgSrc: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&h=800&fit=crop",
+    title: "Retro Sunglasses 5",
+    price: 25.00,
+    category: "sunglasses",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 2005,
+    imgSrc: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=800&fit=crop",
+    title: "Oversized Sunglasses 6",
+    price: 27.50,
+    category: "sunglasses",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 2006,
+    imgSrc: "https://images.unsplash.com/photo-1577803645773-f96470509666?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1577803645773-f96470509666?w=600&h=800&fit=crop",
+    title: "Aviator Sunglasses 7",
+    price: 30.00,
+    category: "sunglasses",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1577803645773-f96470509666?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 2007,
+    imgSrc: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=600&h=800&fit=crop",
+    title: "Wayfarer Sunglasses 8",
+    price: 32.50,
+    category: "sunglasses",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 2008,
+    imgSrc: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&h=800&fit=crop",
+    title: "Round Sunglasses 9",
+    price: 35.00,
+    category: "sunglasses",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 2009,
+    imgSrc: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=800&fit=crop",
+    title: "Sports Sunglasses 10",
+    price: 37.50,
+    category: "sunglasses",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 2010,
+    imgSrc: "https://images.unsplash.com/photo-1577803645773-f96470509666?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1577803645773-f96470509666?w=600&h=800&fit=crop",
+    title: "Retro Sunglasses 11",
+    price: 40.00,
+    category: "sunglasses",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1577803645773-f96470509666?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 2011,
+    imgSrc: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=600&h=800&fit=crop",
+    title: "Oversized Sunglasses 12",
+    price: 42.50,
+    category: "sunglasses",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 2012,
+    imgSrc: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&h=800&fit=crop",
+    title: "Aviator Sunglasses 13",
+    price: 45.00,
+    category: "sunglasses",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 2013,
+    imgSrc: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=800&fit=crop",
+    title: "Wayfarer Sunglasses 14",
+    price: 47.50,
+    category: "sunglasses",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 2014,
+    imgSrc: "https://images.unsplash.com/photo-1577803645773-f96470509666?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1577803645773-f96470509666?w=600&h=800&fit=crop",
+    title: "Round Sunglasses 15",
+    price: 50.00,
+    category: "sunglasses",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1577803645773-f96470509666?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 2015,
+    imgSrc: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=600&h=800&fit=crop",
+    title: "Sports Sunglasses 16",
+    price: 52.50,
+    category: "sunglasses",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 2016,
+    imgSrc: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&h=800&fit=crop",
+    title: "Retro Sunglasses 17",
+    price: 55.00,
+    category: "sunglasses",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 2017,
+    imgSrc: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=800&fit=crop",
+    title: "Oversized Sunglasses 18",
+    price: 57.50,
+    category: "sunglasses",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 2018,
+    imgSrc: "https://images.unsplash.com/photo-1577803645773-f96470509666?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1577803645773-f96470509666?w=600&h=800&fit=crop",
+    title: "Aviator Sunglasses 19",
+    price: 60.00,
+    category: "sunglasses",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1577803645773-f96470509666?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 2019,
+    imgSrc: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=600&h=800&fit=crop",
+    title: "Wayfarer Sunglasses 20",
+    price: 62.50,
+    category: "sunglasses",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 3000,
+    imgSrc: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&h=800&fit=crop",
+    title: "Backpack 1",
+    price: 45.00,
+    category: "bags",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 3001,
+    imgSrc: "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=600&h=800&fit=crop",
+    title: "Tote 2",
+    price: 47.50,
+    category: "bags",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 3002,
+    imgSrc: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=800&fit=crop",
+    title: "Messenger 3",
+    price: 50.00,
+    category: "bags",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 3003,
+    imgSrc: "https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?w=600&h=800&fit=crop",
+    title: "Duffel 4",
+    price: 52.50,
+    category: "bags",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 3004,
+    imgSrc: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&h=800&fit=crop",
+    title: "Clutch 5",
+    price: 55.00,
+    category: "bags",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 3005,
+    imgSrc: "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=600&h=800&fit=crop",
+    title: "Handbag 6",
+    price: 57.50,
+    category: "bags",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 3006,
+    imgSrc: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=800&fit=crop",
+    title: "Backpack 7",
+    price: 60.00,
+    category: "bags",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 3007,
+    imgSrc: "https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?w=600&h=800&fit=crop",
+    title: "Tote 8",
+    price: 62.50,
+    category: "bags",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 3008,
+    imgSrc: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&h=800&fit=crop",
+    title: "Messenger 9",
+    price: 65.00,
+    category: "bags",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 3009,
+    imgSrc: "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=600&h=800&fit=crop",
+    title: "Duffel 10",
+    price: 67.50,
+    category: "bags",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 3010,
+    imgSrc: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=800&fit=crop",
+    title: "Clutch 11",
+    price: 70.00,
+    category: "bags",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 3011,
+    imgSrc: "https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?w=600&h=800&fit=crop",
+    title: "Handbag 12",
+    price: 72.50,
+    category: "bags",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 3012,
+    imgSrc: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&h=800&fit=crop",
+    title: "Backpack 13",
+    price: 75.00,
+    category: "bags",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 3013,
+    imgSrc: "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=600&h=800&fit=crop",
+    title: "Tote 14",
+    price: 77.50,
+    category: "bags",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 3014,
+    imgSrc: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=800&fit=crop",
+    title: "Messenger 15",
+    price: 80.00,
+    category: "bags",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 3015,
+    imgSrc: "https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?w=600&h=800&fit=crop",
+    title: "Duffel 16",
+    price: 82.50,
+    category: "bags",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 3016,
+    imgSrc: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&h=800&fit=crop",
+    title: "Clutch 17",
+    price: 85.00,
+    category: "bags",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 3017,
+    imgSrc: "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=600&h=800&fit=crop",
+    title: "Handbag 18",
+    price: 87.50,
+    category: "bags",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 3018,
+    imgSrc: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=800&fit=crop",
+    title: "Backpack 19",
+    price: 90.00,
+    category: "bags",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 3019,
+    imgSrc: "https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?w=600&h=800&fit=crop",
+    title: "Tote 20",
+    price: 92.50,
+    category: "bags",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["S", "M", "L"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  }
+,
+  {
+    id: 4000,
+    imgSrc: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&h=800&fit=crop",
+    title: "Designer Dress 1",
+    price: 50.00,
+    category: "fashion",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 4001,
+    imgSrc: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&h=800&fit=crop",
+    title: "Chic Blazer 2",
+    price: 52.50,
+    category: "fashion",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 4002,
+    imgSrc: "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=600&h=800&fit=crop",
+    title: "Trendy Top 3",
+    price: 55.00,
+    category: "fashion",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 4003,
+    imgSrc: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=800&fit=crop",
+    title: "Elegant Skirt 4",
+    price: 57.50,
+    category: "fashion",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 4004,
+    imgSrc: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&h=800&fit=crop",
+    title: "Vogue Coat 5",
+    price: 60.00,
+    category: "fashion",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 4005,
+    imgSrc: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&h=800&fit=crop",
+    title: "Couture Gown 6",
+    price: 62.50,
+    category: "fashion",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 4006,
+    imgSrc: "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=600&h=800&fit=crop",
+    title: "Designer Dress 7",
+    price: 65.00,
+    category: "fashion",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 4007,
+    imgSrc: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=800&fit=crop",
+    title: "Chic Blazer 8",
+    price: 67.50,
+    category: "fashion",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 4008,
+    imgSrc: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&h=800&fit=crop",
+    title: "Trendy Top 9",
+    price: 70.00,
+    category: "fashion",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 4009,
+    imgSrc: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&h=800&fit=crop",
+    title: "Elegant Skirt 10",
+    price: 72.50,
+    category: "fashion",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 4010,
+    imgSrc: "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=600&h=800&fit=crop",
+    title: "Vogue Coat 11",
+    price: 75.00,
+    category: "fashion",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 4011,
+    imgSrc: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=800&fit=crop",
+    title: "Couture Gown 12",
+    price: 77.50,
+    category: "fashion",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 4012,
+    imgSrc: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&h=800&fit=crop",
+    title: "Designer Dress 13",
+    price: 80.00,
+    category: "fashion",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 4013,
+    imgSrc: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&h=800&fit=crop",
+    title: "Chic Blazer 14",
+    price: 82.50,
+    category: "fashion",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 4014,
+    imgSrc: "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=600&h=800&fit=crop",
+    title: "Trendy Top 15",
+    price: 85.00,
+    category: "fashion",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 4015,
+    imgSrc: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=800&fit=crop",
+    title: "Elegant Skirt 16",
+    price: 87.50,
+    category: "fashion",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 4016,
+    imgSrc: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&h=800&fit=crop",
+    title: "Vogue Coat 17",
+    price: 90.00,
+    category: "fashion",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 4017,
+    imgSrc: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&h=800&fit=crop",
+    title: "Couture Gown 18",
+    price: 92.50,
+    category: "fashion",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 4018,
+    imgSrc: "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=600&h=800&fit=crop",
+    title: "Designer Dress 19",
+    price: 95.00,
+    category: "fashion",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 4019,
+    imgSrc: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=800&fit=crop",
+    title: "Chic Blazer 20",
+    price: 97.50,
+    category: "fashion",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 5000,
+    imgSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop",
+    title: "Necklace 1",
+    price: 10.00,
+    category: "accessories",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 5001,
+    imgSrc: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=800&fit=crop",
+    title: "Bracelet 2",
+    price: 12.50,
+    category: "accessories",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 5002,
+    imgSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop",
+    title: "Watch 3",
+    price: 15.00,
+    category: "accessories",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 5003,
+    imgSrc: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=800&fit=crop",
+    title: "Earrings 4",
+    price: 17.50,
+    category: "accessories",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 5004,
+    imgSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop",
+    title: "Ring 5",
+    price: 20.00,
+    category: "accessories",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 5005,
+    imgSrc: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=800&fit=crop",
+    title: "Scarf 6",
+    price: 22.50,
+    category: "accessories",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 5006,
+    imgSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop",
+    title: "Necklace 7",
+    price: 25.00,
+    category: "accessories",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 5007,
+    imgSrc: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=800&fit=crop",
+    title: "Bracelet 8",
+    price: 27.50,
+    category: "accessories",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 5008,
+    imgSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop",
+    title: "Watch 9",
+    price: 30.00,
+    category: "accessories",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 5009,
+    imgSrc: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=800&fit=crop",
+    title: "Earrings 10",
+    price: 32.50,
+    category: "accessories",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 5010,
+    imgSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop",
+    title: "Ring 11",
+    price: 35.00,
+    category: "accessories",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 5011,
+    imgSrc: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=800&fit=crop",
+    title: "Scarf 12",
+    price: 37.50,
+    category: "accessories",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 5012,
+    imgSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop",
+    title: "Necklace 13",
+    price: 40.00,
+    category: "accessories",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 5013,
+    imgSrc: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=800&fit=crop",
+    title: "Bracelet 14",
+    price: 42.50,
+    category: "accessories",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 5014,
+    imgSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop",
+    title: "Watch 15",
+    price: 45.00,
+    category: "accessories",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 5015,
+    imgSrc: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=800&fit=crop",
+    title: "Earrings 16",
+    price: 47.50,
+    category: "accessories",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 5016,
+    imgSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop",
+    title: "Ring 17",
+    price: 50.00,
+    category: "accessories",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1515562141207-7a8efd3dc7f8?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 5017,
+    imgSrc: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=800&fit=crop",
+    title: "Scarf 18",
+    price: 52.50,
+    category: "accessories",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 5018,
+    imgSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop",
+    title: "Necklace 19",
+    price: 55.00,
+    category: "accessories",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1599643478514-4a5202302325?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  },
+  {
+    id: 5019,
+    imgSrc: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=800&fit=crop",
+    imgHoverSrc: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=800&fit=crop",
+    title: "Bracelet 20",
+    price: 57.50,
+    category: "accessories",
+    colors: [
+      { name: "Black", colorClass: "bg_dark", imgSrc: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=800&fit=crop" }
+    ],
+    sizes: ["One Size"],
+    filterCategories: ["New Arrivals"],
+    brand: "SmartCart",
+    isAvailable: true,
+  }
 ];
 
 export const products20 = [
