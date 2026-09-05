@@ -32,7 +32,7 @@ import Slider from "rc-slider";
 import { products1 } from "@/data/products";
 import { Link } from "react-router-dom";
 export default function SidebarFilter({ setProducts }) {
-  const [price, setPrice] = useState([10, 20]);
+  const [price, setPrice] = useState([0, 150]);
   const handlePrice = (value) => {
     setPrice(value);
   };
@@ -146,7 +146,7 @@ export default function SidebarFilter({ setProducts }) {
     setSelectedBrands([]);
     setSelectedAvailabilities([]);
     setSelectedSizes([]);
-    setPrice([10, 20]);
+    setPrice([0, 150]);
   };
 
   return (
@@ -242,8 +242,8 @@ export default function SidebarFilter({ setProducts }) {
               <Slider
                 formatLabel={() => ``}
                 range
-                max={22}
-                min={5}
+                max={150}
+                min={0}
                 defaultValue={price}
                 onChange={(value) => handlePrice(value)}
                 id="slider"
