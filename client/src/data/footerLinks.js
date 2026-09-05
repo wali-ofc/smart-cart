@@ -12,6 +12,7 @@ export const aboutLinks = [
   { href: "/store-location", text: "Visit Our Store" },
   { href: "/contact", text: "Contact Us" },
   { href: "/about-us", text: "About Us" },
+  { href: "/delivery", text: "Delivery" },
   { href: "/login", text: "Account" },
 ];
 export const paymentImages = [

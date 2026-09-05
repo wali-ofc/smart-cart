@@ -41,9 +41,6 @@ export default function Nav({ isArrow = true, textColor = "", Linkfs = "" }) {
             <li>
               <Link to="/seller" className="menu-link-text link text_black-2">Seller Dashboard</Link>
             </li>
-            <li>
-              <Link to="/delivery" className="menu-link-text link text_black-2">Delivery Dashboard</Link>
-            </li>
           </ul>
         </div>
       </li>
