@@ -1981,11 +1981,11 @@ export const collectionCircles = [
 ];
 
 export const categories = [
-  { name: "Fashion", count: 31, className: "current" },
-  { name: "Men", count: 9, className: "" },
-  { name: "Women", count: 23, className: "" },
-  { name: "Denim", count: 20, className: "" },
-  { name: "Dress", count: 23, className: "" },
+  { name: "Clothing", count: 20, className: "current", link: "/category/clothing" },
+  { name: "Sunglasses", count: 20, className: "", link: "/category/sunglasses" },
+  { name: "Bags", count: 20, className: "", link: "/category/bags" },
+  { name: "Fashion", count: 20, className: "", link: "/category/fashion" },
+  { name: "Accessories", count: 20, className: "", link: "/category/accessories" },
 ];
 
 export const collections12 = [
