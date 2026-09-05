@@ -208,7 +208,7 @@ function App() {
                 <Route path="my-account-orders-details" element={<MyAccountOrderDetailsPage />} />
 
                 <Route path="seller/*" element={<AdminIframe />} />
-                <Route path="delivery" element={<DeliveryDashboard />} />
+                <Route path="delivery" element={<DeliveryReturnPage />} />
 
                 <Route path="payment-failure" element={<PaymentFailurePage />} />
                 <Route path="payment-confirmation" element={<PaymentCOnfirmationPage />} />
