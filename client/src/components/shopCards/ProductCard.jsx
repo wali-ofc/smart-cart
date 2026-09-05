@@ -19,10 +19,11 @@ export const ProductCard = ({ product }) => {
 
   return (
     <div className="card-product fl-item" key={product.id}>
-      <div className="card-product-wrapper" style={{ border: "1px solid #d4d4d4", borderRadius: "8px", overflow: "hidden", backgroundColor: "#f5f5f5" }}>
+      <div className="card-product-wrapper" style={{ border: "1px solid #e0e0e0", borderRadius: "8px", overflow: "hidden", backgroundColor: "#f0f0f0" }}>
         <Link to={`/product-detail/${product.id}`} className="product-img">
           <img
             className="lazyload img-product"
+            style={{ mixBlendMode: "multiply" }}
             data-src={product.imgSrc}
             src={currentImage}
             alt="image-product"
@@ -31,6 +32,7 @@ export const ProductCard = ({ product }) => {
           />
           <img
             className="lazyload img-hover"
+            style={{ mixBlendMode: "multiply" }}
             data-src={
               product.imgHoverSrc ? product.imgHoverSrc : product.imgSrc
             }

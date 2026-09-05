@@ -40,10 +40,11 @@ export default function Products() {
                 
                 {/* View All Card (Matches product card style identically) */}
                 <div className="card-product fl-item">
-                  <div className="card-product-wrapper" style={{ border: "1px solid #d4d4d4", borderRadius: "8px", overflow: "hidden", backgroundColor: "#f5f5f5" }}>
+                  <div className="card-product-wrapper" style={{ border: "1px solid #e0e0e0", borderRadius: "8px", overflow: "hidden", backgroundColor: "#f0f0f0" }}>
                     <Link to={`/category/${cat.id}`} className="product-img">
                       <img
                         className="lazyload img-product"
+                        style={{ mixBlendMode: "multiply" }}
                         src={cat.imgSrc}
                         alt={`View all ${cat.title}`}
                         width={720}
@@ -51,6 +52,7 @@ export default function Products() {
                       />
                       <img
                         className="lazyload img-hover"
+                        style={{ mixBlendMode: "multiply" }}
                         src={cat.imgSrc}
                         alt={`View all ${cat.title}`}
                         width={720}

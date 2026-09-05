@@ -55,9 +55,11 @@ export default function Categories() {
                       <Link
                         to={`/category/${item.title.toLowerCase()}`}
                         className="collection-image img-style"
+                        style={{ backgroundColor: "#f0f0f0", borderRadius: "8px", border: "1px solid #e0e0e0" }}
                       >
                         <img
                           className="lazyload"
+                          style={{ mixBlendMode: "multiply" }}
                           data-src={item.imgSrc}
                           alt={item.altText}
                           src={item.imgSrc}
