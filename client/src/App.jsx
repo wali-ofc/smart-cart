@@ -47,6 +47,17 @@ import DeliveryDashboard from "./pages/dashboard/DeliveryDashboard";
 
 import WishlistPage from "./pages/otherPages/wishlist";
 import PageNotFoundPage from "./pages/otherPages/page-not-found";
+
+import PrivacyPolicyPage from "./pages/otherPages/privacy-policy";
+import TermsConditionsPage from "./pages/otherPages/terms-conditions";
+import DeliveryReturnPage from "./pages/otherPages/delivery-return";
+import ShippingDeliveryPage from "./pages/otherPages/shipping-delivery";
+import AboutUsPage from "./pages/otherPages/about-us";
+import ContactUsPage from "./pages/otherPages/contact-us";
+import FaqPage from "./pages/otherPages/faq";
+import StoreLocationsPage from "./pages/otherPages/store-locations";
+import OurStoryPage from "./pages/otherPages/our-store";
+
 import ScrollTopBehaviour from "./components/common/ScrollToTopBehaviour";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -201,6 +212,16 @@ function App() {
 
                 <Route path="payment-failure" element={<PaymentFailurePage />} />
                 <Route path="payment-confirmation" element={<PaymentCOnfirmationPage />} />
+
+                <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
+                <Route path="terms-conditions" element={<TermsConditionsPage />} />
+                <Route path="delivery-return" element={<DeliveryReturnPage />} />
+                <Route path="shipping-delivery" element={<ShippingDeliveryPage />} />
+                <Route path="about-us" element={<AboutUsPage />} />
+                <Route path="contact" element={<ContactUsPage />} />
+                <Route path="faq" element={<FaqPage />} />
+                <Route path="store-location" element={<StoreLocationsPage />} />
+                <Route path="our-story" element={<OurStoryPage />} />
 
                 <Route path="page-not-found" element={<PageNotFoundPage />} />
                 <Route path="*" element={<PageNotFoundPage />} />
