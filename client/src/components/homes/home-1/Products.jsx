@@ -38,24 +38,41 @@ export default function Products() {
                   <ProductCard product={product} key={i} />
                 ))}
                 
-                {/* View All Card (Matches product card style) */}
+                {/* View All Card (Matches product card style identically) */}
                 <div className="card-product fl-item">
-                  <div className="card-product-wrapper" style={{ height: "100%", borderRadius: "8px", overflow: "hidden" }}>
-                    <Link to={`/category/${cat.id}`} className="product-img" style={{ height: "100%", display: "block", position: "relative" }}>
+                  <div className="card-product-wrapper">
+                    <Link to={`/category/${cat.id}`} className="product-img">
                       <img
                         className="lazyload img-product"
                         src={cat.imgSrc}
                         alt={`View all ${cat.title}`}
                         width={720}
                         height={1005}
-                        style={{ height: "100%", objectFit: "cover", filter: "brightness(0.4)" }}
                       />
-                      <div style={{ position: "absolute", top: "0", left: "0", width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", color: "#fff", padding: "20px", textAlign: "center" }}>
-                        <h4 style={{ color: "#fff", marginBottom: "15px", fontWeight: "600", letterSpacing: "1px" }}>{cat.title} Collection</h4>
-                        <span className="tf-btn btn-line" style={{ borderColor: "#fff", color: "#fff", padding: "10px 20px", fontWeight: "500" }}>
-                          View Full Category
-                        </span>
-                      </div>
+                      <img
+                        className="lazyload img-hover"
+                        src={cat.imgSrc}
+                        alt={`View all ${cat.title}`}
+                        width={720}
+                        height={1005}
+                      />
+                    </Link>
+                    <div className="list-product-btn">
+                      <Link 
+                        to={`/category/${cat.id}`} 
+                        className="tf-btn btn-fill animate-hover-btn" 
+                        style={{ width: "100%", textAlign: "center" }}
+                      >
+                        View Full Category
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="card-product-info text-center" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                    <Link to={`/category/${cat.id}`} className="title link" style={{ fontSize: "16px", fontWeight: "600", marginTop: "10px", marginBottom: "5px" }}>
+                      Explore {cat.title} Collection
+                    </Link>
+                    <Link to={`/category/${cat.id}`} className="price" style={{ textDecoration: "underline" }}>
+                      View All {catProducts.length < 20 ? 20 : catProducts.length}+ Items
                     </Link>
                   </div>
                 </div>
