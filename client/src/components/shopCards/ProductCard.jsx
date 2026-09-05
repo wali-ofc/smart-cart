@@ -19,7 +19,7 @@ export const ProductCard = ({ product }) => {
 
   return (
     <div className="card-product fl-item" key={product.id}>
-      <div className="card-product-wrapper">
+      <div className="card-product-wrapper" style={{ border: "1px solid #d4d4d4", borderRadius: "8px", overflow: "hidden", backgroundColor: "#f5f5f5" }}>
         <Link to={`/product-detail/${product.id}`} className="product-img">
           <img
             className="lazyload img-product"
