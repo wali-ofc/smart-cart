@@ -4,6 +4,8 @@
 
 19 files / ~15k lines of static demo content exported as JS/JSX modules. This IS the storefront's data source — the MongoDB `Product` model is NOT used by shop/cart pages. Content includes ~900 catalog entries, blogs, banners, menus, and testimonials.
 
+> TEMPORARY SCAFFOLD — documentation.md §1.5/§4.2.4 requires MongoDB instead: ~50 products seeded from the Free E-commerce Products API (5 categories) via a `server/scripts/seedProducts.js` + `npm run seed`. This static catalog is slated for removal during alignment; migrate consumers (Context.jsx first) before deleting.
+
 ## FILE MAP
 
 | File | Content | Used by |

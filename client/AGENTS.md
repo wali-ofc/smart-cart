@@ -4,6 +4,10 @@
 
 Vite 6 + React 19 storefront (SWC plugin, SCSS, Bootstrap 5, Swiper, PhotoSwipe, react-router-dom 7). Storefront content is driven by static data in `src/data/`; the Express API is used for auth and the iframed admin dashboard, not for the product catalog.
 
+> TEMPLATE FRONTEND, not the spec: documentation.md §4.1.1/§4.3 requires Tailwind CSS 4 + Lucide React icons, contexts `AuthContext` / `CartContext` (server-synced) / `ChatContext` (§4.3.2), pages `/products /product/:id /cart /orders /likes /profile /seller /delivery` (§4.3.4), and `components/ui | layout | features` — plus components: Navbar, ProductCard, CartItem, ChatWidget, SellerDashboard, DeliveryDashboard (§4.3.3). The rework trims the template and rebuilds to this structure; the iframe admin + static catalog + variant library are scaffolding to be removed/modified.
+
+> **UI FREEZE:** the current UI is considered PERFECT/FINAL — do NOT restyle or redesign anything. Build all new spec pages/features in the existing Bootstrap/SCSS/template-icon look. Tailwind/Lucide migration is CANCELLED.
+
 ## STRUCTURE
 
 ```
@@ -59,7 +63,8 @@ client/
 
 ## ANTI-PATTERNS
 
-- Do NOT add new components/pages that reimplement cart, wishlist, or auth — extend `Context.jsx` / `AuthContext.jsx`
+- Until the rework lands, do NOT add new components/pages that reimplement cart/wishlist/auth — extend `Context.jsx` / `AuthContext.jsx`. Exception: the alignment rework itself replaces these with spec contexts (Auth/Cart/Chat) — that is the sanctioned, documented change
+- Tailwind + Lucide (documentation.md §1.4) are CANCELLED for the visual layer — the UI is frozen; build new work in the current Bootstrap/SCSS/template-icon look
 - Do NOT import SCSS from `src/` — only `public/scss/` is the stylesheet root (existing pattern)
 - Do NOT depend on `admin dashboard/` or `extracted-silva/` at runtime — the iframe uses `public/admin-build/`
 - No eslint config exists despite the `lint` script — do not rely on `npm run lint`

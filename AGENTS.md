@@ -8,7 +8,30 @@
 
 SmartCart — MERN eCommerce FYP (MongoDB, Express 5, React 19, Node). Three roles: customer / seller / delivery. The customer storefront is a static-data-driven React app (`client/`), the seller/delivery API is Express + Mongoose (`server/`), and the admin dashboard is a prebuilt static app embedded via iframe (`client/public/admin-build/`). AI chatbot (ChatSession model) exists but its API is NOT wired into `server.js`.
 
-> `README.md` is STALE — it describes a flat Supabase-based layout. `documentation.md` is the accurate FYP spec (MERN + JWT cookies + Ollama chatbot).
+> `README.md` is STALE — it describes a flat Supabase-based layout. `documentation.md` IS THE TARGET — the authoritative FYP spec.
+
+## ALIGNMENT STATUS (IMPORTANT)
+
+The codebase was acquired third-party and is HEAVILY misaligned with `documentation.md`. Expect a large trimming + fixing effort to make the repo match the spec. Treat `documentation.md` as the ONLY source of truth for required behavior; treat template-derived code as disposable scaffolding.
+
+| Area | documentation.md (TARGET) | Current repo |
+|------|---------------------------|--------------|
+| Styling | Tailwind CSS 4 — CANCELLED, see UI FREEZE below | Bootstrap 5 + SCSS template (KEEP) |
+| Icons | Lucide React — CANCELLED (UI freeze) | template inline icons (KEEP) |
+| Product data | MongoDB, ~50 items seeded from Free E-commerce API (Ch.1 §1.5) | static `client/src/data/products.js` (~900 demo) |
+| Server layers | controllers/ + services/ + config/ + utils/ | controllers only |
+| Server API | cart, orders, chat, seller, delivery, reviews, likes + product CRUD | auth + products(GET) + admin only |
+| Client pages | `/products /product/:id /cart /orders /likes /profile /seller /delivery` | `/shop-default /product-detail/:id /my-account-* /seller/*`(iframe) |
+| Client contexts | Auth + Cart (server-synced) + Chat | Auth(API) + static-data cart (localStorage) |
+| Models | `User.name`, `User.cart[]`, `Product.rating{stars,count}`, `Order.payment_method` | `User.username`, no cart, `Product.averageRating`, `Order.totalAmount` |
+| Chatbot | Ollama via `/api/chat`, 50 req/day (rate limit), TTL 30d | ChatSession model only — no routes |
+| Dashboards | React role pages | seller = prebuilt iframe; delivery = minimal page |
+| Tests | Jest/Supertest suites (Ch.5) | none |
+| Deploy | Vercel (client) + Render (server) + Atlas (Ch.6) | Vercel SPA only |
+
+Workflow: trim template residue → implement documented endpoints/layers → replace static data with seeded MongoDB → keep the current UI → add tests.
+
+> **UI FREEZE (owner directive):** the current UI is considered PERFECT/FINAL — do NOT restyle, redesign, or swap the storefront look & feel. Styling migration to Tailwind/Lucide is CANCELLED. All functional work (pages, dashboards, features) must be built in the existing Bootstrap/SCSS/template-icon look.
 
 ## STRUCTURE
 
@@ -73,6 +96,7 @@ smart-cart-fyp/
 
 ## ANTI-PATTERNS (THIS PROJECT)
 
+- **UI is FINAL (owner directive)** — never restyle, redesign, or change the visual design of existing pages/components; build new work in the current look. See UI FREEZE under ALIGNMENT STATUS.
 - **Hardcoded admin credentials in production code** — `server/controllers/authController.js` (email+password bypass) and `server/middleware/auth.js` (`admin_hardcoded_id`, fallback JWT secret `secret123`). Present by design for Vercel demo; never extend this pattern.
 - **Do NOT run root `*.cjs` / `add_route.js` patch scripts** — one-off hacks (regex rewrites across components); may corrupt source if re-run.
 - **Do NOT edit `admin dashboard/extracted-silva/`** — purchased vendor template (TS+JS duplicates); `client/public/admin-build/` is its compiled output.

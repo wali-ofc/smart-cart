@@ -4,6 +4,9 @@
 
 252 files / ~42k lines of UI components derived from a commercial template. Organized as families of near-identical numbered variants (Headers 1-22, ProductCards 1-33, Details 1-29, Footers 1-8, sliders, tabs, galleries). Most variants are UNUSED by the current routes — only a subset is imported by pages.
 
+> TEMPLATE RESIDUE — the alignment rework (documentation.md §3.4 design system, §4.3.3 key components) trims this directory toward spec components: Navbar, ProductCard, CartItem, ChatWidget, SellerDashboard, DeliveryDashboard. Until trimmed, unused variants stay in place (tree-shaken at build).
+> **UI FREEZE:** the look & feel is FINAL — trimming removes unused/copy-paste variants, but retained and newly written components must keep the current visual design (no restyle, no Tailwind/Lucide).
+
 ## STRUCTURE
 
 - `headers/` — 22 Header + 4 Topbar variants, plus `Nav.jsx`

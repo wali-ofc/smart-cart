@@ -4,6 +4,8 @@
 
 Express 5 + Mongoose 9 backend serving the SmartCart seller/delivery API. Cookie-based JWT auth with role guards. 14 files, ~700 lines — small, hand-written, CommonJS.
 
+> SKELETON, not the spec: per documentation.md §3.3.1 this server must ALSO expose `/api/cart`, `/api/orders`, `/api/chat`, `/api/seller/*`, `/api/delivery/*`, `/api/reviews/*`, likes, and full product CRUD (create/update/delete, categories, pagination/search/filtering) behind a services/ layer with rate-limit + error middleware. ALL of that is missing here — closing this gap is the core of the alignment rework. Treat the missing routes as REQUIRED, not optional.
+
 ## STRUCTURE
 
 ```
@@ -57,8 +59,9 @@ server/
 - **Hardcoded demo bypass (do not extend):** `authController.js` login contains a literal email+password that mint a token for virtual admin `admin_hardcoded_id`; `auth.js` protect() special-cases that id (created for Vercel demo — see git log). Real users must NOT be added this way.
 - **Fallback secrets:** `jwt.sign/verify` default to `'secret123'` when `JWT_SECRET` unset — never rely on this in production; set env vars
 - **`passwordHash` passed from client** in register — client-side hashing is non-standard; `pre('save')` re-hashes. Keep the field contract: register sends `passwordHash`, `matchPassword` compares `passwordHash`. Changing the field name breaks login
-- `express-rate-limit` is a dependency but NOT wired — do not assume rate limiting exists
-- `ChatSession` model + Ollama chatbot are documented (documentation.md ch. 4) but no chat endpoint exists — wiring it up is a known gap, not a regression
+- `express-rate-limit` is a dependency but NOT wired — documentation.md requires rate limiting on `/api/chat` (50 req/user/day); wiring it is part of the rework
+- **Schemas drift from spec** (documentation.md §3.2.2): current models use `username`/`passwordHash`/`averageRating`/`totalAmount` where the spec requires `name`/`password`/`rating{stars,count}`/`items_price`+`total_price`/`payment_method`/`keywords`/`subCategory`/`User.cart[]`. Realign models as part of the rework — and update AuthContext + cart flow together so field renames land in one sweep
+- `ChatSession` + `/api/chat` + Ollama are REQUIRED by documentation.md (§3.3.1, §4.2.5) but unimplemented — build chatController/chatService, rate-limit middleware, and TTL-30d index during alignment
 - `connectDB` deliberately swallows connection errors (dev when mongod is off) — server "starts" without DB; admin endpoints then 500
 
 ## COMMANDS
