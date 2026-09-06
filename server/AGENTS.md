@@ -4,7 +4,7 @@
 
 Express 5 + Mongoose 9 backend for SmartCart. Cookie-based JWT auth with role guards, services/ layer, full §3.3.1 API surface, and Jest tests (`mongodb-memory-server`). CommonJS.
 
-> **Alignment status:** Phase 2 complete — all spec route groups exist (§3.3.1) behind services (+ rate-limit + central error middleware). Phases 3-9 still open: replace transitional `/api/admin`, seed MongoDB catalog from `client/src/data/products.js`, wire client to these APIs, route-level Jest suites (§5).
+> **Alignment status:** Phase 2 complete — all spec route groups exist (§3.3.1) behind services (+ rate-limit + central error middleware). Phase 3 complete — `seller/dashboard` covers the §5.2 checklist (revenue, orders this month, products, average rating); `/api/admin` is FROZEN transitional (iframed admin-build only; removed with `AdminIframe` in Phase 7, decision D10). Phases 4-9 open: seed MongoDB catalog from `client/src/data/products.js`, wire client to these APIs, route-level Jest suites (§5).
 
 ## STRUCTURE
 
@@ -61,13 +61,14 @@ server/
 | `/api/reviews/product/:productId` | POST | `protect` — one per user per product; recomputes `Product.rating{stars,count}` |
 | `/api/reviews/my-reviews` | GET | `protect` |
 | `/api/reviews/:id` | PUT/DELETE | `protect` + owner |
-| `/api/admin/*` | — | `protect` + `authorize('seller')` — **TRANSITIONAL**, replaced in Phase 3 |
+| `/api/admin/*` | — | `protect` + `authorize('seller')` — **TRANSITIONAL + FROZEN** (D10): iframed admin-build only; do not extend; removal with AdminIframe in Phase 7 |
 | `/api/health` | GET | public |
 
 ## CONVENTIONS
 
 - CommonJS; controllers = named `async (req,res,next)` — **no try/catch**: Express 5 auto-forwards rejected promises to `errorMiddleware`; business errors `throw new ApiError(status, msg, errors?)`
 - Responses: `{ success: true, ... }` / `{ success: false, error: '...' }`; validation failures add `errors: [{field, message}]`
+- Response envelope (D11): singletons → `{success, data}`; lists → `{success, count, <plural>}`; aggregations (seller dashboard/analytics) → `data`; deletes → `{success, data: {}}`. **Exception:** `GET /api/auth/me` returns `{success, user}` — the frozen client AuthContext reads `data.user`; re-align in Phase 5
 - JWT: httpOnly cookie `token` (7d, sameSite lax, secure in prod); fallback secret `'secret123'` when `JWT_SECRET` unset (dev only — Phase 9 hardens env)
 - `protect` reads cookie first, then `Bearer` header; attaches full user doc to `req.user` (`.id` = hex string)
 - Route order: static segments (`/categories`, `/likes`) declared BEFORE `/:id`

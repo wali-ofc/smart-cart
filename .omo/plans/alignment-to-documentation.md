@@ -304,6 +304,8 @@ Order matters — only delete what no longer has importers:
 | D7 | `admin dashboard/extracted-silva/` | Keep as vendor reference (owner purchase); never edit |
 | D8 | Order status enforcement order | pending → processing → shipped → delivered; cancelled allowed from any |
 | D9 | Product seed source (**DECIDED 2026-09-05**) | Curate ~50-150 items from the existing static catalog → map to spec schema, keep local `/images/...` paths; Free E-commerce API (§1.5/§4.2.4) abandoned by owner; `image` is relative to the client origin (dev: Vite, prod: Vercel) — acceptable deviation, logged |
+| D10 | `/api/admin` mount removal timing (**DECIDED 2026-09-05**) | Phase 3 enriched `seller/dashboard` per §5.2 (ordersThisMonth, averageRating) so the seller surface fully supersedes adminController. Mount STAYS (frozen, do-not-extend) until Phase 5 React seller pages depend only on seller routes — then removed with `AdminIframe` + `public/admin-build/` in Phase 7. adminController.updateOrderStatus bypasses the D8 machine but is only reachable via the retiring iframe — accepted, documented |
+| D11 | Response envelope convention (**DECIDED 2026-09-05**) | Standardized zero-consumer singletons to `{success, data}` (product get/create/update, order create/detail/status, review create/update, delivery status). Lists keep `{success, count, <plural>}` (products/categories/orders/reviews/cart). **Exception:** `GET /api/auth/me` KEEPS `{success, user}` — the frozen client `AuthContext` reads `data.user`; re-align only during Phase 5 AuthContext rework. Deletes return `{success, data: {}}` |
 
 ## 14. Final Acceptance Criteria (all phases green)
 
