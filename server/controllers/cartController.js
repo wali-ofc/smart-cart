@@ -44,6 +44,23 @@ exports.addToCart = async (req, res) => {
   res.status(201).json({ success: true, count: user.cart.length, cart: user.cart });
 };
 
+/** PUT /api/cart/:productId — { quantity } absolute set (spec F011 Update Quantity, decision D13) */
+exports.updateQuantity = async (req, res) => {
+  const user = await User.findById(req.user.id);
+  const qty = Math.min(99, Math.max(1, Number(req.body?.quantity) || 1));
+
+  const line = user.cart.find((ci) => ci.product.toString() === req.params.productId);
+  if (!line) {
+    throw new ApiError(404, 'Product not in cart');
+  }
+
+  line.quantity = qty;
+  await user.save();
+  await user.populate(CART_POPULATE);
+
+  res.status(200).json({ success: true, count: user.cart.length, cart: user.cart });
+};
+
 /** DELETE /api/cart/:productId — remove one product line */
 exports.removeFromCart = async (req, res) => {
   const user = await User.findById(req.user.id);
