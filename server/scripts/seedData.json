@@ -1,0 +1,402 @@
+[
+  {
+    "title": "Mini Headset Wired & Wireless",
+    "price": 235.95,
+    "imgSrc": "/images/products/white-11.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Electronics & Gadgets"
+  },
+  {
+    "title": "WH-1000XM4 Wireless Headphones",
+    "price": 279,
+    "imgSrc": "/images/products/headphone-8.png",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Electronics & Gadgets"
+  },
+  {
+    "title": "LinkBuds S Wireless Earbuds",
+    "price": 199,
+    "imgSrc": "/images/products/headphone-11.png",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Electronics & Gadgets"
+  },
+  {
+    "title": "AirPods Max",
+    "price": 479,
+    "imgSrc": "/images/products/headphone-17.png",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Electronics & Gadgets"
+  },
+  {
+    "title": "UltraGlass 2 Treated Screen Protector for iPhone 15 Pro",
+    "price": 39.99,
+    "imgSrc": "/images/collections/electronic-8.png",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Electronics & Gadgets"
+  },
+  {
+    "title": "Smart Light Switch with Thread",
+    "price": 49.99,
+    "imgSrc": "/images/collections/electronic-10.png",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Electronics & Gadgets"
+  },
+  {
+    "title": "SoundForm Rise",
+    "price": 79.99,
+    "imgSrc": "/images/collections/electronic-12.png",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Electronics & Gadgets"
+  },
+  {
+    "title": "Wireless On-Ear Headphones for Kids",
+    "price": 24.99,
+    "imgSrc": "/images/collections/electronic-14.png",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Electronics & Gadgets"
+  },
+  {
+    "title": "3-in-1 Wireless Charger with Official MagSafe Charging 15W",
+    "price": 127.49,
+    "imgSrc": "/images/collections/electronic-16.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Electronics & Gadgets"
+  },
+  {
+    "title": "3-in-1 Wireless Charger for Apple Devices",
+    "price": 119.99,
+    "imgSrc": "/images/collections/electronic-18.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Electronics & Gadgets"
+  },
+  {
+    "title": "Ribbed Tank Top",
+    "price": 16.95,
+    "imgSrc": "/images/products/orange-1.jpg",
+    "brand": "SmartCart",
+    "isAvailable": true,
+    "category": "Fashion & Apparel"
+  },
+  {
+    "title": "Ribbed Modal T-shirt",
+    "price": 18.95,
+    "imgSrc": "/images/products/brown.jpg",
+    "brand": "M&H",
+    "isAvailable": false,
+    "category": "Fashion & Apparel"
+  },
+  {
+    "title": "Oversized Printed T-shirt",
+    "price": 10,
+    "imgSrc": "/images/products/white-3.jpg",
+    "brand": "M&H",
+    "isAvailable": true,
+    "category": "Fashion & Apparel"
+  },
+  {
+    "title": "V-neck Linen T-shirt",
+    "price": 14.95,
+    "imgSrc": "/images/products/brown-2.jpg",
+    "brand": "SmartCart",
+    "isAvailable": true,
+    "category": "Fashion & Apparel"
+  },
+  {
+    "title": "Loose Fit Sweatshirt",
+    "price": 10,
+    "imgSrc": "/images/products/light-green-1.jpg",
+    "brand": "SmartCart",
+    "isAvailable": true,
+    "category": "Fashion & Apparel"
+  },
+  {
+    "title": "Regular Fit Oxford Shirt",
+    "price": 10,
+    "imgSrc": "/images/products/black-4.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Fashion & Apparel"
+  },
+  {
+    "title": "Stylish T-shirt",
+    "price": 12,
+    "imgSrc": "/images/products/white-8.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Fashion & Apparel"
+  },
+  {
+    "title": "Patterned scarf",
+    "price": 14.95,
+    "imgSrc": "/images/products/brown-4.jpg",
+    "brand": "SmartCart",
+    "isAvailable": true,
+    "category": "Fashion & Apparel"
+  },
+  {
+    "title": "Slim Fit Fine-knit Turtleneck Sweater",
+    "price": 18.95,
+    "imgSrc": "/images/products/black-9.jpg",
+    "brand": "SmartCart",
+    "isAvailable": true,
+    "category": "Fashion & Apparel"
+  },
+  {
+    "title": "Shopper",
+    "price": 120.95,
+    "imgSrc": "/images/products/black-13.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Fashion & Apparel"
+  },
+  {
+    "title": "Natural Moisturizing Factors",
+    "price": 32,
+    "imgSrc": "/images/products/skincare-1.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Beauty & Personal Care"
+  },
+  {
+    "title": "Anhydrous Solution Pore Serum",
+    "price": 65,
+    "imgSrc": "/images/products/skincare-3.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Beauty & Personal Care"
+  },
+  {
+    "title": "Serum for Hair Density",
+    "price": 65,
+    "imgSrc": "/images/products/skincare-5.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Beauty & Personal Care"
+  },
+  {
+    "title": "Mini Confidence in a Cleanser",
+    "price": 22,
+    "imgSrc": "/images/products/skincare-7.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Beauty & Personal Care"
+  },
+  {
+    "title": "Mini Skin Perfecting Exfoliant",
+    "price": 65,
+    "imgSrc": "/images/products/skincare-13.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Beauty & Personal Care"
+  },
+  {
+    "title": "Super Serum Skin Tint SPF",
+    "price": 48,
+    "imgSrc": "/images/products/cosmetic1.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Beauty & Personal Care"
+  },
+  {
+    "title": "Sephora Colorful® Eyeshadow",
+    "price": 18,
+    "imgSrc": "/images/products/cosmetic3.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Beauty & Personal Care"
+  },
+  {
+    "title": "Mini Self Tanning Natural Glow",
+    "price": 18,
+    "imgSrc": "/images/products/cosmetic5.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Beauty & Personal Care"
+  },
+  {
+    "title": "Lip Butter Balm for Hydration & Shine",
+    "price": 24,
+    "imgSrc": "/images/products/cosmetic7.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Beauty & Personal Care"
+  },
+  {
+    "title": "Unreal Liquid Blush",
+    "price": 24,
+    "imgSrc": "/images/products/cosmetic9.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Beauty & Personal Care"
+  },
+  {
+    "title": "AJ Wall Sconce",
+    "price": 982,
+    "imgSrc": "/images/products/lamp-black.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Home & Kitchen"
+  },
+  {
+    "title": "Brasilia Lounge Chair",
+    "price": 982,
+    "imgSrc": "/images/products/furniture-1.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Home & Kitchen"
+  },
+  {
+    "title": "Lina Swivel Chair",
+    "price": 3600,
+    "imgSrc": "/images/products/furniture-2.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Home & Kitchen"
+  },
+  {
+    "title": "MG501 Cuba Lounge Chair, Paper Cord",
+    "price": 1290,
+    "imgSrc": "/images/products/furniture-4.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Home & Kitchen"
+  },
+  {
+    "title": "Scissor Chair",
+    "price": 2755,
+    "imgSrc": "/images/products/furniture-8.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Home & Kitchen"
+  },
+  {
+    "title": "Soborg Model 3052 Dining Chair",
+    "price": 1356,
+    "imgSrc": "/images/products/furniture-10.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Home & Kitchen"
+  },
+  {
+    "title": "Candleholder",
+    "price": 85,
+    "imgSrc": "/images/products/decor-4.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Home & Kitchen"
+  },
+  {
+    "title": "Standing Polar fox",
+    "price": 82,
+    "imgSrc": "/images/products/decor-6.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Home & Kitchen"
+  },
+  {
+    "title": "Candleholder gift set brassfox",
+    "price": 69,
+    "imgSrc": "/images/products/decor-9.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Home & Kitchen"
+  },
+  {
+    "title": "Polar fox",
+    "price": 62,
+    "imgSrc": "/images/products/decor-13.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Home & Kitchen"
+  },
+  {
+    "title": "Yow Surfskates Christenson Hole Shot Surfskate",
+    "price": 279.99,
+    "imgSrc": "/images/slider/skateboard-slider-01.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Health & Fitness"
+  },
+  {
+    "title": "Element Skateboards Section Complete Skateboard",
+    "price": 71.99,
+    "imgSrc": "/images/slider/skateboard-slider-02.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Health & Fitness"
+  },
+  {
+    "title": "Foundation Skateboards Star & Moon White Complete Skateboard",
+    "price": 89.99,
+    "imgSrc": "/images/slider/skateboard-slider-03.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Health & Fitness"
+  },
+  {
+    "title": "Habitat Skateboards Ellipse Complete Skateboard",
+    "price": 9999,
+    "imgSrc": "/images/products/stakeboard-greenblack.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Health & Fitness"
+  },
+  {
+    "title": "Skateboards Thrasher Complete Skateboard",
+    "price": 89.99,
+    "imgSrc": "/images/products/stakeboard-blueblack.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Health & Fitness"
+  },
+  {
+    "title": "RAD Wheels Checker Complete Skateboard",
+    "price": 53.99,
+    "imgSrc": "/images/products/stakeboard-redblack.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Health & Fitness"
+  },
+  {
+    "title": "Globe Skateboards Blazer XL Coconut / Lime Cruiser Complete Skateboard",
+    "price": 138.99,
+    "imgSrc": "/images/products/stakeboard-lightgreen.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Health & Fitness"
+  },
+  {
+    "title": "OC Ramps 8 Foot Round Glow In The Dark Skateboard Grind Rail",
+    "price": 299,
+    "imgSrc": "/images/products/skateboard-grind-rail-white.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Health & Fitness"
+  },
+  {
+    "title": "Bubble Gum Surf Wax 6 oz.",
+    "price": 11.99,
+    "imgSrc": "/images/products/bubble-gum-yellow.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Health & Fitness"
+  },
+  {
+    "title": "Skateboards Tool",
+    "price": 29.99,
+    "imgSrc": "/images/products/skateboards-tool-black.jpg",
+    "brand": "SmartCart",
+    "isAvailable": false,
+    "category": "Health & Fitness"
+  }
+]
