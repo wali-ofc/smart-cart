@@ -38,5 +38,5 @@ exports.updateStatus = async (req, res) => {
   order.status = status;
   await order.save();
 
-  res.status(200).json({ success: true, order });
+  res.status(200).json({ success: true, data: order });
 };

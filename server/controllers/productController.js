@@ -34,7 +34,7 @@ exports.getCategories = async (req, res) => {
 /** GET /api/products/:id */
 exports.getProduct = async (req, res) => {
   const product = await productService.getProduct(req.params.id);
-  res.status(200).json({ success: true, product });
+  res.status(200).json({ success: true, data: product });
 };
 
 /** GET /api/products/likes — protected; products the current user liked */
@@ -69,14 +69,14 @@ exports.removeLike = async (req, res) => {
 exports.createProduct = async (req, res) => {
   failed(req);
   const product = await productService.createProduct({ ...req.body, seller: req.user.id });
-  res.status(201).json({ success: true, product });
+  res.status(201).json({ success: true, data: product });
 };
 
 /** PUT /api/products/:id — seller-only update */
 exports.updateProduct = async (req, res) => {
   failed(req);
   const product = await productService.updateProduct(req.params.id, req.user.id, req.body);
-  res.status(200).json({ success: true, product });
+  res.status(200).json({ success: true, data: product });
 };
 
 /** DELETE /api/products/:id — seller-only delete */

@@ -19,7 +19,7 @@ exports.createOrder = async (req, res) => {
     notes
   });
 
-  res.status(201).json({ success: true, order });
+  res.status(201).json({ success: true, data: order });
 };
 
 /** GET /api/orders — current user's order history */
@@ -35,7 +35,7 @@ exports.getOrderById = async (req, res) => {
     role: req.user.role,
     orderId: req.params.id
   });
-  res.status(200).json({ success: true, order });
+  res.status(200).json({ success: true, data: order });
 };
 
 /** PUT /api/orders/:id/status — seller or delivery agent transitions */
@@ -52,5 +52,5 @@ exports.updateOrderStatus = async (req, res) => {
     status,
     delivery_agent
   });
-  res.status(200).json({ success: true, order });
+  res.status(200).json({ success: true, data: order });
 };

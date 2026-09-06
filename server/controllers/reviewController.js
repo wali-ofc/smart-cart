@@ -53,7 +53,7 @@ exports.createReview = async (req, res) => {
   });
 
   await recomputeRating(product._id);
-  res.status(201).json({ success: true, review });
+  res.status(201).json({ success: true, data: review });
 };
 
 /** PUT /api/reviews/:id — protected; owner only */
@@ -71,7 +71,7 @@ exports.updateReview = async (req, res) => {
   await review.save();
 
   await recomputeRating(review.product);
-  res.status(200).json({ success: true, review });
+  res.status(200).json({ success: true, data: review });
 };
 
 /** DELETE /api/reviews/:id — protected; owner only */

@@ -1,3 +1,5 @@
+// TRANSITIONAL + FROZEN (see controllers/adminController.js header) — superseded by
+// /api/seller/* + /api/orders/:id/status. Kept for the iframed admin-build until Phase 7 removal.
 const express = require('express');
 const { getAnalytics, getProducts, getOrders, getCustomers, updateOrderStatus } = require('../controllers/adminController');
 const { protect, authorize } = require('../middleware/authMiddleware');

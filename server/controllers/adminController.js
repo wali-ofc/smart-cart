@@ -1,3 +1,14 @@
+/**
+ * TRANSITIONAL + FROZEN (Phase 3) — superseded by seller/order routes (§3.3.1):
+ *   getAnalytics      → GET /api/seller/dashboard
+ *   getProducts       → GET /api/seller/products
+ *   getOrders         → GET /api/orders + dashboard recentOrders
+ *   getCustomers      → dashboard totalCustomers
+ *   updateOrderStatus → PUT /api/orders/:id/status (enforces D8 state machine)
+ * Kept ONLY so the iframed admin-build dashboard (client/public/admin-build) keeps
+ * rendering until React seller pages land (Phase 5) and this mount is removed (Phase 7).
+ * Do NOT extend, fix, or reuse — add features to seller/order routes instead.
+ */
 const Order = require('../models/Order');
 const Product = require('../models/Product');
 const User = require('../models/User');

@@ -41,8 +41,11 @@ exports.createOrder = async (userId, { shipping_address, payment_method, notes }
   });
 
   const items_price = items.reduce((sum, it) => sum + it.price * it.quantity, 0);
-  // MVP: single-seller order — records the first item's seller (schema constraint: one seller per order)
-  const seller = items[0].product.seller || undefined;
+  // MVP: single-seller order — records the first item's seller (schema constraint: one seller per order).
+  // IMPORTANT: read `seller` from the POPULATED cart product — `items` above already replaced
+  // `product` with the raw ObjectId (ci.product._id), which has no `.seller`.
+  const firstProduct = user.cart[0].product;
+  const seller = firstProduct && firstProduct.seller ? firstProduct.seller : undefined;
 
   const order = await Order.create({
     user: userId,
