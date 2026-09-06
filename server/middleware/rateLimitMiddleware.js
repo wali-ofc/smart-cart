@@ -1,4 +1,4 @@
-const rateLimit = require('express-rate-limit');
+const { rateLimit, ipKeyGenerator } = require('express-rate-limit');
 
 /**
  * Per-user chat rate limit (spec §3.3.1 / §6.2): 50 requests/user/day.
@@ -10,7 +10,8 @@ const chatLimiter = rateLimit({
   limit: Number(process.env.RATE_LIMIT_MAX_REQUESTS) || 50,
   standardHeaders: 'draft-7',
   legacyHeaders: false,
-  keyGenerator: (req) => (req.user ? `user:${req.user.id}` : `ip:${req.ip}`),
+  // Per-user key when authenticated; library ipKeyGenerator handles IPv6-safe IP fallback
+  keyGenerator: (req) => (req.user ? `user:${req.user.id}` : ipKeyGenerator(req)),
   handler: (req, res) => {
     res.status(429).json({
       success: false,
