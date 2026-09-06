@@ -1,6 +1,59 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import api from "@/api/axios";
+
+const STATUS_LABEL = {
+  pending: "Pending",
+  processing: "Processing",
+  shipped: "Shipped",
+  delivered: "Delivered",
+  cancelled: "Cancelled",
+};
+
+const PAYMENT_LABEL = {
+  cod: "Cash on Delivery",
+  card: "Card",
+  other: "Other",
+};
+
+const fmtDateTime = (iso) =>
+  new Date(iso).toLocaleString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
 export default function OrderDetails() {
+  const { id } = useParams();
+  const [order, setOrder] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!id) {
+      setLoading(false);
+      setError("No order selected.");
+      return;
+    }
+    let active = true;
+    api
+      .get(`/orders/${id}`)
+      .then(({ data }) => {
+        if (active) setOrder(data.data);
+      })
+      .catch(() => {
+        if (active) setError("Could not load this order.");
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
+  }, [id]);
+
   useEffect(() => {
     const tabs = () => {
       document.querySelectorAll(".widget-tabs").forEach((widgetTab) => {
@@ -43,50 +96,75 @@ export default function OrderDetails() {
 
     // Call the function to initialize the tabs
     tabs();
+  }, [order]);
 
-    // Clean up event listeners when the component unmounts
-    return () => {
-      document
-        .querySelectorAll(".widget-menu-tab .item-title")
-        .forEach((title) => {
-          title.removeEventListener("click", () => {});
-        });
-    };
-  }, []);
+  if (loading) {
+    return (
+      <div className="wd-form-order">
+        <p className="py-4 mb-0">Loading order…</p>
+      </div>
+    );
+  }
+
+  if (error || !order) {
+    return (
+      <div className="wd-form-order">
+        <p className="py-4 mb-0 text-danger">
+          {error || "Order not found."}
+        </p>
+      </div>
+    );
+  }
+
+  const address = order.shipping_address || {};
+  const fullAddress = [
+    address.street,
+    address.city,
+    address.state,
+    address.zip_code,
+    address.country,
+  ]
+    .filter(Boolean)
+    .join(", ");
+  const receiverName = order.user && order.user.name ? order.user.name : "—";
+  const firstImage =
+    order.items[0] && order.items[0].product
+      ? order.items[0].product.image
+      : "/images/products/brown.jpg";
+
   return (
     <div className="wd-form-order">
       <div className="order-head">
         <figure className="img-product">
-          <img
-            alt="product"
-            src="/images/products/brown.jpg"
-            width="720"
-            height="1005"
-          />
+          <img alt="product" src={firstImage} width="720" height="1005" />
         </figure>
         <div className="content">
-          <div className="badge">In Progress</div>
-          <h6 className="mt-8 fw-5">Order #17493</h6>
+          <div className="badge">
+            {STATUS_LABEL[order.status] || order.status}
+          </div>
+          <h6 className="mt-8 fw-5">
+            Order #{order._id.slice(-6).toUpperCase()}
+          </h6>
         </div>
       </div>
       <div className="tf-grid-layout md-col-2 gap-15">
         <div className="item">
-          <div className="text-2 text_black-2">Item</div>
-          <div className="text-2 mt_4 fw-6">Fashion</div>
+          <div className="text-2 text_black-2">Order Date</div>
+          <div className="text-2 mt_4 fw-6">{fmtDateTime(order.createdAt)}</div>
         </div>
         <div className="item">
-          <div className="text-2 text_black-2">Courier</div>
-          <div className="text-2 mt_4 fw-6">Ribbed modal T-shirt</div>
+          <div className="text-2 text_black-2">Payment</div>
+          <div className="text-2 mt_4 fw-6">
+            {PAYMENT_LABEL[order.payment_method] || order.payment_method}
+          </div>
         </div>
         <div className="item">
-          <div className="text-2 text_black-2">Start Time</div>
-          <div className="text-2 mt_4 fw-6">04 September 2024, 13:30:23</div>
+          <div className="text-2 text_black-2">Items</div>
+          <div className="text-2 mt_4 fw-6">{order.items.length}</div>
         </div>
         <div className="item">
           <div className="text-2 text_black-2">Address</div>
-          <div className="text-2 mt_4 fw-6">
-            1234 Fashion Street, Suite 567, New York
-          </div>
+          <div className="text-2 mt_4 fw-6">{fullAddress || "—"}</div>
         </div>
       </div>
       <div className="widget-tabs style-has-border widget-order-tab">
@@ -112,40 +190,20 @@ export default function OrderDetails() {
                   <div className="timeline-badge success" />
                   <div className="timeline-box">
                     <a className="timeline-panel" href="#">
-                      <div className="text-2 fw-6">Product Shipped</div>
-                      <span>10/07/2024 4:30pm</span>
+                      <div className="text-2 fw-6">
+                        {STATUS_LABEL[order.status] || order.status}
+                      </div>
+                      <span>{fmtDateTime(order.createdAt)}</span>
                     </a>
                     <p>
-                      <strong>Courier Service : </strong>FedEx World Service
-                      Center
+                      <strong>Order Number : </strong>
+                      #{order._id.slice(-6).toUpperCase()}
                     </p>
                     <p>
-                      <strong>Estimated Delivery Date : </strong>12/07/2024
+                      <strong>Payment Method : </strong>
+                      {PAYMENT_LABEL[order.payment_method] ||
+                        order.payment_method}
                     </p>
-                  </div>
-                </li>
-                <li>
-                  <div className="timeline-badge success" />
-                  <div className="timeline-box">
-                    <a className="timeline-panel" href="#">
-                      <div className="text-2 fw-6">Product Shipped</div>
-                      <span>10/07/2024 4:30pm</span>
-                    </a>
-                    <p>
-                      <strong>Tracking Number : </strong>2307-3215-6759
-                    </p>
-                    <p>
-                      <strong>Warehouse : </strong>T-Shirt 10b
-                    </p>
-                  </div>
-                </li>
-                <li>
-                  <div className="timeline-badge" />
-                  <div className="timeline-box">
-                    <a className="timeline-panel" href="#">
-                      <div className="text-2 fw-6">Product Packaging</div>
-                      <span>12/07/2024 4:34pm</span>
-                    </a>
                   </div>
                 </li>
                 <li>
@@ -153,7 +211,7 @@ export default function OrderDetails() {
                   <div className="timeline-box">
                     <a className="timeline-panel" href="#">
                       <div className="text-2 fw-6">Order Placed</div>
-                      <span>11/07/2024 2:36pm</span>
+                      <span>{fmtDateTime(order.createdAt)}</span>
                     </a>
                   </div>
                 </li>
@@ -161,37 +219,31 @@ export default function OrderDetails() {
             </div>
           </div>
           <div className="widget-content-inner">
-            <div className="order-head">
-              <figure className="img-product">
-                <img
-                  alt="product"
-                  src="/images/products/brown.jpg"
-                  width="720"
-                  height="1005"
-                />
-              </figure>
-              <div className="content">
-                <div className="text-2 fw-6">Ribbed modal T-shirt</div>
-                <div className="mt_4">
-                  <span className="fw-6">Price :</span> $28.95
-                </div>
-                <div className="mt_4">
-                  <span className="fw-6">Size :</span> XL
-                </div>
-              </div>
-            </div>
             <ul>
-              <li className="d-flex justify-content-between text-2">
-                <span>Total Price</span>
-                <span className="fw-6">$28.95</span>
-              </li>
+              {order.items.map((item) => (
+                <li
+                  key={item._id}
+                  className="d-flex justify-content-between text-2"
+                >
+                  <span>
+                    {item.name} × {item.quantity}
+                  </span>
+                  <span className="fw-6">
+                    ${(item.price * item.quantity).toFixed(2)}
+                  </span>
+                </li>
+              ))}
               <li className="d-flex justify-content-between text-2 mt_4 pb_8 line">
-                <span>Total Discounts</span>
-                <span className="fw-6">$10</span>
+                <span>Items Total</span>
+                <span className="fw-6">
+                  ${(order.items_price || 0).toFixed(2)}
+                </span>
               </li>
               <li className="d-flex justify-content-between text-2 mt_8">
                 <span>Order Total</span>
-                <span className="fw-6">$18.95</span>
+                <span className="fw-6">
+                  ${(order.total_price || 0).toFixed(2)}
+                </span>
               </li>
             </ul>
           </div>
@@ -210,20 +262,35 @@ export default function OrderDetails() {
           </div>
           <div className="widget-content-inner">
             <p className="text-2 text_success">
-              Thank you Your order has been received
+              Thank you, your order has been received
             </p>
             <ul className="mt_20">
               <li>
-                Order Number : <span className="fw-7">#17493</span>
+                Order Number :{" "}
+                <span className="fw-7">
+                  #{order._id.slice(-6).toUpperCase()}
+                </span>
               </li>
               <li>
-                Date : <span className="fw-7"> 17/07/2024, 02:34pm</span>
+                Date : <span className="fw-7">{fmtDateTime(order.createdAt)}</span>
               </li>
               <li>
-                Total : <span className="fw-7">$18.95</span>
+                Total :{" "}
+                <span className="fw-7">
+                  ${(order.total_price || 0).toFixed(2)}
+                </span>
               </li>
               <li>
-                Payment Methods :<span className="fw-7">Cash on Delivery</span>
+                Receiver : <span className="fw-7">{receiverName}</span>
+              </li>
+              <li>
+                Address : <span className="fw-7">{fullAddress || "—"}</span>
+              </li>
+              <li>
+                Payment Methods :
+                <span className="fw-7">
+                  {PAYMENT_LABEL[order.payment_method] || order.payment_method}
+                </span>
               </li>
             </ul>
           </div>

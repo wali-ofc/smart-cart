@@ -1,11 +1,70 @@
 import { useContextElement } from "@/context/Context";
-
-import { Link } from "react-router-dom";
-import React from "react";
+import { useAuth } from "@/context/AuthContext";
+import { useNavigate, Link } from "react-router-dom";
+import React, { useState } from "react";
+import api from "@/api/axios";
 import { paymentImages } from "@/data/singleProductOptions";
 
 export default function Checkout() {
-  const { cartProducts, setCartProducts, totalPrice } = useContextElement();
+  const { cartProducts, totalPrice, clearCart } = useContextElement();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [country, setCountry] = useState("---");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [note, setNote] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("bank");
+  const [agreed, setAgreed] = useState(false);
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  const placeOrder = async (e) => {
+    e.preventDefault();
+    setError("");
+    if (!user) {
+      setError("Please log in to place your order.");
+      const el = document.getElementById("login");
+      if (el) {
+        import("bootstrap").then((bootstrap) => {
+          bootstrap.Modal.getOrCreateInstance(el).show();
+        });
+      }
+      return;
+    }
+    if (!agreed) {
+      setError("Please agree to the terms and conditions.");
+      return;
+    }
+    const payload = {
+      shipping_address: {
+        street: address,
+        city: city,
+        state: state,
+        zip_code: zipCode,
+        country: country,
+      },
+      payment_method: paymentMethod === "cod" ? "cod" : "other",
+      notes: note.trim() || undefined,
+    };
+    setSubmitting(true);
+    try {
+      await api.post("/orders", payload);
+      await clearCart();
+      navigate("/payment-confirmation");
+    } catch (err) {
+      setError(
+        err?.response?.data?.error || "Could not place your order. Please try again."
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  };
   return (
     <section className="flat-spacing-11">
       <div className="container">
@@ -24,11 +83,19 @@ export default function Checkout() {
                     type="text"
                     id="first-name"
                     placeholder="John"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
                   />
                 </fieldset>
                 <fieldset className="fieldset">
                   <label htmlFor="last-name">Last Name</label>
-                  <input required type="text" id="last-name" />
+                  <input
+                    required
+                    type="text"
+                    id="last-name"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                  />
                 </fieldset>
               </div>
               <fieldset className="box fieldset">
@@ -40,6 +107,8 @@ export default function Checkout() {
                     id="country"
                     name="address[country]"
                     data-default=""
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
                   >
                     <option value="---" data-provinces="[]">
                       ---
@@ -176,25 +245,55 @@ export default function Checkout() {
                   </select>
                 </div>
               </fieldset>
-                  <fieldset className="box fieldset">
-                    <label htmlFor="first-name">First Name</label>
-                    <input type="text" id="first-name" placeholder="John" />
-                  </fieldset>
-                  <fieldset className="box fieldset">
-                    <label htmlFor="last-name">Last Name</label>
-                    <input type="text" id="last-name" placeholder="Doe" />
-                  </fieldset>
               <fieldset className="box fieldset">
                 <label htmlFor="city">Town/City</label>
-                <input required type="text" id="city" />
+                <input
+                  required
+                  type="text"
+                  id="city"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                />
               </fieldset>
               <fieldset className="box fieldset">
                 <label htmlFor="address">Address</label>
-                <input required type="text" id="address" />
+                <input
+                  required
+                  type="text"
+                  id="address"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                />
+              </fieldset>
+              <fieldset className="box fieldset">
+                <label htmlFor="state">State / Province</label>
+                <input
+                  required
+                  type="text"
+                  id="state"
+                  value={state}
+                  onChange={(e) => setState(e.target.value)}
+                />
+              </fieldset>
+              <fieldset className="box fieldset">
+                <label htmlFor="zip">ZIP / Postal code</label>
+                <input
+                  required
+                  type="text"
+                  id="zip"
+                  value={zipCode}
+                  onChange={(e) => setZipCode(e.target.value)}
+                />
               </fieldset>
               <fieldset className="box fieldset">
                 <label htmlFor="phone">Phone Number</label>
-                <input required type="number" id="phone" />
+                <input
+                  required
+                  type="number"
+                  id="phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
               </fieldset>
               <fieldset className="box fieldset">
                 <label htmlFor="email">Email</label>
@@ -203,11 +302,18 @@ export default function Checkout() {
                   type="email"
                   autoComplete="abc@xyz.com"
                   id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </fieldset>
               <fieldset className="box fieldset">
                 <label htmlFor="note">Order notes (optional)</label>
-                <textarea name="note" id="note" defaultValue={""} />
+                <textarea
+                  name="note"
+                  id="note"
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                />
               </fieldset>
             </form>
           </div>
@@ -215,7 +321,7 @@ export default function Checkout() {
             <div className="tf-cart-footer-inner">
               <h5 className="fw-5 mb_20">Your order</h5>
               <form
-                onSubmit={(e) => e.preventDefault()}
+                onSubmit={placeOrder}
                 className="tf-page-cart-checkout widget-wrap-checkout"
               >
                 <ul className="wrap-checkout-product">
@@ -271,8 +377,11 @@ export default function Checkout() {
                 </div>
                 <div className="d-flex justify-content-between line pb_20">
                   <h6 className="fw-5">Total</h6>
-                  <h6 className="total fw-5">$122.00</h6>
+                  <h6 className="total fw-5">${totalPrice.toFixed(2)}</h6>
                 </div>
+                {error && (
+                  <div className="alert alert-danger py-2 mb-3">{error}</div>
+                )}
                 <div className="wd-check-payment">
                   <div className="fieldset-radio mb_20">
                     <input
@@ -281,7 +390,8 @@ export default function Checkout() {
                       name="payment"
                       id="bank"
                       className="tf-check"
-                      defaultChecked
+                      checked={paymentMethod === "bank"}
+                      onChange={() => setPaymentMethod("bank")}
                     />
                     <label htmlFor="bank">Direct bank transfer</label>
                   </div>
@@ -292,6 +402,8 @@ export default function Checkout() {
                       name="payment"
                       id="delivery"
                       className="tf-check"
+                      checked={paymentMethod === "cod"}
+                      onChange={() => setPaymentMethod("cod")}
                     />
                     <label htmlFor="delivery">Cash on delivery</label>
                   </div>
@@ -313,6 +425,8 @@ export default function Checkout() {
                       type="checkbox"
                       id="check-agree"
                       className="tf-check"
+                      checked={agreed}
+                      onChange={(e) => setAgreed(e.target.checked)}
                     />
                     <label htmlFor="check-agree" className="text_black-2">
                       I have read and agree to the website
@@ -326,8 +440,12 @@ export default function Checkout() {
                     </label>
                   </div>
                 </div>
-                  <button className="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center mb_20">
-                    Place order
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center mb_20"
+                  >
+                    {submitting ? "Placing order..." : "Place order"}
                   </button>
 
                   {/* Payment Icons */}
