@@ -1,61 +1,29 @@
 import { allProducts } from "@/data/products";
-import { openCartModal } from "@/utlis/openCartModal";
-// import { openCart } from "@/utlis/toggleCart";
-import React, { useEffect } from "react";
-import { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useAuth } from "./AuthContext";
+import { useCart } from "./CartContext";
+
 const dataContext = React.createContext();
 export const useContextElement = () => {
   return useContext(dataContext);
 };
 
+/**
+ * Legacy global storefront state (wishlist/compare/quick-view) + cart slice.
+ * The cart slice now comes from CartContext (server-synced when signed in,
+ * localStorage when anonymous) — the exposed API surface is unchanged so all
+ * 84 useContextElement consumers keep working.
+ */
 export default function Context({ children }) {
-  const [cartProducts, setCartProducts] = useState([]);
+  const { user } = useAuth();
+  const isAuthenticated = Boolean(user);
+  const cart = useCart();
+
   const [wishList, setWishList] = useState([1, 2, 3]);
   const [compareItem, setCompareItem] = useState([1, 2, 3]);
   const [quickViewItem, setQuickViewItem] = useState(allProducts[0]);
   const [quickAddItem, setQuickAddItem] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(0);
-  useEffect(() => {
-    const subtotal = cartProducts.reduce((accumulator, product) => {
-      return accumulator + product.quantity * product.price;
-    }, 0);
-    setTotalPrice(subtotal);
-  }, [cartProducts]);
 
-  const addProductToCart = (id, qty) => {
-    if (!cartProducts.filter((elm) => elm.id == id)[0]) {
-      const item = {
-        ...allProducts.filter((elm) => elm.id == id)[0],
-        quantity: qty ? qty : 1,
-      };
-      setCartProducts((pre) => [...pre, item]);
-      openCartModal();
-
-      // openCart();
-    }
-  };
-  const isAddedToCartProducts = (id) => {
-    if (cartProducts.filter((elm) => elm.id == id)[0]) {
-      return true;
-    }
-    return false;
-  };
-
-  const updateQuantity = (id, qty) => {
-    if (isAddedToCartProducts(id)) {
-      let item = cartProducts.filter((elm) => elm.id == id)[0];
-      let items = [...cartProducts];
-      const itemIndex = items.indexOf(item);
-
-      item.quantity = qty / 1;
-      items[itemIndex] = item;
-      setCartProducts(items);
-
-      openCartModal();
-    } else {
-      addProductToCart(id, qty);
-    }
-  };
   const addToWishlist = (id) => {
     if (!wishList.includes(id)) {
       setWishList((pre) => [...pre, id]);
@@ -78,32 +46,17 @@ export default function Context({ children }) {
       setCompareItem((pre) => [...pre.filter((elm) => elm != id)]);
     }
   };
-  const isAddedtoWishlist = (id) => {
-    if (wishList.includes(id)) {
-      return true;
-    }
-    return false;
-  };
-  const isAddedtoCompareItem = (id) => {
-    if (compareItem.includes(id)) {
-      return true;
-    }
-    return false;
-  };
-  useEffect(() => {
-    const items = JSON.parse(localStorage.getItem("cartList"));
-    if (items?.length) {
-      setCartProducts(items);
-    }
-  }, []);
+  const isAddedtoWishlist = (id) => wishList.includes(id);
+  const isAddedtoCompareItem = (id) => compareItem.includes(id);
 
   useEffect(() => {
-    localStorage.setItem("cartList", JSON.stringify(cartProducts));
-  }, [cartProducts]);
-  useEffect(() => {
-    const items = JSON.parse(localStorage.getItem("wishlist"));
-    if (items?.length) {
-      setWishList(items);
+    try {
+      const items = JSON.parse(localStorage.getItem("wishlist"));
+      if (items?.length) {
+        setWishList(items);
+      }
+    } catch {
+      // corrupted wishlist key — fall back to defaults
     }
   }, []);
 
@@ -112,11 +65,11 @@ export default function Context({ children }) {
   }, [wishList]);
 
   const contextElement = {
-    cartProducts,
-    setCartProducts,
-    totalPrice,
-    addProductToCart,
-    isAddedToCartProducts,
+    cartProducts: cart.items,
+    setCartProducts: cart.setLegacyCart,
+    totalPrice: cart.totalPrice,
+    addProductToCart: cart.addProductToCart,
+    isAddedToCartProducts: cart.isAddedToCartProducts,
     removeFromWishlist,
     addToWishlist,
     isAddedtoWishlist,
@@ -130,7 +83,9 @@ export default function Context({ children }) {
     removeFromCompareItem,
     compareItem,
     setCompareItem,
-    updateQuantity,
+    updateQuantity: cart.updateQuantity,
+    removeFromCart: cart.removeFromCart,
+    clearCart: cart.clearCart,
   };
   return (
     <dataContext.Provider value={contextElement}>

@@ -2,19 +2,13 @@ import { useContextElement } from "@/context/Context";
 
 import { Link } from "react-router-dom";
 export default function Cart() {
-  const { cartProducts, setCartProducts, totalPrice } = useContextElement();
+  const { cartProducts, updateQuantity, removeFromCart, totalPrice } =
+    useContextElement();
   const setQuantity = (id, quantity) => {
-    if (quantity >= 1) {
-      const item = cartProducts.filter((elm) => elm.id == id)[0];
-      const items = [...cartProducts];
-      const itemIndex = items.indexOf(item);
-      item.quantity = quantity;
-      items[itemIndex] = item;
-      setCartProducts(items);
-    }
+    if (quantity >= 1) updateQuantity(id, quantity);
   };
   const removeItem = (id) => {
-    setCartProducts((pre) => [...pre.filter((elm) => elm.id != id)]);
+    removeFromCart(id);
   };
   return (
     <section className="flat-spacing-11">
