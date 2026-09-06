@@ -61,6 +61,8 @@ import OurStoryPage from "./pages/otherPages/our-store";
 import ScrollTopBehaviour from "./components/common/ScrollToTopBehaviour";
 import CategoryPage from "./pages/shop/category";
 import { AuthProvider } from "./context/AuthContext";
+import { CartProvider } from "./context/CartContext";
+import ChatWidget from "./components/common/ChatWidget";
 
 function App() {
   const { pathname } = useLocation();
@@ -180,7 +182,8 @@ function App() {
         </div>
       </div>
       <AuthProvider>
-        <Context>
+        <CartProvider>
+          <Context>
           <div id="wrapper">
             <Routes>
               <Route path="/">
@@ -191,6 +194,7 @@ function App() {
                 <Route path="shop-collection-sub" element={<ShopDefaultPage />} />
                 <Route path="category/:categoryId" element={<CategoryPage />} />
                 <Route path="product-detail/:id" element={<ProductDetailPage />} />
+                <Route path="product/:id" element={<ProductDetailPage />} />
                 <Route path="blog-grid" element={<BlogGridPage />} />
                 <Route path="blog-detail/:id" element={<BlogDetailPage />} />
                 <Route path="cart" element={<ViewCartPage />} />
@@ -200,6 +204,7 @@ function App() {
                 <Route path="profile" element={<MyAccountPage />} />
                 <Route path="orders" element={<MyAccountOrderPage />} />
                 <Route path="wishlist" element={<WishlistPage />} />
+                <Route path="likes" element={<WishlistPage />} />
 
                 {/* Dashboard Sub-routes */}
                 <Route path="my-account" element={<MyAccountPage />} />
@@ -208,6 +213,7 @@ function App() {
                 <Route path="my-account-edit" element={<MyAccountEditPage />} />
                 <Route path="my-account-wishlist" element={<MyAccountWishlistPage />} />
                 <Route path="my-account-orders-details" element={<MyAccountOrderDetailsPage />} />
+                <Route path="my-account-orders-details/:id" element={<MyAccountOrderDetailsPage />} />
 
                 <Route path="seller/*" element={<AdminIframe />} />
                 <Route path="delivery" element={<DeliveryReturnPage />} />
@@ -244,7 +250,9 @@ function App() {
           <SearchModal />
           <ToolbarBottom />
           <ToolbarShop />
+          <ChatWidget />
         </Context>
+        </CartProvider>
       </AuthProvider>
       <ScrollTop />
       <ScrollTopBehaviour />
