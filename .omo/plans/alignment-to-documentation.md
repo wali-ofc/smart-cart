@@ -196,26 +196,30 @@ Current `/api/admin/*` = prebuilt iframe dashboard. Spec §3.3.1 defines `/api/s
 3. Order status update moves to `PUT /api/orders/:id/status` (§3.3.1) — seller role. Remove `/api/admin/*` mount from server.js once client pages (Phase 4) depend only on seller routes.
 4. `client/public/admin-build/` + `AdminIframe` become dead once React seller pages land → remove in Phase 7 trim (log in §13).
 
-## 6. Phase 4 — Product Seeding (owner decision 2026-09-05: Free E-commerce API DROPPED)
+## 6. Phase 4 — Product Seeding (owner decisions 2026-09-05 Free E-commerce API DROPPED; 2026-09-06 exactly 10 products per category — 50 total)
 
 Source = curated subset of the existing static catalog `client/src/data/products.js` (the spec §1.5 API is abandoned — see D9).
 
-1. Add `server/scripts/seedProducts.js`: import `products1` from `client/src/data/products.js` → deterministically curate a representative ~50-150 item subset spread across the 5 spec categories → map to spec Product shape → upsert by `name`.
-2. Field mapping (static → spec):
+> **EXECUTED 2026-09-06** — Phase 4 COMPLETE (verified: seed run + API). See D9 record.
+
+1. Curation (DONE, one-off): swept `allProducts` (line 8571 — union of all static arrays; `products1` alone is fashion-only) with keyword rules into the 5 spec enum categories, deduped by title, dropped junk/no-image items, took first 10 per category → baked ONCE into `server/scripts/seedData.json` (`{title, price, imgSrc, brand, isAvailable, category}`, 50 entries). Curation script lives in temp (not the repo). Classification pitfalls handled: color-name false positives (e.g. "Y'all Tee - Blush" stays Fashion, not Beauty) via reordered rule precedence.
+2. Add `server/scripts/seedProducts.js` (DONE): reads `seedData.json` → maps to spec Product shape (mapping below) → upserts by `name`; creates demo seller `seller@smartcart.local` / `seller123` (env-overridable `DEMO_SELLER_EMAIL` / `DEMO_SELLER_PASSWORD`) once. Idempotent; never deletes existing products.
+
+   Field mapping (static → spec):
    - `title` → `name`; `price` → `price`
    - `imgSrc` → `image` — keep the local path (`/images/...`), served by the client origin (Vite dev / Vercel prod); `imgHoverSrc` dropped (spec has a single image)
-   - `filterCategories[]` → `category` — map to the 5 spec enums; unmapped entries → fallback category, log the count
+   - `filterCategories[]` → NOT used for category (too generic) — curation keyword rules assign one of the 5 spec enums (see step 1); unmapped entries dropped, not fallbacked
    - `brand` → `subCategory` + `keywords` tokens
    - `id` / `colors[]` / `sizes[]` → dropped (Mongo `_id`; spec has no variants)
    - `isAvailable` → `stock` (true → 10, false → 0)
    - `description` → generated from title + brand + category (static data has none)
-   - `keywords` → tokenized title/brand/category
+   - `keywords` → tokenized title/brand/category (stopwords removed, deduped, ≤10)
    - `rating {stars, count}` → deterministic derivation from a seeded RNG (stars 3.6-4.9, count 0-150) so listings look alive
-3. `npm run seed` script in `server/package.json`.
-4. **Extraction timing:** the curated dataset is baked into `seedProducts.js` ONCE during this phase — after that, `client/src/data/products.js` is deletable in Phase 7 (already sequenced after the page flip; see §7.3).
+3. `npm run seed` script in `server/package.json` (DONE, `node scripts/seedProducts.js`).
+4. **Extraction timing:** the curated dataset is baked into `server/scripts/seedData.json` ONCE during this phase — after that, `client/src/data/products.js` is deletable in Phase 7 (already sequenced after the page flip; see §7.3).
 5. Delete `scripts/seed-supabase.js` + `scripts/upload-assets-to-supabase.js` (previous stack) — Phase 7.
 
-**Acceptance:** fresh DB → `npm run seed` → `/api/products?page=1&limit=10` returns paginated spec-shaped docs whose `image` paths resolve against the client origin; search/category/price filters return expected subsets; `/api/products/categories` = the 5 enum values; every seeded product renders in the existing card UI.
+**Acceptance — VERIFIED 2026-09-06:** fresh DB → `npm run seed` → 50 products (10 per category), demo seller created; `/api/products?category=<each>&limit=10` returns 10 per category; `?search=headphone|skateboard` + `&sort=-price` work; `/api/products/categories` = 5 enum values (`{success, count:5, categories:[...]}`); seller dashboard shows `totalProducts: 50`, `ratedProducts: 50`; product docs spec-shaped (`rating{stars,count}`, `keywords[]`, `subCategory`, `stock`, `image` root-relative `/images/...` paths resolving under `client/public`). FYP cleaned after verification (collections emptied; seed is re-runnable).
 
 ## 7. Phase 5 — Client Realignment (spec §4.3; UI frozen)
 
@@ -303,9 +307,12 @@ Order matters — only delete what no longer has importers:
 | D6 | Index uniqueness `Review(product,user)` | Keep (one review/user/product) — implements spec intent |
 | D7 | `admin dashboard/extracted-silva/` | Keep as vendor reference (owner purchase); never edit |
 | D8 | Order status enforcement order | pending → processing → shipped → delivered; cancelled allowed from any |
-| D9 | Product seed source (**DECIDED 2026-09-05**) | Curate ~50-150 items from the existing static catalog → map to spec schema, keep local `/images/...` paths; Free E-commerce API (§1.5/§4.2.4) abandoned by owner; `image` is relative to the client origin (dev: Vite, prod: Vercel) — acceptable deviation, logged |
+| D9 | Product seed source (**DECIDED 2026-09-05; EXECUTED 2026-09-06**) | Curate from the existing static catalog → map to spec schema, keep local `/images/...` paths; Free E-commerce API (§1.5/§4.2.4) abandoned by owner; `image` is relative to the client origin (dev: Vite, prod: Vercel) — acceptable deviation, logged. **Owner decision 2026-09-06: exactly 10 products per category → 50 total.** Executed via one-off curation sweep of `allProducts` (client/src/data/products.js line 8571) → `server/scripts/seedData.json` (baked; enables Phase 7 deletion of the static catalog) → `server/scripts/seedProducts.js` upserts by name + creates demo seller `seller@smartcart.local`/`seller123` (env-overridable). Verified: 10/category via API, categories = 5 enums, search + sort work, seller dashboard totalProducts=50 |
 | D10 | `/api/admin` mount removal timing (**DECIDED 2026-09-05**) | Phase 3 enriched `seller/dashboard` per §5.2 (ordersThisMonth, averageRating) so the seller surface fully supersedes adminController. Mount STAYS (frozen, do-not-extend) until Phase 5 React seller pages depend only on seller routes — then removed with `AdminIframe` + `public/admin-build/` in Phase 7. adminController.updateOrderStatus bypasses the D8 machine but is only reachable via the retiring iframe — accepted, documented |
 | D11 | Response envelope convention (**DECIDED 2026-09-05**) | Standardized zero-consumer singletons to `{success, data}` (product get/create/update, order create/detail/status, review create/update, delivery status). Lists keep `{success, count, <plural>}` (products/categories/orders/reviews/cart). **Exception:** `GET /api/auth/me` KEEPS `{success, user}` — the frozen client `AuthContext` reads `data.user`; re-align only during Phase 5 AuthContext rework. Deletes return `{success, data: {}}` |
+| D12 | Chat integration (client) (**DECIDED 2026-09-06**) | ChatWidget holds chat state locally; NO ChatContext module this phase. Spec §4.3.2 lists a ChatContext, but the API surface (POST /api/chat, one-shot reply) needs no shared session state — deferred to the chatbot wave (Ollama wiring + 50/day + 30d TTL already server-side). Widget: signed-in only, error surfaces 503/429, template classes |
+| D13 | `PUT /api/cart/:productId` (**DECIDED 2026-09-06**) | Spec F011 "Update Quantity" (Ch.3) requires a quantity-update endpoint but the §3.3.1 API table omits it. Added: body `{quantity}`, clamp 1..99, 404 if productId not in cart, 200 `{success, data}` cart. Controller `updateQuantity` + route registered in cartRoutes |
+| D14 | Spec-route aliases (**DECIDED + EXECUTED 2026-09-06**) | Added `/product/:id` → ProductDetailPage and `/likes` → WishlistPage in App.jsx. Legacy `/shop-default` + `/product-detail/:id` KEPT as compatibility aliases — the plan's "drop dups" is REFUTED by evidence: 89 `/shop-default` links across 22 files, 40+ `/product-detail/:id` link sites, and data/AGENTS.md forbids renumbering product ids (localStorage cart + route refs). Oracle consultation on the pages wave was UNAVAILABLE (4 model-resolution failures); decision made on link-count + data-contract evidence. Pages wave (MongoDB product resolution inside ProductDetailPage) stays deferred to the seed-verification wave |
 
 ## 14. Final Acceptance Criteria (all phases green)
 
