@@ -1,6 +1,42 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
+
 export default function Register() {
+  const { register } = useAuth();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("customer");
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  const closeModal = () => {
+    const el = document.getElementById("register");
+    if (el) {
+      import("bootstrap").then((bootstrap) => {
+        const instance = bootstrap.Modal.getOrCreateInstance(el);
+        instance.hide();
+      });
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setSubmitting(true);
+    try {
+      await register(`${firstName} ${lastName}`.trim(), email, password, role);
+      closeModal();
+    } catch (err) {
+      setError(
+        err?.response?.data?.error || "Registration failed. Please try again."
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <div
       className="modal modalCentered fade form-sign-in modal-part-content"
@@ -16,18 +52,20 @@ export default function Register() {
             />
           </div>
           <div className="tf-login-form">
-            <form onSubmit={(e) => e.preventDefault()} className="">
+            <form onSubmit={handleSubmit}>
+              {error && (
+                <div className="alert alert-danger py-2 mb-3">{error}</div>
+              )}
               <div className="tf-field style-1">
                 <input
                   className="tf-field-input tf-input"
                   placeholder=" "
                   type="text"
                   required
-                  name=""
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                 />
-                <label className="tf-field-label" htmlFor="">
-                  First name
-                </label>
+                <label className="tf-field-label">First name</label>
               </div>
               <div className="tf-field style-1">
                 <input
@@ -35,11 +73,10 @@ export default function Register() {
                   placeholder=" "
                   type="text"
                   required
-                  name=""
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                 />
-                <label className="tf-field-label" htmlFor="">
-                  Last name
-                </label>
+                <label className="tf-field-label">Last name</label>
               </div>
               <div className="tf-field style-1">
                 <input
@@ -48,11 +85,10 @@ export default function Register() {
                   type="email"
                   autoComplete="abc@xyz.com"
                   required
-                  name=""
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
-                <label className="tf-field-label" htmlFor="">
-                  Email *
-                </label>
+                <label className="tf-field-label">Email *</label>
               </div>
               <div className="tf-field style-1">
                 <input
@@ -60,21 +96,35 @@ export default function Register() {
                   placeholder=" "
                   type="password"
                   required
-                  name=""
-                  autoComplete="current-password"
+                  autoComplete="new-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
-                <label className="tf-field-label" htmlFor="">
-                  Password *
-                </label>
+                <label className="tf-field-label">Password *</label>
+              </div>
+              <div className="tf-field style-1">
+                <select
+                  className="tf-field-input tf-input"
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                >
+                  <option value="customer">Customer</option>
+                  <option value="seller">Seller</option>
+                  <option value="delivery">Delivery agent</option>
+                </select>
+                <label className="tf-field-label">Account type</label>
               </div>
               <div className="bottom">
                 <div className="w-100">
-                  <Link
-                    to={`/register`}
+                  <button
+                    type="submit"
+                    disabled={submitting}
                     className="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"
                   >
-                    <span>Register</span>
-                  </Link>
+                    <span>
+                      {submitting ? "Creating account..." : "Register"}
+                    </span>
+                  </button>
                 </div>
                 <div className="w-100">
                   <a

@@ -1,8 +1,12 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import api from '../api/axios';
 
 const AuthContext = createContext();
 
+/**
+ * JWT auth state (documentation.md §4.3.2 AuthContext).
+ * Session is cookie-based (httpOnly `token`); /auth/me on mount restores it.
+ */
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -27,13 +31,24 @@ export const AuthProvider = ({ children }) => {
     return data;
   };
 
+  const register = async (name, email, password, role = 'customer') => {
+    const { data } = await api.post('/auth/register', {
+      name,
+      email,
+      password,
+      role
+    });
+    setUser(data.user);
+    return data;
+  };
+
   const logout = async () => {
-    await api.get('/auth/logout');
+    await api.post('/auth/logout');
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, register, logout, loading }}>
       {!loading && children}
     </AuthContext.Provider>
   );
