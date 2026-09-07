@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const path = require('path');
-require('dotenv').config({ quiet: true });
+require('dotenv').config({ quiet: true, path: path.join(__dirname, '.env') });
 
 const connectDB = require('./config/database');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
