@@ -7,7 +7,7 @@
     "server": "cd server && npm run dev",
     "client": "cd client && npm run dev",
     "dev": "npx concurrently \"npm run server\" \"npm run client\"",
-    "build": "cd client && npm install && npm run build && cd .. && rm -rf dist && cp -r client/dist dist"
+    "build": "cd server && npm install && cd ../client && npm install && npm run build && cd .. && rm -rf dist && cp -r client/dist dist"
   },
   "dependencies": {
     "concurrently": "^8.2.2"
