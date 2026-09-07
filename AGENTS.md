@@ -52,8 +52,7 @@ smart-cart-fyp/
 ├── documentation.md        # authoritative FYP documentation (7 chapters)
 │
 ├── package.json            # runs client+server via concurrently
-├── vercel.json             # SPA rewrite: all routes → /index.html
-└── *.cjs / add_route.js    # one-off template-patch scripts — do NOT reuse
+└── vercel.json             # SPA rewrite: all routes → /index.html
 ```
 
 ## WHERE TO LOOK
@@ -98,7 +97,7 @@ smart-cart-fyp/
 
 - **UI is FINAL (owner directive)** — never restyle, redesign, or change the visual design of existing pages/components; build new work in the current look. See UI FREEZE under ALIGNMENT STATUS.
 - **Hardcoded admin credentials in production code** — `server/controllers/authController.js` (email+password bypass) and `server/middleware/auth.js` (`admin_hardcoded_id`, fallback JWT secret `secret123`). Present by design for Vercel demo; never extend this pattern.
-- **Do NOT run root `*.cjs` / `add_route.js` patch scripts** — one-off hacks (regex rewrites across components); may corrupt source if re-run.
+- **Root `*.cjs` / `add_route.js` patch scripts removed (2026-09-06)** — were one-off hacks (regex rewrites across components) that could corrupt source if re-run; do not recreate this pattern.
 - **Do NOT edit `admin dashboard/extracted-silva/`** — purchased vendor template (TS+JS duplicates); `client/public/admin-build/` is its compiled output.
 - **Do NOT "clean up" the hundreds of unused demo variants** in `client/src/components` — unused variants are tree-shaken at build; deletion risks breaking imports referenced by pages.
 - **No test suite** — `server` test script is a stub. Adding tests is welcome but don't assume coverage exists.
