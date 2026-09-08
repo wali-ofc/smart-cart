@@ -21,7 +21,7 @@ server/
 │   ├── authService.js        # register / login / getMe (User methods: comparePassword, getSignedToken, toSafeJSON)
 │   ├── productService.js     # list (pagination+category/search/price/sort), categories, CRUD (owner-guarded), likes
 │   ├── orderService.js       # create from cart (totals, single-seller, clears cart), history, scoped detail, status transitions (D8)
-│   └── chatService.js        # Ollama generate (OLLAMA_HOST/OLLAMA_MODEL), ChatSession persistence (TTL 30d), order context
+│   └── chatService.js        # Hybrid bot (mirrors reference): INTENTS regex map → deterministic handlers (orders/cart/nav/FAQ, no AI) OR Ollama generate (OLLAMA_BASE_URL/OLLAMA_MODEL/OLLAMA_FALLBACK_MODEL) with order+cart+history context + ACTION_LABEL|URL parsing; ChatSession persistence (TTL 30d, last-50 cap)
 ├── controllers/              # thin: parse → validate → service → respond (Express 5 auto-forwards async errors)
 ├── routes/                   # auth product cart order seller delivery chat review (+ admin transitional)
 │   └── (validators via express-validator inline; errors → 400 + errors[{field,message}])
@@ -59,7 +59,9 @@ server/
 | `/api/seller/products/:id/analytics` | GET | `protect` + `authorize('seller')` + owner |
 | `/api/delivery/assigned` | GET | `protect` + `authorize('delivery')` — shipped+delivered |
 | `/api/delivery/:orderId/status` | PUT | `protect` + `authorize('delivery')` — assigned only |
-| `/api/chat` | POST | `protect` + `chatLimiter` — `{message}`; 503 when Ollama down |
+| `/api/chat` | POST | `protect` + `chatLimiter` — `{message}` → `{reply, actions}`; hybrid: deterministic intent layer (orders/cart/nav/FAQ) OR Ollama fallback with order+cart+history context; 503 when Ollama down |
+| `/api/chat/history` | GET | `protect` — this user's messages (incl. per-message `actions`) |
+| `/api/chat/history` | DELETE | `protect` — clears this user's chat history |
 | `/api/reviews/product/:productId` | GET | public |
 | `/api/reviews/product/:productId` | POST | `protect` — one per user per product; recomputes `Product.rating{stars,count}` |
 | `/api/reviews/my-reviews` | GET | `protect` |

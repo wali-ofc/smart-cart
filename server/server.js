@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const fs = require('fs');
 require('dotenv').config({ quiet: true, path: path.join(__dirname, '.env') });
 
 const connectDB = require('./config/database');
@@ -48,15 +49,20 @@ app.use('/api/admin', adminRoutes); // transitional
 // Basic health route
 app.get('/api/health', (req, res) => res.json({ status: 'OK' }));
 
-// Production: serve the built React client (repo-root dist/ from `npm run build`)
+// Serve the built React client (repo-root dist/ from `npm run build`).
+// Activated whenever a build actually exists — not gated solely on NODE_ENV —
+// so a missing/incorrect NODE_ENV on the host can't turn the site into a JSON 404.
 // Express 5 note: SPA fallback uses a middleware, not app.get('*') (path-to-regexp v8).
-if (process.env.NODE_ENV === 'production') {
-  const distDir = path.resolve(__dirname, '..', 'dist');
+const distDir = path.resolve(__dirname, '..', 'dist');
+const hasBuild = fs.existsSync(path.join(distDir, 'index.html'));
+if (process.env.NODE_ENV === 'production' || hasBuild) {
   app.use(express.static(distDir));
   app.use((req, res, next) => {
     if (req.method !== 'GET' || req.path.startsWith('/api')) return next();
     res.sendFile(path.join(distDir, 'index.html'));
   });
+} else {
+  console.warn('[server] dist/index.html not found — run `npm run build` at the repo root to serve the client (non-API routes will 404).');
 }
 
 // 404 + central error handler — LAST (spec §4.2.1)
