@@ -1,11 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { Link } from "react-router-dom";
 import LookbookComponent from "@/components/common/LookbookComponent";
-import { lookbookProducts } from "@/data/products";
+import api from "@/api/axios";
+import { normalizeProduct } from "@/utlis/productMap";
 import { Pagination } from "swiper/modules";
 export default function Lookbook() {
+  const [lookbookProducts, setLookbookProducts] = useState([]);
+  useEffect(() => {
+    let cancelled = false;
+    api
+      .get("/products", { params: { limit: 3 } })
+      .then(({ data }) => {
+        if (!cancelled && Array.isArray(data.products)) {
+          setLookbookProducts(data.products.map(normalizeProduct));
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setLookbookProducts([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
   return (
     <section className="flat-spacing-6">
       <div className="flat-title wow fadeInUp" data-wow-delay="0s">
@@ -45,38 +63,42 @@ export default function Lookbook() {
                 height="585"
               />
             </div>
-            <div className="lookbook-item item-1">
-              <div className="inner">
-                <div className="btn-group dropdown dropup dropdown-center">
-                  <button
-                    className="tf-pin-btn"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <span />
-                  </button>
-                  <ul className="dropdown-menu p-0 border-0">
-                    <LookbookComponent product={lookbookProducts[0]} />
-                  </ul>
+            {lookbookProducts[0] && (
+              <div className="lookbook-item item-1">
+                <div className="inner">
+                  <div className="btn-group dropdown dropup dropdown-center">
+                    <button
+                      className="tf-pin-btn"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <span />
+                    </button>
+                    <ul className="dropdown-menu p-0 border-0">
+                      <LookbookComponent product={lookbookProducts[0]} />
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="lookbook-item item-2">
-              <div className="inner">
-                <div className="btn-group dropdown dropup dropdown-center">
-                  <button
-                    className="tf-pin-btn"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <span />
-                  </button>
-                  <ul className="dropdown-menu p-0 border-0">
-                    <LookbookComponent product={lookbookProducts[1]} />
-                  </ul>
+            )}
+            {lookbookProducts[1] && (
+              <div className="lookbook-item item-2">
+                <div className="inner">
+                  <div className="btn-group dropdown dropup dropdown-center">
+                    <button
+                      className="tf-pin-btn"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <span />
+                    </button>
+                    <ul className="dropdown-menu p-0 border-0">
+                      <LookbookComponent product={lookbookProducts[1]} />
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </SwiperSlide>
         <SwiperSlide className="swiper-slide">
@@ -91,22 +113,24 @@ export default function Lookbook() {
                 height="585"
               />
             </div>
-            <div className="lookbook-item item-1">
-              <div className="inner">
-                <div className="btn-group dropdown dropup dropdown-center">
-                  <button
-                    className="tf-pin-btn"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <span />
-                  </button>
-                  <ul className="dropdown-menu p-0 border-0">
-                    <LookbookComponent product={lookbookProducts[2]} />
-                  </ul>
+            {lookbookProducts[2] && (
+              <div className="lookbook-item item-1">
+                <div className="inner">
+                  <div className="btn-group dropdown dropup dropdown-center">
+                    <button
+                      className="tf-pin-btn"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <span />
+                    </button>
+                    <ul className="dropdown-menu p-0 border-0">
+                      <LookbookComponent product={lookbookProducts[2]} />
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </SwiperSlide>
 

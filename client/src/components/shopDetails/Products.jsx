@@ -1,9 +1,29 @@
-import { products1 } from "@/data/products";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { ProductCard } from "../shopCards/ProductCard";
 import { Navigation, Pagination } from "swiper/modules";
+import { useEffect, useState } from "react";
+import api from "@/api/axios";
+import { normalizeProduct } from "@/utlis/productMap";
 
-export default function Products() {
+export default function Products({ category }) {
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    let cancelled = false;
+    const params = { limit: 8 };
+    if (category) params.category = category;
+    api
+      .get("/products", { params })
+      .then(({ data }) => {
+        if (!cancelled) setProducts((data.products || []).map(normalizeProduct));
+      })
+      .catch(() => {
+        if (!cancelled) setProducts([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [category]);
+  if (!products.length) return null;
   return (
     <section className="flat-spacing-1 pt_0">
       <div className="container">
@@ -35,7 +55,7 @@ export default function Products() {
             }}
             pagination={{ clickable: true, el: ".spd307" }}
           >
-            {products1.slice(0, 8).map((product, i) => (
+            {products.map((product, i) => (
               <SwiperSlide key={i} className="swiper-slide">
                 <ProductCard product={product} />
               </SwiperSlide>

@@ -4,7 +4,7 @@
 
 Express 5 + Mongoose 9 backend for SmartCart. Cookie-based JWT auth with role guards, services/ layer, full §3.3.1 API surface, and Jest tests (`mongodb-memory-server`). CommonJS.
 
-> **Alignment status:** Phase 2 complete — all spec route groups exist (§3.3.1) behind services (+ rate-limit + central error middleware). Phase 3 complete — `seller/dashboard` covers the §5.2 checklist (revenue, orders this month, products, average rating); `/api/admin` is FROZEN transitional (iframed admin-build only; removed with `AdminIframe` in Phase 7, decision D10). Phase 4 complete — MongoDB catalog seeded from the curated static subset (50 products, 10 per spec category — owner decision 2026-09-06; see §SEEDING). Phases 5-9 open: wire the client to these APIs, route-level Jest suites (§5).
+> **Alignment status:** Phase 2 complete — all spec route groups exist (§3.3.1) behind services (+ rate-limit + central error middleware). Phase 3 complete — `seller/dashboard` covers the §5.2 checklist (revenue, orders this month, products, average rating); `/api/admin` REMOVED (Phase 7, D10) after React seller pages landed. Phase 4 complete — MongoDB catalog seeded from the curated static subset (50 products, 10 per spec category — owner decision 2026-09-06; see §SEEDING). Phase 5 §7.2 complete — client pages wire to these APIs (likes/delivery/seller dashboards, my-account reviews). Phases 8-9 open: route-level Jest suites (§5), deploy config (§6).
 
 ## STRUCTURE
 
@@ -23,11 +23,11 @@ server/
 │   ├── orderService.js       # create from cart (totals, single-seller, clears cart), history, scoped detail, status transitions (D8)
 │   └── chatService.js        # Hybrid bot (mirrors reference): INTENTS regex map → deterministic handlers (orders/cart/nav/FAQ, no AI) OR Ollama generate (OLLAMA_BASE_URL/OLLAMA_MODEL/OLLAMA_FALLBACK_MODEL) with order+cart+history context + ACTION_LABEL|URL parsing; ChatSession persistence (TTL 30d, last-50 cap)
 ├── controllers/              # thin: parse → validate → service → respond (Express 5 auto-forwards async errors)
-├── routes/                   # auth product cart order seller delivery chat review (+ admin transitional)
+├── routes/                   # auth product cart order seller delivery chat review
 │   └── (validators via express-validator inline; errors → 400 + errors[{field,message}])
 ├── scripts/
 │   ├── seedProducts.js       # Phase 4 seed: upserts seedData.json → spec Product docs by name; creates demo seller
-│   └── seedData.json         # BAKED curated manifest (50 items, 10/category) — generated ONCE from client/src/data/products.js (now deletable in Phase 7)
+│   └── seedData.json         # BAKED curated manifest (50 items, 10/category) — generated ONCE from client/src/data/products.js (deleted in Phase 7)
 ├── __tests__/models/         # User / Product / Order — 27 assertions, in-memory mongo
 └── models/                   # User Product Order Review ChatSession — spec §3.2.2 (see root AGENTS.md code map)
 ```
@@ -66,7 +66,6 @@ server/
 | `/api/reviews/product/:productId` | POST | `protect` — one per user per product; recomputes `Product.rating{stars,count}` |
 | `/api/reviews/my-reviews` | GET | `protect` |
 | `/api/reviews/:id` | PUT/DELETE | `protect` + owner |
-| `/api/admin/*` | — | `protect` + `authorize('seller')` — **TRANSITIONAL + FROZEN** (D10): iframed admin-build only; do not extend; removal with AdminIframe in Phase 7 |
 | `/api/health` | GET | public |
 
 ## CONVENTIONS
@@ -86,7 +85,7 @@ server/
 
 - `npm.cmd run seed` (or `node scripts/seedProducts.js`) reads the baked manifest `scripts/seedData.json` and **upserts** 50 products (10 per spec category) into the DB at `MONGODB_URI` (default `mongodb://localhost:27017/FYP` — local db named FYP per owner; swap to Atlas via env when ready). Idempotent: products upsert by `name`, demo seller created once; NEVER deletes existing rows.
 - Creates demo seller `seller@smartcart.local` / `seller123` (env-overridable `DEMO_SELLER_EMAIL` / `DEMO_SELLER_PASSWORD`) — the account the seller dashboard and seeded `Product.seller` refs use. Do NOT hardcode other demo identities.
-- `seedData.json` was curated ONCE from `client/src/data/products.js` (owner decision 2026-09-06: exactly 10/category). It is the contract — do not regenerate from the client (the static catalog is deletable in Phase 7). To change the catalog, edit `seedData.json` + re-run the seed.
+- `seedData.json` was curated ONCE from `client/src/data/products.js` (owner decision 2026-09-06: exactly 10/category). It is the contract — do not regenerate from the client (the static catalog was deleted in Phase 7). To change the catalog, edit `seedData.json` + re-run the seed.
 - Image paths are root-relative `/images/...` and resolve against the client origin (`client/public/`), matching how the current UI serves media.
 
 ## ANTI-PATTERNS (this project)
@@ -95,7 +94,6 @@ server/
 - **Fallback secrets:** `'secret123'` / local `MONGODB_URI` defaults — env vars required for production (§6.2); do not extend fallbacks
 - **Multi-seller orders:** schema records ONE `seller` per order (MVP: first item's seller) — documented gap, revisit if spec grows
 - **Stock is NOT decremented on order** — MVP scope decision recorded in plan (Phase 8 revisit)
-- **`/api/admin` is transitional** — it exists so the iframed admin dashboard keeps working until Phase 3 replaces it with React role pages; do not extend it
 - **connectDB swallows connection errors** (dev when mongod is off) — server boots without DB; endpoints then 500 via errorMiddleware
 
 ## COMMANDS

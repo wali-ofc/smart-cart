@@ -9,7 +9,7 @@ import React, {
 import api from '@/api/axios';
 import { useAuth } from './AuthContext';
 import { openCartModal } from '@/utlis/openCartModal';
-import { allProducts } from '@/data/products';
+import { normalizeProduct } from '@/utlis/productMap';
 
 const CartContext = createContext();
 
@@ -30,8 +30,8 @@ const normalizeServerItem = (entry) => {
   };
 };
 
-// Static catalog lookup (Phase 7 removes the static catalog — this is the only consumer surface)
-const staticItem = (id) => allProducts.find((elm) => elm.id == id);
+// Static catalog is removed (Phase 7) — the seeded server catalog (fetched once)
+// is the only product source; resolveServerProduct + normalizeProduct cover lookups.
 
 /**
  * Server-synced cart (documentation.md §4.3.2 CartContext).
@@ -210,8 +210,9 @@ export const CartProvider = ({ children }) => {
   const addProductToCart = useCallback(
     async (id, qty) => {
       const q = Math.max(1, Number(qty) || 1);
-      const append = (prev) =>
-        prev.some((elm) => elm.id == id)
+      const append = (prev) => {
+        const matched = resolveServerProduct({ id });
+        return prev.some((elm) => elm.id == id)
           ? prev.map((elm) =>
               elm.id == id
                 ? { ...elm, quantity: Number(elm.quantity) + q }
@@ -220,15 +221,18 @@ export const CartProvider = ({ children }) => {
           : [
               ...prev,
               {
-                ...(staticItem(id) || {
-                  id,
-                  title: `Item #${id}`,
-                  imgSrc: '',
-                  price: 0
-                }),
+                ...(matched
+                  ? normalizeProduct(matched)
+                  : {
+                      id,
+                      title: `Item #${id}`,
+                      imgSrc: '',
+                      price: 0
+                    }),
                 quantity: q
               }
             ];
+      };
 
       if (!isAuthenticated) {
         persistLocal(append(localItems));

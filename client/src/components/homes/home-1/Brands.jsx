@@ -1,8 +1,46 @@
-import { brandData } from "@/data/brands";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { Pagination } from "swiper/modules";
+
+const brandData = [
+  {
+    src: "/images/brand/calvin-klein-1-logo.png",
+    alt: "Calvin Klein",
+    width: 398,
+    height: 164,
+  },
+  {
+    src: "/images/brand/christian-dior.png",
+    alt: "Dior",
+    width: 398,
+    height: 164,
+  },
+  {
+    src: "/images/brand/prada-logo.png",
+    alt: "Prada",
+    width: 398,
+    height: 164,
+  },
+  {
+    src: "/images/brand/zara-1-logo-png.png",
+    alt: "Zara",
+    width: 398,
+    height: 164,
+  },
+  {
+    src: "/images/brand/fendi-logo.png",
+    alt: "Fendi",
+    width: 398,
+    height: 164,
+  },
+  {
+    src: "/images/brand/hugo-boss-logo.png",
+    alt: "Hugo Boss",
+    width: 398,
+    height: 164,
+  },
+];
 export default function Brands() {
   return (
     <section className="flat-spacing-5 pt_0">

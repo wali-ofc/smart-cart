@@ -1,4 +1,3 @@
-import { allProducts } from "@/data/products";
 import React, { useContext, useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
 import { useCart } from "./CartContext";
@@ -19,10 +18,10 @@ export default function Context({ children }) {
   const isAuthenticated = Boolean(user);
   const cart = useCart();
 
-  const [wishList, setWishList] = useState([1, 2, 3]);
-  const [compareItem, setCompareItem] = useState([1, 2, 3]);
-  const [quickViewItem, setQuickViewItem] = useState(allProducts[0]);
-  const [quickAddItem, setQuickAddItem] = useState(1);
+  const [wishList, setWishList] = useState([]);
+  const [compareItem, setCompareItem] = useState([]);
+  const [quickViewItem, setQuickViewItem] = useState(null);
+  const [quickAddItem, setQuickAddItem] = useState(null);
 
   const addToWishlist = (id) => {
     if (!wishList.includes(id)) {
@@ -49,11 +48,18 @@ export default function Context({ children }) {
   const isAddedtoWishlist = (id) => wishList.includes(id);
   const isAddedtoCompareItem = (id) => compareItem.includes(id);
 
+// Legacy template demo seeded wishlist/compare as [1, 2, 3] into localStorage;
+  // real ids are Mongo _id hex strings. Drop any residue that isn't a real id
+  // so the phantom template wishlist never resurfaces after rehydrate.
+  const isRealProductId = (id) => typeof id === "string" && /^[0-9a-f]{24}$/i.test(id);
+
   useEffect(() => {
     try {
       const items = JSON.parse(localStorage.getItem("wishlist"));
       if (items?.length) {
-        setWishList(items);
+        const real = items.filter(isRealProductId);
+        if (real.length) setWishList(real);
+        else localStorage.removeItem("wishlist");
       }
     } catch {
       // corrupted wishlist key — fall back to defaults
@@ -63,6 +69,23 @@ export default function Context({ children }) {
   useEffect(() => {
     localStorage.setItem("wishlist", JSON.stringify(wishList));
   }, [wishList]);
+
+  useEffect(() => {
+    try {
+      const items = JSON.parse(localStorage.getItem("compareItem"));
+      if (items?.length) {
+        const real = items.filter(isRealProductId);
+        if (real.length) setCompareItem(real);
+        else localStorage.removeItem("compareItem");
+      }
+    } catch {
+      // corrupted compare key — fall back to defaults
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("compareItem", JSON.stringify(compareItem));
+  }, [compareItem]);
 
   const contextElement = {
     cartProducts: cart.items,

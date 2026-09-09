@@ -30,40 +30,6 @@ export default function MobileMenu() {
                 My Orders
               </Link>
             </li>
-
-            <li className="nav-mb-item">
-              <Link to="/blog-grid" className={`mb-menu-link ${isActive("/blog-grid")}`}>
-                Blog
-              </Link>
-            </li>
-            <li className="nav-mb-item">
-              <a
-                href="#accountMenu"
-                className={`collapsed mb-menu-link current ${
-                  isActive("/profile") || isActive("/seller") ? "activeMenu" : ""
-                }`}
-                data-bs-toggle="collapse"
-                aria-expanded="false"
-                aria-controls="accountMenu"
-              >
-                <span>Account</span>
-                <span className="btn-open-sub" />
-              </a>
-              <div id="accountMenu" className="collapse">
-                <ul className="sub-nav-menu">
-                  <li>
-                    <Link to="/profile" className={`sub-nav-link ${isActive("/profile")}`}>
-                      Profile Dashboard
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/seller" className={`sub-nav-link ${isActive("/seller")}`}>
-                      Seller Dashboard
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </li>
           </ul>
           <div className="mb-other-content">
             <div className="d-flex group-icon">
@@ -73,12 +39,6 @@ export default function MobileMenu() {
               </Link>
             </div>
           </div>
-        </div>
-        <div className="mb-bottom">
-          <Link to="/login" className="site-nav-icon">
-            <i className="icon icon-account" />
-            Login
-          </Link>
         </div>
       </div>
     </div>

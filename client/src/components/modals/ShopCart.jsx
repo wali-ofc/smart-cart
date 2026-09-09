@@ -1,10 +1,11 @@
 import { useContextElement } from "@/context/Context";
-import { products1 } from "@/data/products";
 
 import { Link } from "react-router-dom";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import api from "@/api/axios";
+import { normalizeProduct } from "@/utlis/productMap";
 export default function ShopCart() {
   const {
     cartProducts,
@@ -13,6 +14,23 @@ export default function ShopCart() {
     removeFromCart,
     setQuickViewItem,
   } = useContextElement();
+  const [recommendations, setRecommendations] = useState([]);
+  useEffect(() => {
+    let cancelled = false;
+    api
+      .get("/products", { params: { sort: "newest", limit: 2 } })
+      .then(({ data }) => {
+        if (!cancelled && Array.isArray(data.products)) {
+          setRecommendations(data.products.slice(0, 2).map(normalizeProduct));
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setRecommendations([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
   const setQuantity = (id, quantity) => {
     if (quantity >= 1) updateQuantity(id, quantity);
   };
@@ -163,7 +181,7 @@ export default function ShopCart() {
                       }}
                       className="swiper tf-cart-slide"
                     >
-                      {products1.slice(0, 2).map((elm, i) => (
+                      {recommendations.map((elm, i) => (
                         <SwiperSlide key={i} className="swiper-slide">
                           <div className="tf-minicart-recommendations-item">
                             <div className="tf-minicart-recommendations-item-image">
@@ -179,7 +197,7 @@ export default function ShopCart() {
                             <div className="tf-minicart-recommendations-item-infos flex-grow-1">
                               <Link
                                 className="title"
-                                to={`/product-detail/${1}`}
+                                to={`/product-detail/${elm.id}`}
                               >
                                 {elm.title}
                               </Link>

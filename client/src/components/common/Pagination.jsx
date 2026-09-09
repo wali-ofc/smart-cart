@@ -1,48 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 
-export default function Pagination() {
-  // State to track the active page
-  const [activePage, setActivePage] = useState(1);
-
-  // Function to handle page click
-  const handlePageClick = (pageNumber) => {
-    setActivePage(pageNumber);
-  };
-
+export default function Pagination({ page = 1, pages = 1, onChange }) {
+  if (pages <= 1) return null;
+  const range = [];
+  for (let i = 1; i <= pages; i++) range.push(i);
   return (
     <>
-      <li className={activePage === 1 ? "active" : ""}>
-        <a className="pagination-link" onClick={() => handlePageClick(1)}>
-          1
-        </a>
-      </li>{" "}
-      <li className={activePage === 2 ? "active" : ""}>
-        <a
-          className="pagination-link animate-hover-btn"
-          onClick={() => handlePageClick(2)}
-        >
-          2
-        </a>
-      </li>
-      <li className={activePage === 3 ? "active" : ""}>
-        <a
-          className="pagination-link animate-hover-btn"
-          onClick={() => handlePageClick(3)}
-        >
-          3
-        </a>
-      </li>
-      <li className={activePage === 4 ? "active" : ""}>
-        <a
-          className="pagination-link animate-hover-btn"
-          onClick={() => handlePageClick(4)}
-        >
-          4
-        </a>
-      </li>
+      {range.map((n) => (
+        <li key={n} className={n === page ? "active" : ""}>
+          <a
+            className="pagination-link animate-hover-btn"
+            onClick={() => onChange(n)}
+          >
+            {n}
+          </a>
+        </li>
+      ))}
       <li>
         <a
-          onClick={() => setActivePage((pre) => (pre !== 4 ? pre + 1 : pre))}
+          onClick={() => (page < pages ? onChange(page + 1) : null)}
           className="pagination-link animate-hover-btn"
         >
           <span className="icon icon-arrow-right" />

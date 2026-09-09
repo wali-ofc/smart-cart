@@ -186,6 +186,15 @@ export default function Footer1({ bgColor = "" }) {
                       </Link>
                     </li>
                   ))}
+                  <li>
+                    <a
+                      href="#register"
+                      data-bs-toggle="modal"
+                      className="footer-menu_item"
+                    >
+                      Become a Seller
+                    </a>
+                  </li>
                 </ul>
               </div>
               <div className="col-xl-3 col-md-6 col-12">

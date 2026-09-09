@@ -38,8 +38,7 @@
 
 ## ANTI-PATTERNS
 
-- **Do NOT change product `id`s** — breaking change for localStorage carts and routes (`/product-detail/:id`)
-- Do NOT renumber/sort `products1` array items — indexes are referenced across components
-- Do NOT add a DB fetch layer to shop/cart pages without migrating `Context.jsx` first — it hydrates from `@/data/products` and `localStorage`
+- **Static catalog files were REMOVED (2026-09-08, alignment rework)** — `products.js`, `singleProductOptions.js`, `shop.js`, `categories.js`, `brands.js`, `brandList.js`, `gallery.js`, `productGallery.js` and their dead variant importers are gone. Storefront product data now comes from the Express API (`@/api/axios`) normalized via `normalizeProduct` in `@/utlis/productMap`; cart/wishlist state lives in `Context.jsx`/`CartContext.jsx`. Do NOT re-create or re-import these deleted data files.
+- **Do NOT change product `id`s** — breaking change for localStorage carts and routes (`/product-detail/:id`); ids are MongoDB `_id` strings returned by `normalizeProduct`
 - Adding/removing blog posts must keep ids stable for `/blog-grid` + `/blog-detail/:id`
 - Supabase seed scripts (`scripts/seed-supabase.js`) target a deprecated stack — do not expect this data to exist in MongoDB

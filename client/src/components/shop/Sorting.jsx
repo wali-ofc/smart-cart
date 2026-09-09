@@ -1,41 +1,28 @@
-import { products1 } from "@/data/products";
-import { sortingOptions } from "@/data/shop";
-import React, { useEffect, useState } from "react";
+// Server-supported sort values only (spec GET /api/products?sort=)
+const sortingOptions = [
+  { text: "Default", value: "" },
+  { text: "Price, low to high", value: "price" },
+  { text: "Price, high to low", value: "-price" },
+  { text: "Newest", value: "newest" },
+  { text: "Top rated", value: "rating" },
+];
 
-export default function Sorting({ products = products1, setFinalSorted }) {
-  const [selectedOptions, setSelectedOptions] = useState(sortingOptions[0]);
-
-  useEffect(() => {
-    if (selectedOptions.text == "Default") {
-      setFinalSorted([...products]);
-    } else if (selectedOptions.text == "Alphabetically, A-Z") {
-      setFinalSorted(
-        [...products].sort((a, b) => a.title.localeCompare(b.title))
-      );
-    } else if (selectedOptions.text == "Alphabetically, Z-A") {
-      setFinalSorted(
-        [...products].sort((a, b) => b.title.localeCompare(a.title))
-      );
-    } else if (selectedOptions.text == "Price, low to high") {
-      setFinalSorted([...products].sort((a, b) => a.price - b.price));
-    } else if (selectedOptions.text == "Price, high to low") {
-      setFinalSorted([...products].sort((a, b) => b.price - a.price));
-    }
-  }, [products, selectedOptions]);
+export default function Sorting({ value = "", onChange }) {
+  const selected =
+    sortingOptions.find((o) => o.value === value) || sortingOptions[0];
 
   return (
     <>
-      {" "}
       <div className="btn-select">
-        <span className="text-sort-value">{selectedOptions.text}</span>
+        <span className="text-sort-value">{selected.text}</span>
         <span className="icon icon-arrow-down" />
       </div>
       <div className="dropdown-menu">
         {sortingOptions.map((item, index) => (
           <div
             key={index}
-            onClick={() => setSelectedOptions(item)}
-            className={`select-item ${item == selectedOptions ? "active" : ""}`}
+            onClick={() => onChange(item.value)}
+            className={`select-item ${item == selected ? "active" : ""}`}
           >
             <span className="text-value-item">{item.text}</span>
           </div>

@@ -1,8 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Link } from "react-router-dom";
-import { tfLoopItems } from "@/data/products";
+import api from "@/api/axios";
+import { normalizeProduct } from "@/utlis/productMap";
 export default function SearchModal() {
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
+  const [searched, setSearched] = useState(false);
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const q = query.trim();
+    if (!q) return;
+    api
+      .get("/products", { params: { search: q, limit: 4 } })
+      .then(({ data }) => {
+        setResults(
+          Array.isArray(data.products)
+            ? data.products.map(normalizeProduct)
+            : []
+        );
+        setSearched(true);
+      })
+      .catch(() => {
+        setResults([]);
+        setSearched(true);
+      });
+  };
   return (
     <div className="offcanvas offcanvas-end canvas-search" id="canvasSearch">
       <div className="canvas-wrapper">
@@ -18,10 +41,7 @@ export default function SearchModal() {
             </div>
           </div>
           <div className="tf-search-sticky">
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              className="tf-mini-search-frm"
-            >
+            <form onSubmit={handleSearch} className="tf-mini-search-frm">
               <fieldset className="text">
                 <input
                   type="text"
@@ -29,7 +49,8 @@ export default function SearchModal() {
                   className=""
                   name="text"
                   tabIndex={0}
-                  defaultValue=""
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
                   aria-required="true"
                   required
                 />
@@ -73,41 +94,34 @@ export default function SearchModal() {
                   Need some inspiration?
                 </div>
                 <div className="tf-search-hidden-inner">
-                  {tfLoopItems.map((product, index) => (
-                    <div className="tf-loop-item" key={index}>
-                      <div className="image">
-                        <Link to={`/product-detail/${product.id}`}>
-                          <img
-                            alt={product.imgAlt}
-                            src={product.imgSrc}
-                            width={product.imgWidth}
-                            height={product.imgHeight}
-                          />
-                        </Link>
-                      </div>
-                      <div className="content">
-                        <Link to={`/product-detail/${product.id}`}>
-                          {product.title}
-                        </Link>
-                        <div className="tf-product-info-price">
-                          {product.isOnSale ? (
-                            <>
-                              <div className="compare-at-price">
-                                ${product.compareAtPrice.toFixed(2)}
-                              </div>
-                              <div className="price-on-sale fw-6">
-                                ${product.salePrice.toFixed(2)}
-                              </div>
-                            </>
-                          ) : (
+                  {searched && !results.length ? (
+                    <p>No products found for "{query}".</p>
+                  ) : (
+                    results.map((product, index) => (
+                      <div className="tf-loop-item" key={index}>
+                        <div className="image">
+                          <Link to={`/product-detail/${product.id}`}>
+                            <img
+                              alt={product.title}
+                              src={product.imgSrc}
+                              width={120}
+                              height={150}
+                            />
+                          </Link>
+                        </div>
+                        <div className="content">
+                          <Link to={`/product-detail/${product.id}`}>
+                            {product.title}
+                          </Link>
+                          <div className="tf-product-info-price">
                             <div className="price fw-6">
-                              ${product.price.toFixed(2)}
+                              ${(Number(product.price) || 0).toFixed(2)}
                             </div>
-                          )}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))
+                  )}
                 </div>
               </div>
             </div>

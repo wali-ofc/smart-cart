@@ -59,7 +59,7 @@ export default function ChatWidget() {
   );
 
   return (
-    <div className="chat-widget" style={{ position: "fixed", right: 20, bottom: 20, zIndex: 950 }}>
+    <div className="chat-widget" style={{ position: "fixed", left: 20, bottom: 20, zIndex: 950 }}>
       {open && (
         <div className="card chat-widget-panel shadow-sm" style={{ width: 340, marginBottom: 12, overflow: "hidden" }}>
           <div className="card-header d-flex align-items-center justify-content-between py-2">

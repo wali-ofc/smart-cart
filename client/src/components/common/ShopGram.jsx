@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { Pagination } from "swiper/modules";
-import { Link } from "react-router-dom";
-import { galleryData } from "@/data/products";
+import api from "@/api/axios";
+import { normalizeProduct } from "@/utlis/productMap";
 import { useContextElement } from "@/context/Context";
 export default function ShopGram({ parentClass = "flat-spacing-7" }) {
   const { setQuickAddItem } = useContextElement();
+  const [items, setItems] = useState([]);
+  useEffect(() => {
+    let cancelled = false;
+    api
+      .get("/products", { params: { limit: 8 } })
+      .then(({ data }) => {
+        if (!cancelled && Array.isArray(data.products)) {
+          setItems(data.products.map(normalizeProduct));
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setItems([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
   return (
     <section className={parentClass}>
       <div className="container">
@@ -39,41 +56,31 @@ export default function ShopGram({ parentClass = "flat-spacing-7" }) {
             modules={[Pagination]}
             pagination={{ clickable: true, el: ".spd105" }}
           >
-            {galleryData.map((item, index) => (
+            {items.map((item, index) => (
               <SwiperSlide key={index}>
                 <div
                   className="gallery-item hover-img wow fadeInUp"
-                  data-wow-delay={item.wowDelay}
+                  data-wow-delay="0s"
                 >
                   <div className="img-style">
                     <img
                       className="lazyload img-hover"
                       data-src={item.imgSrc}
                       src={item.imgSrc}
-                      alt={item.alt}
+                      alt={item.title}
                       width={400}
                       height={400}
                     />
                   </div>
-                  {item.QuickAdd ? (
-                    <a
-                      href="#quick_add"
-                      onClick={() => setQuickAddItem(item.id)}
-                      data-bs-toggle="modal"
-                      className="box-icon"
-                    >
-                      <span className="icon icon-bag" />
-                      <span className="tooltip">{item.tooltip}</span>
-                    </a>
-                  ) : (
-                    <Link
-                      to={`/product-detail/${item.id}`}
-                      className="box-icon"
-                    >
-                      <span className="icon icon-bag" />
-                      <span className="tooltip">{item.tooltip}</span>
-                    </Link>
-                  )}
+                  <a
+                    href="#quick_add"
+                    onClick={() => setQuickAddItem(item.id)}
+                    data-bs-toggle="modal"
+                    className="box-icon"
+                  >
+                    <span className="icon icon-bag" />
+                    <span className="tooltip">Quick add</span>
+                  </a>
                 </div>
               </SwiperSlide>
             ))}

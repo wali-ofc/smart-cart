@@ -1,41 +1,31 @@
 import React, { useState } from "react";
 
-import CountdownComponent from "../common/Countdown";
-import {
-  colors,
-  paymentImages,
-  sizeOptions,
-} from "@/data/singleProductOptions";
 import StickyItem from "./StickyItem";
 import Quantity from "./Quantity";
 
 import Slider1ZoomOuter from "./sliders/Slider1ZoomOuter";
-import { allProducts } from "@/data/products";
 import { useContextElement } from "@/context/Context";
 import { openCartModal } from "@/utlis/openCartModal";
 
-export default function DetailsOuterZoom({ product = allProducts[0] }) {
-  const [currentColor, setCurrentColor] = useState(colors[0]);
-  const [currentSize, setCurrentSize] = useState(sizeOptions[1]);
-  const [quantity, setQuantity] = useState(1);
+// Payment-method logos (static trust-seal UI — not product data)
+const paymentImages = [
+  { src: "https://cdn.simpleicons.org/visa/1434CB", width: 48, height: 30, alt: "Visa" },
+  { src: "https://cdn.simpleicons.org/mastercard/EB001B", width: 48, height: 30, alt: "Mastercard" },
+  { src: "https://cdn.simpleicons.org/paypal/00457C", width: 48, height: 30, alt: "PayPal" },
+  { src: "https://cdn.simpleicons.org/americanexpress/002663", width: 48, height: 30, alt: "Amex" },
+  { src: "https://cdn.simpleicons.org/discover/E55C20", width: 48, height: 30, alt: "Discover" },
+];
 
-  const handleColor = (color) => {
-    const updatedColor = colors.filter(
-      (elm) => elm.value.toLowerCase() == color.toLowerCase()
-    )[0];
-    if (updatedColor) {
-      setCurrentColor(updatedColor);
-    }
-  };
+export default function DetailsOuterZoom({ product }) {
+  const [quantity, setQuantity] = useState(1);
 
   const {
     addProductToCart,
     isAddedToCartProducts,
-    addToCompareItem,
-    isAddedtoCompareItem,
     addToWishlist,
     isAddedtoWishlist,
   } = useContextElement();
+
   return (
     <section
       className="flat-spacing-4 pt_0"
@@ -50,11 +40,7 @@ export default function DetailsOuterZoom({ product = allProducts[0] }) {
             <div className="col-md-6">
               <div className="tf-product-media-wrap sticky-top">
                 <div className="thumbs-slider">
-                  <Slider1ZoomOuter
-                    handleColor={handleColor}
-                    currentColor={currentColor.value}
-                    firstImage={product.imgSrc}
-                  />
+                  <Slider1ZoomOuter firstImage={product.imgSrc} />
                 </div>
               </div>
             </div>
@@ -63,119 +49,29 @@ export default function DetailsOuterZoom({ product = allProducts[0] }) {
                 <div className="tf-zoom-main" />
                 <div className="tf-product-info-list other-image-zoom">
                   <div className="tf-product-info-title">
-                    <h5>
-                      {product.title ? product.title : "Cotton jersey top"}
-                    </h5>
+                    <h5>{product.title || "Product"}</h5>
                   </div>
                   <div className="tf-product-info-badges">
-                    <div className="badges">Best seller</div>
-                    <div className="product-status-content">
-                      <i className="icon-lightning" />
-                      <p className="fw-6">
-                        Selling fast! 56 people have this in their carts.
-                      </p>
+                    <div
+                      className={`badges ${
+                        product.isAvailable ? "" : "text_red"
+                      }`}
+                    >
+                      {product.isAvailable ? "In Stock" : "Out of Stock"}
                     </div>
+                    {product.rating.stars > 0 && (
+                      <div className="product-status-content">
+                        <i className="icon-star" />
+                        <p className="fw-6">
+                          {product.rating.stars.toFixed(1)} (
+                          {product.rating.count} reviews)
+                        </p>
+                      </div>
+                    )}
                   </div>
                   <div className="tf-product-info-price">
                     <div className="price-on-sale">
-                      ${product.price.toFixed(2)}
-                    </div>
-
-                    <div className="compare-at-price">
-                      ${currentColor.oldPrice.toFixed(2)}
-                    </div>
-
-                    <div className="badges-on-sale">
-                      <span>20</span>% OFF
-                    </div>
-                  </div>
-                  <div className="tf-product-info-liveview">
-                    <div className="liveview-count">20</div>
-                    <p className="fw-6">People are viewing this right now</p>
-                  </div>
-                  <div className="tf-product-info-countdown">
-                    <div className="countdown-wrap">
-                      <div className="countdown-title">
-                        <i className="icon-time tf-ani-tada" />
-                        <p>HURRY UP! SALE ENDS IN:</p>
-                      </div>
-                      <div className="tf-countdown style-1">
-                        <div className="js-countdown">
-                          <CountdownComponent labels="Days :,Hours :,Mins :,Secs" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="tf-product-info-variant-picker">
-                    <div className="variant-picker-item">
-                      <div className="variant-picker-label">
-                        Color:
-                        <span className="fw-6 variant-picker-label-value">
-                          {currentColor.value}
-                        </span>
-                      </div>
-                      <form className="variant-picker-values">
-                        {colors.map((color) => (
-                          <React.Fragment key={color.id}>
-                            <input
-                              id={color.id}
-                              type="radio"
-                              name="color1"
-                              readOnly
-                              checked={currentColor == color}
-                            />
-                            <label
-                              onClick={() => setCurrentColor(color)}
-                              className="hover-tooltip radius-60"
-                              htmlFor={color.id}
-                              data-value={color.value}
-                            >
-                              <span
-                                className={`btn-checkbox ${color.className}`}
-                              />
-                              <span className="tooltip">{color.value}</span>
-                            </label>
-                          </React.Fragment>
-                        ))}
-                      </form>
-                    </div>
-                    <div className="variant-picker-item">
-                      <div className="d-flex justify-content-between align-items-center">
-                        <div className="variant-picker-label">
-                          Size:
-                          <span className="fw-6 variant-picker-label-value">
-                            {currentSize.value}
-                          </span>
-                        </div>
-                        <a
-                          href="#find_size"
-                          data-bs-toggle="modal"
-                          className="find-size fw-6"
-                        >
-                          Find your size
-                        </a>
-                      </div>
-                      <form className="variant-picker-values">
-                        {sizeOptions.map((size) => (
-                          <React.Fragment key={size.id}>
-                            <input
-                              type="radio"
-                              name="size1"
-                              id={size.id}
-                              readOnly
-                              checked={currentSize == size}
-                            />
-                            <label
-                              onClick={() => setCurrentSize(size)}
-                              className="style-text"
-                              htmlFor={size.id}
-                              data-value={size.value}
-                            >
-                              <p>{size.value}</p>
-                            </label>
-                          </React.Fragment>
-                        ))}
-                      </form>
+                      ${Number(product.price).toFixed(2)}
                     </div>
                   </div>
                   <div className="tf-product-info-quantity">
@@ -198,7 +94,7 @@ export default function DetailsOuterZoom({ product = allProducts[0] }) {
                           -{" "}
                         </span>
                         <span className="tf-qty-price">
-                          ${(product.price * quantity).toFixed(2)}
+                          ${(Number(product.price) * quantity).toFixed(2)}
                         </span>
                       </a>
                       <a
@@ -218,27 +114,10 @@ export default function DetailsOuterZoom({ product = allProducts[0] }) {
                         </span>
                         <span className="icon icon-delete" />
                       </a>
-                      <a
-                        href="#compare"
-                        data-bs-toggle="offcanvas"
-                        onClick={() => addToCompareItem(product.id)}
-                        aria-controls="offcanvasLeft"
-                        className="tf-product-btn-wishlist hover-tooltip box-icon bg_white compare btn-icon-action"
-                      >
-                        <span
-                          className={`icon icon-compare ${
-                            isAddedtoCompareItem(product.id) ? "added" : ""
-                          }`}
-                        />
-                        <span className="tooltip">
-                          {isAddedtoCompareItem(product.id)
-                            ? "Already Compared"
-                            : "Add to Compare"}
-                        </span>
-                        <span className="icon icon-check" />
-                      </a>
                       <div className="w-100">
-                        <a href="#" className="btns-full">Buy now</a>
+                        <a href="#" className="btns-full">
+                          Buy now
+                        </a>
                         <a href="#" className="payment-more-option">
                           More payment options
                         </a>
@@ -246,21 +125,6 @@ export default function DetailsOuterZoom({ product = allProducts[0] }) {
                     </form>
                   </div>
                   <div className="tf-product-info-extra-link">
-                    <a
-                      href="#compare_color"
-                      data-bs-toggle="modal"
-                      className="tf-product-extra-icon"
-                    >
-                      <div className="icon">
-                        <img
-                          alt="image"
-                          src="/images/item/compare.svg"
-                          width={20}
-                          height={20}
-                        />
-                      </div>
-                      <div className="text fw-6">Compare color</div>
-                    </a>
                     <a
                       href="#ask_question"
                       data-bs-toggle="modal"
@@ -356,7 +220,7 @@ export default function DetailsOuterZoom({ product = allProducts[0] }) {
           </div>
         </div>
       </div>{" "}
-      <StickyItem />
+      <StickyItem product={product} />
     </section>
   );
 }

@@ -2,14 +2,29 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { useContextElement } from "@/context/Context";
-import { allProducts } from "@/data/products";
+import api from "@/api/axios";
+import { normalizeProduct } from "@/utlis/productMap";
 export default function Compare() {
   const { removeFromCompareItem, compareItem, setCompareItem } =
     useContextElement();
-  const [items, setItems] = useState([]);
+  const [catalog, setCatalog] = useState([]);
   useEffect(() => {
-    setItems([...allProducts.filter((elm) => compareItem.includes(elm.id))]);
-  }, [compareItem]);
+    let cancelled = false;
+    api
+      .get("/products", { params: { limit: 50 } })
+      .then(({ data }) => {
+        if (!cancelled && Array.isArray(data.products)) {
+          setCatalog(data.products.map(normalizeProduct));
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setCatalog([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  const items = catalog.filter((elm) => compareItem.includes(elm.id));
 
   return (
     <div className="offcanvas offcanvas-bottom canvas-compare" id="compare">

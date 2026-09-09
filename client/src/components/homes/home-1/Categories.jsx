@@ -1,9 +1,39 @@
 import { Link } from "react-router-dom";
-import { collections } from "@/data/categories";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
+import api from "@/api/axios";
+import { normalizeProduct } from "@/utlis/productMap";
 export default function Categories() {
+  const [collections, setCollections] = useState([]);
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all([
+      api.get("/products/categories"),
+      api.get("/products", { params: { limit: 50 } }),
+    ])
+      .then(([catRes, prodRes]) => {
+        if (cancelled) return;
+        const cats = Array.isArray(catRes.data.categories)
+          ? catRes.data.categories
+          : [];
+        const products = Array.isArray(prodRes.data.products)
+          ? prodRes.data.products.map(normalizeProduct)
+          : [];
+        setCollections(
+          cats.map((title) => {
+            const imgSrc = products.find((p) => p.category === title)?.imgSrc;
+            return { title, imgSrc };
+          })
+        );
+      })
+      .catch(() => {
+        if (!cancelled) setCollections([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
   return (
     <section className="flat-spacing-4 flat-categorie">
       <div className="container-full">
@@ -53,7 +83,7 @@ export default function Categories() {
                   <div className="collection-item style-left hover-img">
                     <div className="collection-inner">
                       <Link
-                        to={`/category/${item.title.toLowerCase()}`}
+                        to={`/category/${encodeURIComponent(item.title)}`}
                         className="collection-image img-style"
                         style={{ backgroundColor: "#f0f0f0", borderRadius: "8px", border: "1px solid #e0e0e0" }}
                       >
@@ -61,7 +91,7 @@ export default function Categories() {
                           className="lazyload"
                           style={{ mixBlendMode: "multiply" }}
                           data-src={item.imgSrc}
-                          alt={item.altText}
+                          alt={item.title}
                           src={item.imgSrc}
                           width="600"
                           height="721"
@@ -69,7 +99,7 @@ export default function Categories() {
                       </Link>
                       <div className="collection-content">
                         <Link
-                          to={`/category/${item.title.toLowerCase()}`}
+                          to={`/category/${encodeURIComponent(item.title)}`}
                           className="tf-btn collection-title hover-icon fs-15"
                         >
                           <span>{item.title}</span>

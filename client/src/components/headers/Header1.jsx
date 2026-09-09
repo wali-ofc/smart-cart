@@ -4,7 +4,9 @@ import Nav from "./Nav";
 import { Link } from "react-router-dom";
 import CartLength from "../common/CartLength";
 import WishlistLength from "../common/WishlistLength";
+import { useAuth } from "@/context/AuthContext";
 export default function Header1() {
+  const { user } = useAuth();
   return (
     <header id="header" className="header-default header-absolute">
       <div className="px_15 lg-px_40">
@@ -47,14 +49,6 @@ export default function Header1() {
             <nav className="box-navigation text-center">
               <ul className="box-nav-ul d-flex align-items-center justify-content-center gap-30">
                 <Nav />
-                <li className="menu-item">
-                  <a
-                    href="#"
-                    className="item-link"
-                  >
-                    Buy now
-                  </a>
-                </li>
               </ul>
             </nav>
           </div>
@@ -71,13 +65,35 @@ export default function Header1() {
                 </a>
               </li>
               <li className="nav-account">
-                <a
-                  href="#login"
-                  data-bs-toggle="modal"
-                  className="nav-icon-item"
-                >
-                  <i className="icon icon-account" />
-                </a>
+                {user ? (
+                  <>
+                    <a href="#" className="nav-icon-item">
+                      <i className="icon icon-account" />
+                    </a>
+                    <div className="sub-menu submenu-default">
+                      <ul className="menu-list">
+                        <li>
+                          <Link to="/profile" className="menu-link-text link text_black-2">
+                            Profile Dashboard
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to="/seller" className="menu-link-text link text_black-2">
+                            Seller Dashboard
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  </>
+                ) : (
+                  <a
+                    href="#login"
+                    data-bs-toggle="modal"
+                    className="nav-icon-item"
+                  >
+                    <i className="icon icon-account" />
+                  </a>
+                )}
               </li>
               <li className="nav-wishlist">
                 <Link to={`/wishlist`} className="nav-icon-item">

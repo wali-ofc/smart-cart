@@ -16,7 +16,6 @@ const sellerRoutes = require('./routes/sellerRoutes');
 const deliveryRoutes = require('./routes/deliveryRoutes');
 const chatRoutes = require('./routes/chatRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
-const adminRoutes = require('./routes/adminRoutes'); // transitional — superseded by seller/delivery routes (Phase 3)
 
 const app = express();
 
@@ -44,7 +43,6 @@ app.use('/api/seller', sellerRoutes);
 app.use('/api/delivery', deliveryRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/reviews', reviewRoutes);
-app.use('/api/admin', adminRoutes); // transitional
 
 // Basic health route
 app.get('/api/health', (req, res) => res.json({ status: 'OK' }));

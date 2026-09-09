@@ -1,11 +1,11 @@
 import { useContextElement } from "@/context/Context";
-import { lookbookProducts } from "@/data/products";
 
 import { Link } from "react-router-dom";
 import React from "react";
 
-export default function LookbookComponent({ product = lookbookProducts[0] }) {
+export default function LookbookComponent({ product }) {
   const { setQuickViewItem } = useContextElement();
+  if (!product) return null;
   return (
     <li>
       <div className="lookbook-product">
@@ -15,15 +15,15 @@ export default function LookbookComponent({ product = lookbookProducts[0] }) {
             data-src={product.imgSrc}
             alt="lookbook-item"
             src={product.imgSrc}
-            width={product.width}
-            height={product.height}
+            width={product.width || 80}
+            height={product.height || 100}
           />
         </Link>
         <div className="content-wrap">
           <div className="product-title">
             <a href="#">{product.title}</a>
           </div>
-          <div className="price">${product.price.toFixed(2)}</div>
+          <div className="price">${Number(product.price || 0).toFixed(2)}</div>
         </div>
         <a
           href="#quick_view"

@@ -34,7 +34,6 @@ import ViewCartPage from "./pages/otherPages/view-cart";
 import CheckoutPage from "./pages/otherPages/checkout";
 import PaymentCOnfirmationPage from "./pages/otherPages/payment-confirmation";
 import PaymentFailurePage from "./pages/otherPages/payment-failure";
-import AdminIframe from "./pages/dashboard/AdminIframe";
 
 import MyAccountPage from "./pages/dashboard/my-account";
 import MyAccountOrderPage from "./pages/dashboard/my-account-orders";
@@ -43,9 +42,12 @@ import MyAccountEditPage from "./pages/dashboard/my-account-edit";
 import MyAccountWishlistPage from "./pages/dashboard/my-account-wishlist";
 import MyAccountOrderDetailsPage from "./pages/dashboard/my-account-orders-details";
 import SellerDashboard from "./pages/dashboard/SellerDashboard";
+import SellerProductsPage from "./pages/dashboard/seller-products";
+import SellerAiPredictionsPage from "./pages/dashboard/seller-ai-predictions";
 import DeliveryDashboard from "./pages/dashboard/DeliveryDashboard";
 
 import WishlistPage from "./pages/otherPages/wishlist";
+import LikesPage from "./pages/otherPages/likes";
 import PageNotFoundPage from "./pages/otherPages/page-not-found";
 
 import PrivacyPolicyPage from "./pages/otherPages/privacy-policy";
@@ -204,7 +206,7 @@ function App() {
                 <Route path="profile" element={<MyAccountPage />} />
                 <Route path="orders" element={<MyAccountOrderPage />} />
                 <Route path="wishlist" element={<WishlistPage />} />
-                <Route path="likes" element={<WishlistPage />} />
+                <Route path="likes" element={<LikesPage />} />
 
                 {/* Dashboard Sub-routes */}
                 <Route path="my-account" element={<MyAccountPage />} />
@@ -215,8 +217,10 @@ function App() {
                 <Route path="my-account-orders-details" element={<MyAccountOrderDetailsPage />} />
                 <Route path="my-account-orders-details/:id" element={<MyAccountOrderDetailsPage />} />
 
-                <Route path="seller/*" element={<AdminIframe />} />
-                <Route path="delivery" element={<DeliveryReturnPage />} />
+                <Route path="seller" element={<SellerDashboard />} />
+                <Route path="seller/products" element={<SellerProductsPage />} />
+                <Route path="seller/ai-predictions" element={<SellerAiPredictionsPage />} />
+                <Route path="delivery" element={<DeliveryDashboard />} />
 
                 <Route path="payment-failure" element={<PaymentFailurePage />} />
                 <Route path="payment-confirmation" element={<PaymentCOnfirmationPage />} />

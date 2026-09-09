@@ -3,7 +3,14 @@ import { useAuth } from "@/context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 import React, { useState } from "react";
 import api from "@/api/axios";
-import { paymentImages } from "@/data/singleProductOptions";
+
+const paymentImages = [
+    { src: "https://cdn.simpleicons.org/visa/1434CB", width: 48, height: 30, alt: "Visa" },
+    { src: "https://cdn.simpleicons.org/mastercard/EB001B", width: 48, height: 30, alt: "Mastercard" },
+    { src: "https://cdn.simpleicons.org/paypal/00457C", width: 48, height: 30, alt: "PayPal" },
+    { src: "https://cdn.simpleicons.org/americanexpress/002663", width: 48, height: 30, alt: "Amex" },
+    { src: "https://cdn.simpleicons.org/discover/E55C20", width: 48, height: 30, alt: "Discover" },
+  ];
 
 export default function Checkout() {
   const { cartProducts, totalPrice, clearCart } = useContextElement();

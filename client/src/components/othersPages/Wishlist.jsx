@@ -1,19 +1,31 @@
-import { allProducts } from "@/data/products";
 import { useContextElement } from "@/context/Context";
 import { useEffect, useState } from "react";
 import { ProductCardWishlist } from "../shopCards/ProductCardWishlist";
 import { Link } from "react-router-dom";
+import api from "@/api/axios";
+import { normalizeProduct } from "@/utlis/productMap";
 
 export default function Wishlist() {
   const { wishList } = useContextElement();
   const [wishListItems, setWishListItems] = useState([]);
   useEffect(() => {
-    if (wishList) {
-      console.log(wishList);
-      setWishListItems(
-        [...allProducts].filter((el) => wishList.includes(el.id))
-      );
-    }
+    let cancelled = false;
+    api
+      .get("/products", { params: { limit: 50 } })
+      .then(({ data }) => {
+        if (!cancelled && Array.isArray(data.products)) {
+          const catalog = data.products.map(normalizeProduct);
+          setWishListItems(
+            catalog.filter((el) => wishList?.includes(el.id))
+          );
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setWishListItems([]);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [wishList]);
 
   return (

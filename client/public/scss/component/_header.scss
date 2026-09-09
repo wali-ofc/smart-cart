@@ -280,6 +280,50 @@
       color: var(--white);
       background-color: var(--primary);
     }
+    .nav-account {
+      position: relative;
+
+      > .sub-menu {
+        pointer-events: none;
+        position: absolute;
+        background-color: var(--white);
+        min-width: 240px;
+        z-index: 999;
+        visibility: hidden;
+        text-align: left;
+        padding-top: 24px;
+        padding-bottom: 24px;
+        padding-inline-end: 20px;
+        padding-inline-start: 19px;
+        top: 100%;
+        right: 0;
+        opacity: 0;
+        transform: translateX(0px) translateY(15px);
+        box-shadow: 0 4px 8px rgb(235 235 235);
+        @include mixin.transition3;
+
+        .menu-list {
+          .menu-link-text {
+            color: var(--text);
+          }
+          li {
+            text-align: start;
+            &:not(:last-child) {
+              margin-bottom: 14px;
+            }
+          }
+        }
+      }
+
+      &:hover {
+        > .sub-menu {
+          pointer-events: all;
+          opacity: 1;
+          visibility: visible;
+          transform: translateX(0px) translateY(0px);
+        }
+      }
+    }
   }
   .tf-product-header {
     .card-product {

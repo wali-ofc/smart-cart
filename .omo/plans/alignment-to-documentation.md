@@ -259,14 +259,52 @@ Routes change in `App.jsx`: `/product-detail/:id` → `/product/:id`; drop `/sho
 
 ## 9. Phase 7 — Trim Template Residue
 
+**Status 2026-09-08:** data-source flip COMPLETE — every `@/data/*` consumer is now API-driven; 8 static-catalog files + 56 dead variants deleted; `vite build` PASSES. Phase 6 (chat) VERIFIED COMPLETE — server (`chatService.js` hybrid intents + Ollama, `chatController`, `/api/chat` + `/api/chat/history`, `chatLimiter` 50/day, ChatSession TTL 30d) AND client (`ChatWidget.jsx` POST /api/chat with loading state, mounted in App.jsx). Phase 5 §7.2 dashboard pages ALL WIRED: `/likes` → new `LikesPage` (server-synced `GET /api/products/likes` grid), `/delivery` → real `DeliveryDashboard` (`GET /api/delivery/assigned` + `PUT :orderId/status` shipped→delivered/cancelled with role guard), `/profile` → `MyAccount` + own reviews (`GET /api/reviews/my-reviews`), `/seller` → NEW React pages (`SellerDashboard` stat cards + recent orders via `GET /api/seller/dashboard`, `seller/products` CRUD via `/api/seller/products` + product routes, `seller/ai-predictions` placeholder §4.4) replacing AdminIframe. Phase 7 Step 3 (D10) EXECUTED: `/api/admin` mount removed from server.js, `adminRoutes.js` + `adminController.js` + `AdminIframe.jsx` + `client/public/admin-build/` deleted — zero live references (only vendored `extracted-silva` mention remains, untouched). Build re-verified 395 modules. Remaining: Phase 7 Step 6 (images audit), Phase 8 (tests/docs), Phase 9 (deploy).
+
+### 9.1 Status snapshot
+
+**Objective:** remove all template residue safely and thoroughly — flip every remaining `@/data/*` consumer to the MongoDB API, delete the static catalog at zero importers, prune verified-unreferenced component variants, and end with a passing production build (no dead imports, `vite build` green, bundle shrinks). UI freeze applies. Phase 4 already baked the curated 50-product subset into `server/scripts/seedData.json` → `seedProducts.js`, so the static catalog is deletable once all importers are gone.
+
+**Tasks DONE:**
+- Step 5 — Supabase residue removed: deleted `scripts/seed-supabase.js`, `scripts/upload-assets-to-supabase.js`, `populate-demo-images.mjs`, `client/.env.example`; uninstalled `@supabase/supabase-js`; README rewritten (no Supabase narrative).
+- Step 4 — root patch scripts (`*.cjs`, `add_route.js`) removed 2026-09-06 (AGENTS.md anti-pattern; do not recreate).
+- Data-source flip (Phase 5 §7.3, prerequisite of step 1) — most `@/data/products` consumers moved to API:
+  - `client/src/utlis/productMap.js` added (`normalizeProduct`, `normalizeCartItem`).
+  - Home: `homes/home-1/Products.jsx` → API (5 spec categories + View-All links).
+  - Product detail family: `pages/shop-details/product-detail/index.jsx`, `DetailsOuterZoom.jsx` (inline paymentImages), `sliders/Slider1ZoomOuter.jsx`, `StickyItem.jsx`, `ShopDetailsTab.jsx`, `shopDetails/Products.jsx` + `RecentProducts.jsx` → API; `common/ProductSinglePrevNext.jsx` deleted.
+  - Shop family: `ShopDefault.jsx`, `Sorting.jsx`, `ShopFilter.jsx`, `ProductGrid.jsx`, `common/Pagination.jsx`, `pages/shop/category/index.jsx` → API.
+  - Contexts: `Context.jsx` initial state emptied (`wishList=[]`, `compareItem=[]`, `quickViewItem=null`, `quickAddItem=null`); `CartContext.jsx` module-level `staticItem` removed — cart append now `resolveServerProduct({id})` + `normalizeProduct`.
+  - Modals: `QuickView`, `QuickAdd`, `ShopCart` (recs via API + `/product-detail/${elm.id}` link bug fixed), `SearchModal`, `ProductSidebar`, `Compare` → API.
+- Dead-variant audit completed via grep (zero page importers) — list under step 2.
+- **2026-09-08 (all remaining consumers flipped — ZERO live `@/data` importers):**
+  - `othersPages/Wishlist.jsx` + `othersPages/dashboard/Wishlist.jsx` → fetch `/products?limit=50`, filter catalog by `wishList` ids (dashboard slices to 3). `common/ProductCardWishlist.jsx` kept.
+  - `homes/home-1/Lookbook.jsx` → fetch `/products?limit=3`, pins guarded; `common/LookbookComponent.jsx` → `{ product }` prop, `if (!product) return null`, width/height defaults 80/100, `Number(product.price||0).toFixed(2)`.
+  - `common/ShopGram.jsx` → fetch `/products?limit=8`; all items open quick-add modal, tooltip "Quick add".
+  - `homes/home-1/Categories.jsx` → `Promise.all([/products/categories, /products?limit=50])`; tile image = first product image per API category; links `/category/${encodeURIComponent(title)}`.
+  - `homes/home-1/Brands.jsx` → inline 6-logo `brandData` (no import).
+  - `othersPages/Checkout.jsx` → paymentImages import replaced with inline 5-logo array.
+  - `shopDetails/ShopDetailsTab.jsx` → Review tab wired to `GET /api/reviews/product/:productId` (loading + empty states; renders avatar/name/rating/date/comment).
+- **2026-09-08 (deletion):** deleted 64 files — `data/{products.js, singleProductOptions.js, shop.js, categories.js, brands.js, brandList.js, gallery.js, productGallery.js}` + all verified-dead variant importers (list under step 2). `data/AGENTS.md` anti-patterns section updated (catalog removed; ids are MongoDB `_id` strings via `normalizeProduct`).
+- **2026-09-08 (verify):** `cd client && npm.cmd run build` PASSES — 391 modules, bundle 865 kB (was ~900+ variants indexed). Post-deletion grep: zero references to deleted data files/variants (only `data/AGENTS.md` doc mention, updated).
+- **2026-09-08 (Phase 5 §7.2 dashboard pages — API-wired):** `/likes` → new `components/othersPages/Likes.jsx` + `pages/otherPages/likes/` (server grid `GET /api/products/likes`, sign-in/empty states); `/delivery` → `pages/dashboard/DeliveryDashboard.jsx` rewritten from placeholder (`GET /api/delivery/assigned` table + shipped→delivered/cancelled `PUT :orderId/status`, role guard); `/profile` → `MyAccount.jsx` + own-reviews section (`GET /api/reviews/my-reviews`, populated product link + star rating). Build 393 modules.
+- **2026-09-08 (Phase 5 §7.2 seller pages — replaces iframe):** `components/othersPages/dashboard/SellerNav.jsx`; `pages/dashboard/SellerDashboard.jsx` rewritten (stat cards: revenue/orders/this-mo/products/rating/customers + recent orders via `GET /api/seller/dashboard`); `pages/dashboard/seller-products/` (list + search + pagination + add/edit/delete via `GET /api/seller/products` + product routes, category select); `pages/dashboard/seller-ai-predictions/` placeholder (§4.4). App.jsx: `seller/*` AdminIframe route replaced with `/seller`, `/seller/products`, `/seller/ai-predictions`. Build 395 modules.
+- **2026-09-08 (Step 3 — D10 EXECUTED):** `/api/admin` mount + require removed from `server.js`; deleted `server/routes/adminRoutes.js`, `server/controllers/adminController.js`, `client/src/pages/dashboard/AdminIframe.jsx`, `client/public/admin-build/` (whole dir). Grep: zero live references (only vendored `admin dashboard/extracted-silva/Ts/apply_fixes.cjs` mention, untouched). `node --check server.js` OK; client build still 395 modules.
+
+**Tasks REMAINING:**
+- Step 6 — `client/public/images/` audit: not started; images may still serve kept template sections.
+- Step 7 — `admin dashboard/extracted-silva/`: **KEEP** (vendor purchase, reference only).
+- Phase 8 (tests/docs) + Phase 9 (deploy) — next lanes after §7.2 pages (see §10/§11).
+
+### 9.2 Step list (with status)
+
 Order matters — only delete what no longer has importers:
-1. `client/src/data/*` (static catalog) — after pages flip to API AND Phase 4 has baked the curated subset into `seedProducts.js`.
-2. Unused component variants (ProductCard n, Details n, Header n...) — verify import graph per family first; keep the set pages actually use.
-3. `client/public/admin-build/` + `AdminIframe` — after React seller pages land.
-4. Root `*.cjs` / `add_route.js` patch scripts — delete (anti-pattern).
-5. `scripts/` supabase seeds, `supabase/` schema if present, Supabase references in client package.json (`@supabase/supabase-js`), README stack badges.
-6. `client/public/images/` only if unreferenced after data flip (audit; images may still serve kept template sections).
-7. Keep: `admin dashboard/extracted-silva/` (vendor purchase, reference only — don't delete without owner approval).
+1. `client/src/data/*` (static catalog) — **DONE 2026-09-08** (8 files deleted at zero importers; only marketing files kept).
+2. Unused component variants (ProductCard n, Details n, Header n...) — **DONE 2026-09-08** (56 verified-dead variant files deleted; keep the set pages actually use).
+3. `client/public/admin-build/` + `AdminIframe` — **DONE 2026-09-08** (D10 EXECUTED: React seller pages landed Phase 5 §7.2; `/api/admin` mount + `adminRoutes.js` + `adminController.js` + `AdminIframe.jsx` + `admin-build/` removed; zero live refs).
+4. Root `*.cjs` / `add_route.js` patch scripts — **DONE 2026-09-06** (anti-pattern).
+5. `scripts/` supabase seeds, `supabase/` schema if present, Supabase references in client package.json (`@supabase/supabase-js`), README stack badges — **DONE**.
+6. `client/public/images/` only if unreferenced after data flip (audit; images may still serve kept template sections) — **NOT AUDITED**.
+7. Keep: `admin dashboard/extracted-silva/` (vendor purchase, reference only — don't delete without owner approval) — **KEEP**.
 
 **Acceptance:** no dead imports; `vite build` passes; bundle size drops measurably.
 
@@ -308,7 +346,7 @@ Order matters — only delete what no longer has importers:
 | D7 | `admin dashboard/extracted-silva/` | Keep as vendor reference (owner purchase); never edit |
 | D8 | Order status enforcement order | pending → processing → shipped → delivered; cancelled allowed from any |
 | D9 | Product seed source (**DECIDED 2026-09-05; EXECUTED 2026-09-06**) | Curate from the existing static catalog → map to spec schema, keep local `/images/...` paths; Free E-commerce API (§1.5/§4.2.4) abandoned by owner; `image` is relative to the client origin (dev: Vite, prod: Vercel) — acceptable deviation, logged. **Owner decision 2026-09-06: exactly 10 products per category → 50 total.** Executed via one-off curation sweep of `allProducts` (client/src/data/products.js line 8571) → `server/scripts/seedData.json` (baked; enables Phase 7 deletion of the static catalog) → `server/scripts/seedProducts.js` upserts by name + creates demo seller `seller@smartcart.local`/`seller123` (env-overridable). Verified: 10/category via API, categories = 5 enums, search + sort work, seller dashboard totalProducts=50 |
-| D10 | `/api/admin` mount removal timing (**DECIDED 2026-09-05**) | Phase 3 enriched `seller/dashboard` per §5.2 (ordersThisMonth, averageRating) so the seller surface fully supersedes adminController. Mount STAYS (frozen, do-not-extend) until Phase 5 React seller pages depend only on seller routes — then removed with `AdminIframe` + `public/admin-build/` in Phase 7. adminController.updateOrderStatus bypasses the D8 machine but is only reachable via the retiring iframe — accepted, documented |
+| D10 | `/api/admin` mount removal timing (**DECIDED 2026-09-05; EXECUTED 2026-09-08**) | Phase 3 enriched `seller/dashboard` per §5.2 (ordersThisMonth, averageRating) so the seller surface fully supersedes adminController. Mount STAYS (frozen, do-not-extend) until Phase 5 React seller pages depend only on seller routes — then removed with `AdminIframe` + `public/admin-build/` in Phase 7. adminController.updateOrderStatus bypasses the D8 machine but is only reachable via the retiring iframe — accepted, documented. **EXECUTED 2026-09-08:** React seller pages landed (`/seller`, `/seller/products`, `/seller/ai-predictions`); `/api/admin` mount + require removed from server.js; `adminRoutes.js`, `adminController.js`, `AdminIframe.jsx`, `client/public/admin-build/` all deleted; zero live references verified (only vendored `extracted-silva` mention remains); `node --check server.js` OK; client build 395 modules |
 | D11 | Response envelope convention (**DECIDED 2026-09-05**) | Standardized zero-consumer singletons to `{success, data}` (product get/create/update, order create/detail/status, review create/update, delivery status). Lists keep `{success, count, <plural>}` (products/categories/orders/reviews/cart). **Exception:** `GET /api/auth/me` KEEPS `{success, user}` — the frozen client `AuthContext` reads `data.user`; re-align only during Phase 5 AuthContext rework. Deletes return `{success, data: {}}` |
 | D12 | Chat integration (client) (**DECIDED 2026-09-06**) | ChatWidget holds chat state locally; NO ChatContext module this phase. Spec §4.3.2 lists a ChatContext, but the API surface (POST /api/chat, one-shot reply) needs no shared session state — deferred to the chatbot wave (Ollama wiring + 50/day + 30d TTL already server-side). Widget: signed-in only, error surfaces 503/429, template classes |
 | D13 | `PUT /api/cart/:productId` (**DECIDED 2026-09-06**) | Spec F011 "Update Quantity" (Ch.3) requires a quantity-update endpoint but the §3.3.1 API table omits it. Added: body `{quantity}`, clamp 1..99, 404 if productId not in cart, 200 `{success, data}` cart. Controller `updateQuantity` + route registered in cartRoutes |

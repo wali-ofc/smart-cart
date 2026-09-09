@@ -1,12 +1,15 @@
-import { products1 } from "@/data/products";
 import React from "react";
 import { ProductCard } from "../shopCards/ProductCard";
 import Productcard23 from "../shopCards/Productcard23";
 
 export default function ProductGrid({
   gridItems = 4,
-  allproducts = products1,
+  allproducts = [],
+  totalProducts,
 }) {
+  const shown = Number.isInteger(totalProducts)
+    ? totalProducts
+    : allproducts.length;
   return (
     <>
       <div
@@ -17,7 +20,7 @@ export default function ProductGrid({
           marginBottom: "24px",
         }}
       >
-        {allproducts.length} product(s) found
+        {shown} product(s) found
       </div>
       {gridItems == 1 ? (
         <div className="grid-layout" data-grid="grid-list">

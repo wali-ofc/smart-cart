@@ -1,155 +1,56 @@
 import { useEffect, useState } from "react";
-const categories = [
-  { id: 1, name: "Clothing", isActive: false, link: "/category/clothing" },
-  { id: 2, name: "Sunglasses", isActive: false, link: "/category/sunglasses" },
-  { id: 3, name: "Bags", isActive: false, link: "/category/bags" },
-  { id: 4, name: "Fashion", isActive: false, link: "/category/fashion" },
-  { id: 5, name: "Accessories", isActive: false, link: "/category/accessories" },
-];
-
-const filterColors = [
-  { name: "Orange", colorClass: "bg_orange-3" },
-  { name: "Black", colorClass: "bg_dark" },
-  { name: "White", colorClass: "bg_white" },
-  { name: "Brown", colorClass: "bg_brown" },
-  { name: "Light Purple", colorClass: "bg_purple" },
-  { name: "Light Green", colorClass: "bg_light-green" },
-  { name: "Pink", colorClass: "bg_purple" },
-  { name: "Blue", colorClass: "bg_blue-2" },
-  { name: "Dark Blue", colorClass: "bg_dark-blue" },
-  { name: "Light Grey", colorClass: "bg_light-grey" },
-  { name: "Beige", colorClass: "bg_beige" },
-  { name: "Light Blue", colorClass: "bg_light-blue" },
-  { name: "Grey", colorClass: "bg_grey" },
-  { name: "Light Pink", colorClass: "bg_light-pink" },
-];
-const brands = ["SmartCart", "M&H"];
-const availabilities = [
-  { id: 1, isAvailable: true, text: "Available", count: 14 },
-  { id: 2, isAvailable: false, text: "Out of Stock", count: 2 },
-];
-const sizes = ["S", "M", "L", "XL"];
 import Slider from "rc-slider";
-import { products1 } from "@/data/products";
 import { Link } from "react-router-dom";
-export default function ShopFilter({ setProducts, products = products1 }) {
-  const [price, setPrice] = useState([0, 150]);
-  const handlePrice = (value) => {
-    setPrice(value);
-  };
-  const [selectedColors, setSelectedColors] = useState([]);
-  const handleSelectColor = (color) => {
-    if (selectedColors.includes(color)) {
-      setSelectedColors((pre) => [...pre.filter((el) => el != color)]);
-    } else {
-      setSelectedColors((pre) => [...pre, color]);
-    }
-  };
-  const [selectedBrands, setSelectedBrands] = useState([]);
-  const handleSelectBrand = (brand) => {
-    if (selectedBrands.includes(brand)) {
-      setSelectedBrands((pre) => [...pre.filter((el) => el != brand)]);
-    } else {
-      setSelectedBrands((pre) => [...pre, brand]);
-    }
-  };
-  const [selectedAvailabilities, setSelectedAvailabilities] = useState([]);
-  const handleSelectAvailabilities = (availability) => {
-    if (selectedAvailabilities.includes(availability)) {
-      setSelectedAvailabilities((pre) => [
-        ...pre.filter((el) => el != availability),
-      ]);
-    } else {
-      setSelectedAvailabilities((pre) => [...pre, availability]);
-    }
-  };
-  const [selectedSizes, setSelectedSizes] = useState([]);
-  const handleSelectSizes = (size) => {
-    if (selectedSizes.includes(size)) {
-      setSelectedSizes((pre) => [...pre.filter((el) => el != size)]);
-    } else {
-      setSelectedSizes((pre) => [...pre, size]);
-    }
-  };
+import api from "@/api/axios";
 
+const MAX_PRICE = 1000;
+
+export default function ShopFilter({ value, onChange, activeCategory = "" }) {
+  const [categories, setCategories] = useState([]);
+  const [price, setPrice] = useState([0, MAX_PRICE]);
+  const [loaded, setLoaded] = useState(false);
+
+  // Hydrate the local price range from the active query
   useEffect(() => {
-    let filteredArrays = [];
+    setPrice([
+      Number(value.minPrice) || 0,
+      Number(value.maxPrice) || MAX_PRICE,
+    ]);
+  }, [value.minPrice, value.maxPrice]);
 
-    filteredArrays = [
-      ...filteredArrays,
-      [
-        ...products.filter(
-          (elm) => elm.price >= price[0] && elm.price <= price[1]
-        ),
-      ],
-    ];
-    // console.log(filteredByPrice, "filteredByPrice");
-    if (selectedColors.length) {
-      filteredArrays = [
-        ...filteredArrays,
-        [
-          ...products.filter((elm) =>
-            elm.colors
-              ?.map((el2) => el2.name)
-              .some((el3) => selectedColors.includes(el3))
-          ),
-        ],
-      ];
-    }
+  // Real categories from the API (server-backed filter)
+  useEffect(() => {
+    let cancelled = false;
+    api
+      .get("/products/categories")
+      .then(({ data }) => {
+        if (!cancelled) setCategories(data.categories || []);
+      })
+      .catch(() => {
+        if (!cancelled) setCategories([]);
+      })
+      .finally(() => {
+        if (!cancelled) setLoaded(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
-    // console.log(filteredByselectedColors, "filteredByselectedColors");
-    if (selectedBrands.length) {
-      filteredArrays = [
-        ...filteredArrays,
-        [...products.filter((elm) => selectedBrands.includes(elm.brand))],
-      ];
-    }
-
-    // console.log(filteredByselectedBrands, "filteredByselectedBrands");
-    if (selectedSizes.length) {
-      filteredArrays = [
-        ...filteredArrays,
-        [
-          ...products.filter((elm) =>
-            elm.sizes?.some((elm2) => selectedSizes.includes(elm2))
-          ),
-        ],
-      ];
-    }
-
-    // console.log(filteredByselectedSizes);
-    if (selectedAvailabilities.length) {
-      filteredArrays = [
-        ...filteredArrays,
-        [
-          ...products.filter((elm) =>
-            selectedAvailabilities
-              .map((elm3) => elm3.isAvailable)
-              .some((elm4) => elm4 == elm.isAvailable)
-          ),
-        ],
-      ];
-    }
-
-    const commonItems = products.filter((item) =>
-      filteredArrays.every((array) => array.includes(item))
-    );
-    setProducts(commonItems);
-  }, [
-    price,
-    selectedColors,
-    selectedBrands,
-    selectedAvailabilities,
-    selectedSizes,
-    products,
-  ]);
-  const clearFilter = () => {
-    setSelectedColors([]);
-    setSelectedBrands([]);
-    setSelectedAvailabilities([]);
-    setSelectedSizes([]);
-    setPrice([0, 150]);
+  const handlePrice = (newPrice) => setPrice(newPrice);
+  const commitPrice = (newPrice) => {
+    const [minPrice, maxPrice] = newPrice;
+    onChange({
+      minPrice: minPrice > 0 ? minPrice : "",
+      maxPrice: maxPrice < MAX_PRICE ? maxPrice : "",
+    });
   };
+
+  const clearFilter = () => {
+    setPrice([0, MAX_PRICE]);
+    onChange({ minPrice: "", maxPrice: "" });
+  };
+
   return (
     <div className="offcanvas offcanvas-start canvas-filter" id="filterShop">
       <div className="canvas-wrapper">
@@ -178,19 +79,26 @@ export default function ShopFilter({ setProducts, products = products1 }) {
             </div>
             <div id="categories" className="collapse show">
               <ul className="list-categoris current-scrollbar mb_36">
-                {categories.map((category) => (
-                  <li key={category.id} className={`cate-item`}>
-                    {category.link ? (
-                      <Link to={category.link}>
-                        <span>{category.name}</span>
-                      </Link>
-                    ) : (
-                      <a href="#">
-                        <span>{category.name}</span>
-                      </a>
-                    )}
+                {loaded && !categories.length ? (
+                  <li className="cate-item">
+                    <span>No categories available</span>
                   </li>
-                ))}
+                ) : (
+                  categories.map((category) => (
+                    <li
+                      key={category}
+                      className={`cate-item ${
+                        activeCategory === category ? "active" : ""
+                      }`}
+                    >
+                      <Link
+                        to={`/category/${encodeURIComponent(category)}`}
+                      >
+                        <span>{category}</span>
+                      </Link>
+                    </li>
+                  ))
+                )}
               </ul>
             </div>
           </div>
@@ -200,49 +108,6 @@ export default function ShopFilter({ setProducts, products = products1 }) {
             id="facet-filter-form"
             className="facet-filter-form"
           >
-            <div className="widget-facet">
-              <div
-                className="facet-title"
-                data-bs-target="#availability"
-                data-bs-toggle="collapse"
-                aria-expanded="true"
-                aria-controls="availability"
-              >
-                <span>Availability</span>
-                <span className="icon icon-arrow-up" />
-              </div>
-              <div id="availability" className="collapse show">
-                <ul className="tf-filter-group current-scrollbar mb_36">
-                  {availabilities.map((availability) => (
-                    <li
-                      key={availability.id}
-                      className="list-item d-flex gap-12 align-items-center"
-                      onClick={() => handleSelectAvailabilities(availability)}
-                    >
-                      <input
-                        type="radio"
-                        className="tf-check"
-                        readOnly
-                        checked={selectedAvailabilities.includes(availability)}
-                      />
-                      <label className="label">
-                        <span>{availability.text}</span>&nbsp;
-                        <span>
-                          (
-                          {
-                            products.filter(
-                              (elm) =>
-                                elm.isAvailable == availability.isAvailable
-                            ).length
-                          }
-                          )
-                        </span>
-                      </label>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
             <div className="widget-facet wrap-price">
               <div
                 className="facet-title"
@@ -259,10 +124,11 @@ export default function ShopFilter({ setProducts, products = products1 }) {
                   <Slider
                     formatLabel={() => ``}
                     range
-                    max={150}
+                    max={MAX_PRICE}
                     min={0}
-                    defaultValue={price}
+                    value={price}
                     onChange={(value) => handlePrice(value)}
+                    onAfterChange={(value) => commitPrice(value)}
                     id="slider"
                   />
                   <div className="box-title-price">
@@ -280,129 +146,6 @@ export default function ShopFilter({ setProducts, products = products1 }) {
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div className="widget-facet">
-              <div
-                className="facet-title"
-                data-bs-target="#brand"
-                data-bs-toggle="collapse"
-                aria-expanded="true"
-                aria-controls="brand"
-              >
-                <span>Brand</span>
-                <span className="icon icon-arrow-up" />
-              </div>
-              <div id="brand" className="collapse show">
-                <ul className="tf-filter-group current-scrollbar mb_36">
-                  {brands.map((brand) => (
-                    <li
-                      key={brand}
-                      className="list-item d-flex gap-12 align-items-center"
-                      onClick={() => handleSelectBrand(brand)}
-                    >
-                      <input
-                        type="radio"
-                        className="tf-check"
-                        readOnly
-                        checked={selectedBrands.includes(brand)}
-                      />
-                      <label className="label">
-                        <span>{brand}</span>&nbsp;
-                        <span>
-                          ({products.filter((elm) => elm.brand == brand).length}
-                          )
-                        </span>
-                      </label>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <div className="widget-facet">
-              <div
-                className="facet-title"
-                data-bs-target="#color"
-                data-bs-toggle="collapse"
-                aria-expanded="true"
-                aria-controls="color"
-              >
-                <span>Color</span>
-                <span className="icon icon-arrow-up" />
-              </div>
-              <div id="color" className="collapse show">
-                <ul className="tf-filter-group filter-color current-scrollbar mb_36">
-                  {filterColors.map((elm, i) => (
-                    <li
-                      key={i}
-                      className="list-item d-flex gap-12 align-items-center"
-                      onClick={() => handleSelectColor(elm.name)}
-                    >
-                      <input
-                        type="checkbox"
-                        name="color"
-                        className={`tf-check-color ${elm.colorClass}`}
-                        readOnly
-                        checked={selectedColors.includes(elm.name)}
-                      />
-                      <label className="label">
-                        <span>{elm.name}</span>&nbsp;
-                        <span>
-                          (
-                          {
-                            products.filter((el) =>
-                              el.colors
-                                ?.map((col) => col?.name)
-                                ?.includes(elm.name)
-                            ).length
-                          }
-                          )
-                        </span>
-                      </label>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <div className="widget-facet">
-              <div
-                className="facet-title"
-                data-bs-target="#size"
-                data-bs-toggle="collapse"
-                aria-expanded="true"
-                aria-controls="size"
-              >
-                <span>Size</span>
-                <span className="icon icon-arrow-up" />
-              </div>
-              <div id="size" className="collapse show">
-                <ul className="tf-filter-group current-scrollbar">
-                  {sizes.map((elm, i) => (
-                    <li
-                      key={i}
-                      onClick={() => handleSelectSizes(elm)}
-                      className="list-item d-flex gap-12 align-items-center"
-                    >
-                      <input
-                        type="radio"
-                        className="tf-check tf-check-size"
-                        readOnly
-                        checked={selectedSizes.includes(elm)}
-                      />
-                      <label className="label">
-                        <span>{elm}</span>&nbsp;
-                        <span>
-                          (
-                          {
-                            products.filter((el) => el.sizes?.includes(elm))
-                              .length
-                          }
-                          )
-                        </span>
-                      </label>
-                    </li>
-                  ))}
-                </ul>
               </div>
             </div>
           </form>
