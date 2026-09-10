@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 
 const sellerLinks = [
   { href: "/seller", label: "Dashboard" },
+  { href: "/seller/orders", label: "Orders" },
   { href: "/seller/products", label: "Products" },
   { href: "/seller/ai-predictions", label: "AI Predictions" },
 ];
@@ -15,7 +16,9 @@ export default function SellerNav() {
           <Link
             to={link.href}
             className={`my-account-nav-item ${
-              pathname === link.href || pathname.startsWith(link.href + "/")
+              link.href === "/seller"
+                ? pathname === "/seller"
+                : pathname === link.href || pathname.startsWith(link.href + "/")
                 ? "active"
                 : ""
             }`}
@@ -24,6 +27,11 @@ export default function SellerNav() {
           </Link>
         </li>
       ))}
+      <li>
+        <Link to={`/login`} className="my-account-nav-item">
+          Logout
+        </Link>
+      </li>
     </ul>
   );
 }

@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import Pagination from '@/components/common/Pagination';
+import Footer1 from '@/components/footers/Footer1';
+import Header2 from '@/components/headers/Header2';
+import MetaComponent from '@/components/common/MetaComponent';
+import SellerNav from '@/components/othersPages/dashboard/SellerNav';
 import api from '@/api/axios';
 import { useAuth } from '@/context/AuthContext';
+
+const metadata = {
+  title: 'Seller Products || SmartCart - Modern Multipurpose eCommerce',
+  description: 'SmartCart - Modern Multipurpose eCommerce',
+};
 
 const CATEGORIES = [
   'Electronics & Gadgets',
@@ -38,6 +48,8 @@ export default function SellerProductsPage() {
   const [form, setForm] = useState(EMPTY_FORM);
   const [formError, setFormError] = useState('');
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState('');
 
   const load = async (searchTerm, pageNum) => {
     setLoading(true);
@@ -72,6 +84,7 @@ export default function SellerProductsPage() {
     setEditing(null);
     setForm(EMPTY_FORM);
     setFormError('');
+    setUploadError('');
     setShowForm(true);
   };
 
@@ -88,7 +101,27 @@ export default function SellerProductsPage() {
       keywords: (product.keywords || []).join(', '),
     });
     setFormError('');
+    setUploadError('');
     setShowForm(true);
+  };
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    setUploadError('');
+    const formData = new FormData();
+    formData.append('image', file);
+    try {
+      const { data } = await api.post('/upload', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      setForm((prev) => ({ ...prev, image: data.image }));
+    } catch (err) {
+      setUploadError(err?.response?.data?.error || 'Failed to upload image from device.');
+    } finally {
+      setUploading(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -140,23 +173,56 @@ export default function SellerProductsPage() {
 
   if (!isSeller) {
     return (
-      <section className="flat-spacing-11">
-        <div className="container">
-          <div className="text-center">
-            <h5 className="fw-5 mb_20">Seller Products</h5>
-            <p className="mb-0">
-              This page is for sellers. Please sign in with a seller account.
-            </p>
+      <>
+        <MetaComponent meta={metadata} />
+        <Header2 />
+        <div className="tf-page-title">
+          <div className="container-full">
+            <div className="heading text-center">Seller Products</div>
           </div>
         </div>
-      </section>
+        <section className="flat-spacing-11">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-3">
+                <SellerNav />
+              </div>
+              <div className="col-lg-9">
+                <div className="my-account-content">
+                  <div className="text-center">
+                    <h5 className="fw-5 mb_20">Seller Products</h5>
+                    <p className="mb-0">
+                      This page is for sellers. Please sign in with a seller account.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <Footer1 />
+      </>
     );
   }
 
   return (
-    <section className="flat-spacing-11">
-      <div className="container">
-        <div className="d-flex align-items-center justify-content-between flex-wrap gap-3 mb_30">
+    <>
+      <MetaComponent meta={metadata} />
+      <Header2 />
+      <div className="tf-page-title">
+        <div className="container-full">
+          <div className="heading text-center">My Products</div>
+        </div>
+      </div>
+      <section className="flat-spacing-11">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-3">
+              <SellerNav />
+            </div>
+            <div className="col-lg-9">
+              <div className="my-account-content account-dashboard">
+                <div className="d-flex align-items-center justify-content-between flex-wrap gap-3 mb_30">
           <div>
             <h5 className="fw-5 mb_10">My Products</h5>
             <p className="mb-0">{total} product{total === 1 ? '' : 's'} listed</p>
@@ -244,16 +310,53 @@ export default function SellerProductsPage() {
                   />
                 </div>
                 <div className="col-12">
-                  <label className="form-label small mb_8">Image path *</label>
-                  <input
-                    type="text"
-                    name="image"
-                    className="form-control"
-                    placeholder="/images/products/..."
-                    value={form.image}
-                    onChange={handleChange}
-                    required
-                  />
+                  <label className="form-label small mb_8">Product Image *</label>
+                  <div className="d-flex flex-column gap-2">
+                    <div>
+                      <label htmlFor="device-image-upload" className="form-label small text-secondary mb-1">
+                        Upload from Device:
+                      </label>
+                      <input
+                        type="file"
+                        id="device-image-upload"
+                        accept="image/*"
+                        className="form-control"
+                        onChange={handleImageUpload}
+                        disabled={uploading}
+                      />
+                    </div>
+                    {uploading && (
+                      <div className="small text-primary">Uploading image from device…</div>
+                    )}
+                    {uploadError && (
+                      <div className="small text-danger">{uploadError}</div>
+                    )}
+                    <div>
+                      <label className="form-label small text-secondary mb-1">
+                        Image URL / Relative Path:
+                      </label>
+                      <input
+                        type="text"
+                        name="image"
+                        className="form-control"
+                        placeholder="/images/products/..."
+                        value={form.image}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                    {form.image && (
+                      <div className="d-flex align-items-center gap-2 mt-1">
+                        <span className="small text-secondary">Preview:</span>
+                        <img
+                          src={form.image}
+                          alt="Product preview"
+                          style={{ width: 60, height: 60, objectFit: 'cover' }}
+                          className="rounded border"
+                        />
+                      </div>
+                    )}
+                  </div>
                 </div>
                 <div className="col-12">
                   <label className="form-label small mb_8">Description *</label>
@@ -385,25 +488,18 @@ export default function SellerProductsPage() {
               </table>
             </div>
             {pages > 1 && (
-              <nav className="mt-4 d-flex justify-content-center">
-                <ul className="pagination mb-0">
-                  {Array.from({ length: pages }, (_, i) => i + 1).map((p) => (
-                    <li key={p} className={`page-item ${p === page ? 'active' : ''}`}>
-                      <button
-                        type="button"
-                        className="page-link"
-                        onClick={() => setPage(p)}
-                      >
-                        {p}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
+              <ul className="tf-pagination-wrap tf-pagination-list tf-pagination-btn mt-4 mb-0">
+                <Pagination page={page} pages={pages} onChange={setPage} />
+              </ul>
             )}
           </>
         )}
-      </div>
-    </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <Footer1 />
+    </>
   );
 }

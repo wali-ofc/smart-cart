@@ -5,17 +5,21 @@ const ApiError = require('../utils/ApiError');
 /**
  * Allowed status transitions (decision log D8).
  * Seller drives fulfillment; delivery agent only completes or cancels the last leg.
+ * `refunded` is seller-driven from any shipped/fulfilled stage (or mid-processing).
  */
 const SELLER_TRANSITIONS = {
-  pending: ['processing', 'cancelled'],
-  processing: ['shipped', 'cancelled'],
-  shipped: ['cancelled'],
-  delivered: ['cancelled']
+  pending: ['processing', 'shipped', 'cancelled'],
+  processing: ['shipped', 'refunded', 'cancelled'],
+  shipped: ['refunded', 'cancelled'],
+  delivered: ['refunded', 'cancelled']
 };
 
 const DELIVERY_TRANSITIONS = {
   shipped: ['delivered', 'cancelled']
 };
+
+// Single source of truth for valid statuses (mirrors the model enum).
+const ORDER_STATUSES = Order.schema.path('status').enumValues;
 
 /**
  * Create an order from the user's cart (spec POST /api/orders).
@@ -70,6 +74,29 @@ exports.getUserOrders = async (userId) => {
   return Order.find({ user: userId })
     .sort({ createdAt: -1 })
     .populate('items.product', 'name image price');
+};
+
+/** A seller's order book: paginated + optional status filter (GET /api/seller/orders). */
+exports.getSellerOrders = async ({ sellerId, status, page = 1, limit = 8 }) => {
+  const query = { seller: sellerId };
+  if (status && ORDER_STATUSES.includes(status)) {
+    query.status = status;
+  }
+
+  const pageNum = Math.max(1, Number(page) || 1);
+  const limitNum = Math.min(50, Math.max(1, Number(limit) || 8));
+  const skip = (pageNum - 1) * limitNum;
+
+  const [orders, total] = await Promise.all([
+    Order.find(query)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limitNum)
+      .populate('user', 'name email profileImage'),
+    Order.countDocuments(query)
+  ]);
+
+  return { orders, total, page: pageNum, pages: Math.ceil(total / limitNum) };
 };
 
 /** Order detail — owner, seller, or assigned agent may view (spec GET /api/orders/:id). */

@@ -57,15 +57,15 @@ describe('Order model (spec §3.2.2)', () => {
     await expect(Order.create(buildOrder({ status: 'paid' }))).rejects.toThrow();
   });
 
-  it('accepts all 5 spec statuses', async () => {
-    for (const status of ['pending', 'processing', 'shipped', 'delivered', 'cancelled']) {
+  it('accepts all 6 spec statuses', async () => {
+    for (const status of ['pending', 'processing', 'shipped', 'delivered', 'cancelled', 'refunded']) {
       const o = await Order.create(buildOrder({ status }));
       expect(o.status).toBe(status);
     }
   });
 
   it('rejects an unknown status', async () => {
-    await expect(Order.create(buildOrder({ status: 'refunded' }))).rejects.toThrow();
+    await expect(Order.create(buildOrder({ status: 'dispatched' }))).rejects.toThrow();
   });
 
   it('rejects an invalid payment_method (spec enum: cod/card/other)', async () => {

@@ -2,6 +2,9 @@ const express = require('express');
 const {
   getDashboard,
   getMyProducts,
+  getSellerOrders,
+  getOrderStats,
+  getSellerOrderDetail,
   getProductAnalytics
 } = require('../controllers/sellerController');
 const { protect, authorize } = require('../middleware/authMiddleware');
@@ -14,6 +17,15 @@ router.use(authorize('seller'));
 
 // GET /api/seller/dashboard
 router.get('/dashboard', getDashboard);
+
+// GET /api/seller/orders — order book (status filter + pagination)
+router.get('/orders', getSellerOrders);
+
+// GET /api/seller/orders/stats — status counts + frequency for charts
+router.get('/orders/stats', getOrderStats);
+
+// GET /api/seller/orders/:id — single order detail
+router.get('/orders/:id', getSellerOrderDetail);
 
 // GET /api/seller/products
 router.get('/products', getMyProducts);

@@ -23,9 +23,6 @@ export default function Checkout() {
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [address, setAddress] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [note, setNote] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("bank");
   const [agreed, setAgreed] = useState(false);
   const [error, setError] = useState("");
@@ -57,13 +54,17 @@ export default function Checkout() {
         country: country,
       },
       payment_method: paymentMethod === "cod" ? "cod" : "other",
-      notes: note.trim() || undefined,
     };
     setSubmitting(true);
     try {
-      await api.post("/orders", payload);
+      const { data } = await api.post("/orders", payload);
+      const orderId = data?.data?._id;
       await clearCart();
-      navigate("/payment-confirmation");
+      if (orderId) {
+        navigate(`/payment-confirmation?order=${orderId}`);
+      } else {
+        navigate("/payment-confirmation");
+      }
     } catch (err) {
       setError(
         err?.response?.data?.error || "Could not place your order. Please try again."
@@ -292,36 +293,6 @@ export default function Checkout() {
                   onChange={(e) => setZipCode(e.target.value)}
                 />
               </fieldset>
-              <fieldset className="box fieldset">
-                <label htmlFor="phone">Phone Number</label>
-                <input
-                  required
-                  type="number"
-                  id="phone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-              </fieldset>
-              <fieldset className="box fieldset">
-                <label htmlFor="email">Email</label>
-                <input
-                  required
-                  type="email"
-                  autoComplete="abc@xyz.com"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </fieldset>
-              <fieldset className="box fieldset">
-                <label htmlFor="note">Order notes (optional)</label>
-                <textarea
-                  name="note"
-                  id="note"
-                  value={note}
-                  onChange={(e) => setNote(e.target.value)}
-                />
-              </fieldset>
             </form>
           </div>
           <div className="tf-page-cart-footer">
@@ -373,15 +344,6 @@ export default function Checkout() {
                     </div>
                   </div>
                 )}
-                <div className="coupon-box">
-                  <input required type="text" placeholder="Discount code" />
-                  <a
-                    href="#"
-                    className="tf-btn btn-sm radius-3 btn-fill btn-icon animate-hover-btn"
-                  >
-                    Apply
-                  </a>
-                </div>
                 <div className="d-flex justify-content-between line pb_20">
                   <h6 className="fw-5">Total</h6>
                   <h6 className="total fw-5">${totalPrice.toFixed(2)}</h6>

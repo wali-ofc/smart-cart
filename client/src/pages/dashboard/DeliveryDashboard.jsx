@@ -8,6 +8,7 @@ const STATUS_LABEL = {
   shipped: 'Shipped',
   delivered: 'Delivered',
   cancelled: 'Cancelled',
+  refunded: 'Refunded',
 };
 
 const fmtDateTime = (iso) =>

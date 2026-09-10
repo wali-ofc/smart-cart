@@ -16,6 +16,7 @@ const sellerRoutes = require('./routes/sellerRoutes');
 const deliveryRoutes = require('./routes/deliveryRoutes');
 const chatRoutes = require('./routes/chatRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
 
 const app = express();
 
@@ -31,6 +32,9 @@ app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
 
+// Serve uploaded images statically
+app.use('/images', express.static(path.join(__dirname, '../client/public/images')));
+
 // Database connection
 connectDB();
 
@@ -43,6 +47,7 @@ app.use('/api/seller', sellerRoutes);
 app.use('/api/delivery', deliveryRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/reviews', reviewRoutes);
+app.use('/api/upload', uploadRoutes);
 
 // Basic health route
 app.get('/api/health', (req, res) => res.json({ status: 'OK' }));

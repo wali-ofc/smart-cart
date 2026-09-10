@@ -3,12 +3,23 @@ const Order = require('../models/Order');
 const User = require('../models/User');
 const mongoose = require('mongoose');
 const productService = require('../services/productService');
+const orderService = require('../services/orderService');
 const ApiError = require('../utils/ApiError');
 
 const ACTIVE_ORDER_STATUSES = ['processing', 'shipped', 'delivered'];
 
-// Aggregation $match does NOT auto-cast — a raw id string never matches an ObjectId field.
-const sellerMatch = (sellerId) => ({ seller: new mongoose.Types.ObjectId(sellerId) });
+// Aggregation $match does NOT auto-cast — match both ObjectId and String values for robust query matching.
+const sellerMatch = (sellerId) => {
+  if (mongoose.Types.ObjectId.isValid(sellerId)) {
+    return {
+      $or: [
+        { seller: new mongoose.Types.ObjectId(sellerId) },
+        { seller: String(sellerId) }
+      ]
+    };
+  }
+  return { seller: sellerId };
+};
 
 /** GET /api/seller/dashboard — §5.2 checklist: total revenue, orders this month, products listed, average rating, recent orders */
 exports.getDashboard = async (req, res) => {
@@ -69,6 +80,79 @@ exports.getMyProducts = async (req, res) => {
   const result = await productService.listProducts({ seller: req.user.id, page, limit, search });
 
   res.status(200).json({ success: true, count: result.products.length, ...result });
+};
+
+/** GET /api/seller/orders — the seller's order book (paginated, status filter) */
+exports.getSellerOrders = async (req, res) => {
+  const { status, page, limit } = req.query;
+  const result = await orderService.getSellerOrders({
+    sellerId: req.user.id,
+    status,
+    page,
+    limit
+  });
+
+  res.status(200).json({ success: true, count: result.orders.length, ...result });
+};
+
+/** GET /api/seller/orders/stats — status counts + frequency data for charts */
+exports.getOrderStats = async (req, res) => {
+  const sellerId = req.user.id;
+  const { period } = req.query; // 'all' | '1m' | '7d' | '24h'
+
+  const now = new Date();
+  let dateFilter = {};
+  if (period === '1m') {
+    dateFilter = { createdAt: { $gte: new Date(now - 30 * 24 * 60 * 60 * 1000) } };
+  } else if (period === '7d') {
+    dateFilter = { createdAt: { $gte: new Date(now - 7 * 24 * 60 * 60 * 1000) } };
+  } else if (period === '24h') {
+    dateFilter = { createdAt: { $gte: new Date(now - 24 * 60 * 60 * 1000) } };
+  }
+
+  const match = { ...sellerMatch(sellerId), ...dateFilter };
+
+  // Status counts (always across all time for the stat boxes)
+  const statusCountsAgg = await Order.aggregate([
+    { $match: sellerMatch(sellerId) },
+    { $group: { _id: '$status', count: { $sum: 1 } } }
+  ]);
+  const statusCounts = {};
+  statusCountsAgg.forEach((r) => { statusCounts[r._id] = r.count; });
+
+  // Frequency chart — grouped by day/hour depending on period
+  let dateFormat;
+  let groupKey;
+  if (period === '24h') {
+    dateFormat = '%Y-%m-%d %H:00';
+    groupKey = { $dateToString: { format: dateFormat, date: '$createdAt' } };
+  } else {
+    dateFormat = '%Y-%m-%d';
+    groupKey = { $dateToString: { format: dateFormat, date: '$createdAt' } };
+  }
+
+  const frequencyAgg = await Order.aggregate([
+    { $match: match },
+    { $group: { _id: groupKey, count: { $sum: 1 } } },
+    { $sort: { _id: 1 } }
+  ]);
+
+  const frequency = frequencyAgg.map((r) => ({ date: r._id, count: r.count }));
+
+  res.status(200).json({
+    success: true,
+    data: { statusCounts, frequency }
+  });
+};
+
+/** GET /api/seller/orders/:id — single order detail for the seller */
+exports.getSellerOrderDetail = async (req, res) => {
+  const order = await orderService.getOrderById({
+    userId: req.user.id,
+    role: 'seller',
+    orderId: req.params.id,
+  });
+  res.status(200).json({ success: true, data: order });
 };
 
 /** GET /api/seller/products/:id/analytics — units sold / revenue / orders per product */

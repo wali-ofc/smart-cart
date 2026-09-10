@@ -42,6 +42,8 @@ import MyAccountEditPage from "./pages/dashboard/my-account-edit";
 import MyAccountWishlistPage from "./pages/dashboard/my-account-wishlist";
 import MyAccountOrderDetailsPage from "./pages/dashboard/my-account-orders-details";
 import SellerDashboard from "./pages/dashboard/SellerDashboard";
+import SellerOrdersPage from "./pages/dashboard/SellerOrders";
+import SellerOrderDetailPage from "./pages/dashboard/SellerOrderDetail";
 import SellerProductsPage from "./pages/dashboard/seller-products";
 import SellerAiPredictionsPage from "./pages/dashboard/seller-ai-predictions";
 import DeliveryDashboard from "./pages/dashboard/DeliveryDashboard";
@@ -218,6 +220,8 @@ function App() {
                 <Route path="my-account-orders-details/:id" element={<MyAccountOrderDetailsPage />} />
 
                 <Route path="seller" element={<SellerDashboard />} />
+                <Route path="seller/orders" element={<SellerOrdersPage />} />
+                <Route path="seller/orders/:id" element={<SellerOrderDetailPage />} />
                 <Route path="seller/products" element={<SellerProductsPage />} />
                 <Route path="seller/ai-predictions" element={<SellerAiPredictionsPage />} />
                 <Route path="delivery" element={<DeliveryDashboard />} />

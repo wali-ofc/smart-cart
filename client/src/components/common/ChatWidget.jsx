@@ -133,7 +133,7 @@ export default function ChatWidget() {
       )}
       <button
         onClick={() => setOpen((v) => !v)}
-        className="tf-btn btn-fill animate-hover-btn chat-widget-toggle"
+        className="tf-btn btn-fill animate-hover-btn chat-widget-toggle d-flex align-items-center justify-content-center"
         style={{ width: 56, height: 56, borderRadius: "50%", padding: 0 }}
         aria-label={open ? "Close chat" : "Open chat"}
       >

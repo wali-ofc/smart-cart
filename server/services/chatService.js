@@ -243,7 +243,7 @@ async function handleIntent(intent, message, userId) {
 
     case 'orderStatus': {
       const orders = await getOrders(userId, 5);
-      const active = orders.filter((o) => !['delivered', 'cancelled'].includes(o.status));
+      const active = orders.filter((o) => !['delivered', 'cancelled', 'refunded'].includes(o.status));
       if (!active.length) {
         return {
           reply: orders.length

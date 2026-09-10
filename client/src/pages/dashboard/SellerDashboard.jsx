@@ -1,29 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import Footer1 from '@/components/footers/Footer1';
+import Header2 from '@/components/headers/Header2';
+import MetaComponent from '@/components/common/MetaComponent';
+import SellerNav from '@/components/othersPages/dashboard/SellerNav';
+import OrderStatusChart from '@/components/dashboard/OrderStatusChart';
 import api from '@/api/axios';
 import { useAuth } from '@/context/AuthContext';
 
-const STATUS_LABEL = {
-  pending: 'Pending',
-  processing: 'Processing',
-  shipped: 'Shipped',
-  delivered: 'Delivered',
-  cancelled: 'Cancelled',
+const metadata = {
+  title: 'Seller Dashboard || SmartCart - Modern Multipurpose eCommerce',
+  description: 'SmartCart - Modern Multipurpose eCommerce',
 };
-
-const fmtDate = (iso) =>
-  new Date(iso).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
 
 export default function SellerDashboard() {
   const { user } = useAuth();
+  const isSeller = user?.role === 'seller';
+
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-
-  const isSeller = user?.role === 'seller';
 
   useEffect(() => {
     if (!isSeller) {
@@ -31,8 +27,7 @@ export default function SellerDashboard() {
       return;
     }
     let active = true;
-    api
-      .get('/seller/dashboard')
+    api.get('/seller/dashboard')
       .then(({ data }) => {
         if (active) setStats(data.data || null);
       })
@@ -42,115 +37,112 @@ export default function SellerDashboard() {
       .finally(() => {
         if (active) setLoading(false);
       });
-    return () => {
-      active = false;
-    };
+    return () => { active = false; };
   }, [isSeller]);
 
+  let content;
   if (!isSeller) {
-    return (
+    content = (
+      <div className="text-center">
+        <h5 className="fw-5 mb_20">Seller Dashboard</h5>
+        <p className="mb-0">
+          This dashboard is for sellers. Please sign in with a seller account.
+        </p>
+        <div className="mt_30">
+          <a
+            href="#register"
+            data-bs-toggle="modal"
+            className="tf-btn btn-fill animate-hover-btn radius-3"
+          >
+            <span>Become a Seller</span>
+          </a>
+        </div>
+      </div>
+    );
+  } else if (loading) {
+    content = <p className="mb-0">Loading your dashboard…</p>;
+  } else if (error) {
+    content = <p className="mb-0 text-danger">{error}</p>;
+  } else {
+    const cards = [
+      { label: 'Total Revenue', value: `$${(stats?.totalRevenue || 0).toFixed(2)}` },
+      { label: 'Total Orders', value: stats?.totalOrders ?? 0 },
+      { label: 'Orders This Month', value: stats?.ordersThisMonth ?? 0 },
+      { label: 'Products Listed', value: stats?.totalProducts ?? 0 },
+      { label: 'Average Rating', value: stats?.averageRating ?? 0 },
+      { label: 'Customers', value: stats?.totalCustomers ?? 0 },
+    ];
+
+    content = (
+      <>
+        <div className="mb_60">
+          <h5 className="fw-5 mb_20">Hello {user?.name || 'Seller'}</h5>
+          {user && (
+            <p className="mb_16">
+              Signed in as <strong>{user.email}</strong>
+              <span className="text_primary text-capitalize"> (seller)</span>
+            </p>
+          )}
+          <p>
+            From your seller dashboard you can manage your{' '}
+            <Link className="text_primary" to={`/seller/products`}>
+              products
+            </Link>
+            , view{' '}
+            <Link className="text_primary" to={`/seller/orders`}>
+              orders
+            </Link>
+            , and explore{' '}
+            <Link className="text_primary" to={`/seller/ai-predictions`}>
+              AI demand predictions
+            </Link>{' '}
+            for your store.
+          </p>
+        </div>
+
+        <div className="mb_30">
+          <h6 className="fw-5 mb_20">Store Overview</h6>
+          <div className="row g-3">
+            {cards.map((card) => (
+              <div className="col-6 col-lg-4" key={card.label}>
+                <div className="p-3 border rounded-3 text-center h-100">
+                  <div className="fs-4 fw-6">{card.value}</div>
+                  <div className="small text-secondary">{card.label}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <OrderStatusChart />
+      </>
+    );
+  }
+
+  return (
+    <>
+      <MetaComponent meta={metadata} />
+      <Header2 />
+      <div className="tf-page-title">
+        <div className="container-full">
+          <div className="heading text-center">Seller Dashboard</div>
+        </div>
+      </div>
       <section className="flat-spacing-11">
         <div className="container">
-          <div className="text-center">
-            <h5 className="fw-5 mb_20">Seller Dashboard</h5>
-            <p className="mb-0">
-              This dashboard is for sellers. Please sign in with a seller account.
-            </p>
-            <div className="mt_30">
-              <a
-                href="#register"
-                data-bs-toggle="modal"
-                className="tf-btn btn-fill animate-hover-btn radius-3"
-              >
-                <span>Become a Seller</span>
-              </a>
+          <div className="row">
+            <div className="col-lg-3">
+              <SellerNav />
+            </div>
+            <div className="col-lg-9">
+              <div className={`my-account-content ${isSeller ? 'account-dashboard' : ''}`}>
+                {content}
+              </div>
             </div>
           </div>
         </div>
       </section>
-    );
-  }
-
-  if (loading) {
-    return (
-      <section className="flat-spacing-11">
-        <div className="container">
-          <p className="mb-0">Loading your dashboard…</p>
-        </div>
-      </section>
-    );
-  }
-
-  if (error) {
-    return (
-      <section className="flat-spacing-11">
-        <div className="container">
-          <p className="mb-0 text-danger">{error}</p>
-        </div>
-      </section>
-    );
-  }
-
-  const cards = [
-    { label: 'Total Revenue', value: `$${(stats?.totalRevenue || 0).toFixed(2)}` },
-    { label: 'Total Orders', value: stats?.totalOrders ?? 0 },
-    { label: 'Orders This Month', value: stats?.ordersThisMonth ?? 0 },
-    { label: 'Products Listed', value: stats?.totalProducts ?? 0 },
-    { label: 'Average Rating', value: stats?.averageRating ?? 0 },
-    { label: 'Customers', value: stats?.totalCustomers ?? 0 },
-  ];
-
-  return (
-    <section className="flat-spacing-11">
-      <div className="container">
-        <div className="mb_40">
-          <h5 className="fw-5 mb_20">Seller Dashboard</h5>
-          <p className="mb-0">An overview of your store's performance.</p>
-        </div>
-
-        <div className="row g-3 mb_40">
-          {cards.map((card) => (
-            <div className="col-6 col-lg-2" key={card.label}>
-              <div className="p-3 border rounded-3 text-center h-100">
-                <div className="fs-4 fw-6">{card.value}</div>
-                <div className="small text-secondary">{card.label}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="mb_30">
-          <h6 className="fw-5 mb_20">Recent Orders</h6>
-          {stats?.recentOrders?.length > 0 ? (
-            <div className="table-responsive">
-              <table className="table align-middle">
-                <thead>
-                  <tr>
-                    <th className="fw-6">Order</th>
-                    <th className="fw-6">Customer</th>
-                    <th className="fw-6">Date</th>
-                    <th className="fw-6">Status</th>
-                    <th className="fw-6">Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {stats.recentOrders.map((order) => (
-                    <tr key={order._id}>
-                      <td>#{String(order._id).slice(-6).toUpperCase()}</td>
-                      <td>{order.user?.name || '—'}</td>
-                      <td>{fmtDate(order.createdAt)}</td>
-                      <td>{STATUS_LABEL[order.status] || order.status}</td>
-                      <td>${(order.total_price || 0).toFixed(2)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ) : (
-            <p className="mb-0 text-secondary">No orders yet.</p>
-          )}
-        </div>
-      </div>
-    </section>
+      <Footer1 />
+    </>
   );
 }
