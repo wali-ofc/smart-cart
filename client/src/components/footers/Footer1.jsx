@@ -2,8 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { Link } from "react-router-dom";
 import axios from "axios";
-import LanguageSelect from "../common/LanguageSelect";
-import CurrencySelect from "../common/CurrencySelect";
 
 import { aboutLinks, footerLinks, paymentImages } from "@/data/footerLinks";
 export default function Footer1({ bgColor = "" }) {
@@ -257,14 +255,6 @@ export default function Footer1({ bgColor = "" }) {
                       </div>
                       <div className="subscribe-msg" />
                     </form>
-                    <div className="tf-cur">
-                      <div className="tf-currencies">
-                        <CurrencySelect />
-                      </div>
-                      <div className="tf-languages">
-                        <LanguageSelect />
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>

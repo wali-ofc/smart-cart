@@ -109,7 +109,8 @@ exports.getSellerOrders = async ({ sellerId, status, page = 1, limit = 8 }) => {
 exports.getOrderById = async ({ userId, role, orderId }) => {
   const order = await Order.findById(orderId)
     .populate('items.product', 'name image price description')
-    .populate('user', 'name email profileImage');
+    .populate('user', 'name email profileImage')
+    .populate('delivery_agent', 'name email profileImage');
 
   if (!order) {
     throw new ApiError(404, 'Order not found');

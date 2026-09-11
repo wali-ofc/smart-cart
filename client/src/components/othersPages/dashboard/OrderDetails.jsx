@@ -194,7 +194,9 @@ export default function OrderDetails() {
                       <div className="text-2 fw-6">
                         {STATUS_LABEL[order.status] || order.status}
                       </div>
-                      <span>{fmtDateTime(order.createdAt)}</span>
+                      <span>
+                        {fmtDateTime(order.updatedAt || order.createdAt)}
+                      </span>
                     </a>
                     <p>
                       <strong>Order Number : </strong>
@@ -205,15 +207,6 @@ export default function OrderDetails() {
                       {PAYMENT_LABEL[order.payment_method] ||
                         order.payment_method}
                     </p>
-                  </div>
-                </li>
-                <li>
-                  <div className="timeline-badge" />
-                  <div className="timeline-box">
-                    <a className="timeline-panel" href="#">
-                      <div className="text-2 fw-6">Order Placed</div>
-                      <span>{fmtDateTime(order.createdAt)}</span>
-                    </a>
                   </div>
                 </li>
               </ul>
@@ -249,17 +242,21 @@ export default function OrderDetails() {
             </ul>
           </div>
           <div className="widget-content-inner">
-            <p>
-              Our courier service is dedicated to providing fast, reliable, and
-              secure delivery solutions tailored to meet your needs. Whether
-              you're sending documents, parcels, or larger shipments, our team
-              ensures that your items are handled with the utmost care and
-              delivered on time. With a commitment to customer satisfaction,
-              real-time tracking, and a wide network of routes, we make it easy
-              for you to send and receive packages both locally and
-              internationally. Choose our service for a seamless and efficient
-              delivery experience.
-            </p>
+            {order.delivery_agent ? (
+              <>
+                <p className="mx-wd-100 mb_8">This order is being handled by:</p>
+                <p className="text-2 fw-6 mb-0">
+                  {order.delivery_agent.name}
+                </p>
+                <p className="text-2 text_black-2 mt_4 mb-0">
+                  {order.delivery_agent.email}
+                </p>
+              </>
+            ) : (
+              <p className="text-2 mb-0">
+                No courier has been assigned to this order yet.
+              </p>
+            )}
           </div>
           <div className="widget-content-inner">
             <p className="text-2 text_success">

@@ -103,12 +103,13 @@ export default function QuickView() {
                     <a
                       href="#"
                       className="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn"
-                      onClick={() =>
+                      onClick={(e) => {
+                        e.preventDefault();
                         addProductToCart(
                           quickViewItem.id,
                           quantity ? quantity : 1
-                        )
-                      }
+                        );
+                      }}
                     >
                       <span>
                         {isAddedToCartProducts(quickViewItem.id)

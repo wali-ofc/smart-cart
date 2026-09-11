@@ -2,23 +2,28 @@ import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { Link } from "react-router-dom";
-import LookbookComponent from "@/components/common/LookbookComponent";
 import api from "@/api/axios";
 import { normalizeProduct } from "@/utlis/productMap";
 import { Pagination } from "swiper/modules";
+
+const truncate = (text, max = 110) => {
+  if (!text) return "";
+  return text.length > max ? `${text.slice(0, max).trim()}…` : text;
+};
+
 export default function Lookbook() {
-  const [lookbookProducts, setLookbookProducts] = useState([]);
+  const [topProducts, setTopProducts] = useState([]);
   useEffect(() => {
     let cancelled = false;
     api
-      .get("/products", { params: { limit: 3 } })
+      .get("/products", { params: { sort: "rating", limit: 2 } })
       .then(({ data }) => {
         if (!cancelled && Array.isArray(data.products)) {
-          setLookbookProducts(data.products.map(normalizeProduct));
+          setTopProducts(data.products.map(normalizeProduct));
         }
       })
       .catch(() => {
-        if (!cancelled) setLookbookProducts([]);
+        if (!cancelled) setTopProducts([]);
       });
     return () => {
       cancelled = true;
@@ -27,10 +32,9 @@ export default function Lookbook() {
   return (
     <section className="flat-spacing-6">
       <div className="flat-title wow fadeInUp" data-wow-delay="0s">
-        <span className="title">Shop the look</span>
+        <span className="title">Top Rated Products</span>
         <p className="sub-title">
-          Inspire and let yourself be inspired, from one unique fashion to
-          another.
+          Our customer favorites — the highest rated pieces in the store.
         </p>
       </div>
       <Swiper
@@ -51,88 +55,43 @@ export default function Lookbook() {
         modules={[Pagination]}
         pagination={{ clickable: true, el: ".spd110" }}
       >
-        <SwiperSlide className="swiper-slide">
-          <div className="wrap-lookbook lookbook-1">
-            <div className="image">
-              <img
-                className="lazyload"
-                data-src="/images/shop/file/lookbook-3.jpg"
-                alt="image-lookbook"
-                src="/images/shop/file/lookbook-3.jpg"
-                width="800"
-                height="585"
-              />
+        {topProducts.map((product) => (
+          <SwiperSlide className="swiper-slide" key={product.id}>
+            <div className="wrap-lookbook">
+              <div
+                className="image"
+                style={{ aspectRatio: "800 / 585", overflow: "hidden" }}
+              >
+                <img
+                  className="lazyload"
+                  data-src={product.imgSrc}
+                  alt={product.title}
+                  src={product.imgSrc}
+                  width="800"
+                  height="585"
+                />
+              </div>
+              <div className="position-absolute bottom-0 start-0 end-0 p-4 bg-white">
+                <Link
+                  className="link text-1 fw-6 d-inline-block mb-2"
+                  to={`/product-detail/${product.id}`}
+                >
+                  {product.title}
+                </Link>
+                <p className="text-2 text_black-2 mb-3">
+                  {truncate(product.description)}
+                </p>
+                <Link
+                  to={`/product-detail/${product.id}`}
+                  className="tf-btn btn-fill btn-sm radius-3 fw-6"
+                >
+                  See details
+                  <i className="icon icon-arrow1-top-left" />
+                </Link>
+              </div>
             </div>
-            {lookbookProducts[0] && (
-              <div className="lookbook-item item-1">
-                <div className="inner">
-                  <div className="btn-group dropdown dropup dropdown-center">
-                    <button
-                      className="tf-pin-btn"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <span />
-                    </button>
-                    <ul className="dropdown-menu p-0 border-0">
-                      <LookbookComponent product={lookbookProducts[0]} />
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            )}
-            {lookbookProducts[1] && (
-              <div className="lookbook-item item-2">
-                <div className="inner">
-                  <div className="btn-group dropdown dropup dropdown-center">
-                    <button
-                      className="tf-pin-btn"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <span />
-                    </button>
-                    <ul className="dropdown-menu p-0 border-0">
-                      <LookbookComponent product={lookbookProducts[1]} />
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className="swiper-slide">
-          <div className="wrap-lookbook lookbook-2">
-            <div className="image">
-              <img
-                className="lazyload"
-                data-src="/images/shop/file/lookbook-4.jpg"
-                alt="image-lookbook"
-                src="/images/shop/file/lookbook-4.jpg"
-                width="800"
-                height="585"
-              />
-            </div>
-            {lookbookProducts[2] && (
-              <div className="lookbook-item item-1">
-                <div className="inner">
-                  <div className="btn-group dropdown dropup dropdown-center">
-                    <button
-                      className="tf-pin-btn"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <span />
-                    </button>
-                    <ul className="dropdown-menu p-0 border-0">
-                      <LookbookComponent product={lookbookProducts[2]} />
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </SwiperSlide>
+          </SwiperSlide>
+        ))}
 
         <div className="wrap-pagination">
           <div className="container-full">
