@@ -17,6 +17,7 @@ import MobileMenu from "@/components/modals/MobileMenu";
 import Register from "@/components/modals/Register";
 import ResetPass from "@/components/modals/ResetPass";
 import SearchModal from "@/components/modals/SearchModal";
+import ShareModal from "@/components/modals/ShareModal";
 import ToolbarBottom from "@/components/modals/ToolbarBottom";
 import ToolbarShop from "@/components/modals/ToolbarShop";
 
@@ -258,6 +259,7 @@ function App() {
           <Register />
           <ResetPass />
           <SearchModal />
+          <ShareModal />
           <ToolbarBottom />
           <ToolbarShop />
           <ChatWidget />

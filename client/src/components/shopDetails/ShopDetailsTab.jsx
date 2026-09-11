@@ -1,10 +1,20 @@
 import { useEffect, useState } from "react";
 import api from "@/api/axios";
+import { useAuth } from "@/context/AuthContext";
 
 export default function ShopDetailsTab({ product }) {
   const [currentTab, setCurrentTab] = useState(1);
   const [reviews, setReviews] = useState([]);
   const [reviewsLoading, setReviewsLoading] = useState(false);
+  const [reviewReload, setReviewReload] = useState(0);
+
+  // Review form state
+  const { user } = useAuth();
+  const [rating, setRating] = useState(5);
+  const [comment, setComment] = useState("");
+  const [reviewSubmitting, setReviewSubmitting] = useState(false);
+  const [reviewError, setReviewError] = useState("");
+  const [reviewSuccess, setReviewSuccess] = useState("");
 
   const description = product?.description || "";
   const descriptionParagraphs =
@@ -32,7 +42,7 @@ export default function ShopDetailsTab({ product }) {
     return () => {
       cancelled = true;
     };
-  }, [currentTab, product?.id]);
+  }, [currentTab, product?.id, reviewReload]);
 
   const formatDate = (d) =>
     d
@@ -42,6 +52,33 @@ export default function ShopDetailsTab({ product }) {
           day: "numeric",
         })
       : "";
+
+  const submitReview = async (e) => {
+    e.preventDefault();
+    setReviewError("");
+    setReviewSuccess("");
+    if (!user) {
+      setReviewError("Please log in to write a review.");
+      return;
+    }
+    setReviewSubmitting(true);
+    try {
+      await api.post(`/reviews/product/${product.id}`, {
+        rating: Number(rating),
+        comment: comment.trim(),
+      });
+      setComment("");
+      setRating(5);
+      setReviewSuccess("Thanks! Your review has been posted.");
+      setReviewReload((n) => n + 1);
+    } catch (err) {
+      setReviewError(
+        err?.response?.data?.error || "Could not post your review. Please try again."
+      );
+    } finally {
+      setReviewSubmitting(false);
+    }
+  };
 
   return (
     <section
@@ -56,7 +93,6 @@ export default function ShopDetailsTab({ product }) {
                 {[
                   { title: "Description" },
                   { title: "Review" },
-                  { title: "Shipping" },
                   { title: "Return Policies" },
                 ].map((elm, i) => (
                   <li
@@ -140,26 +176,93 @@ export default function ShopDetailsTab({ product }) {
                       </p>
                     </div>
                   )}
-                </div>
-                <div
-                  className={`widget-content-inner ${
-                    currentTab == 3 ? "active" : ""
-                  } `}
-                >
-                  <div className="tf-page-privacy-policy">
-                    <div className="title">Shipping Policy</div>
-                    <p>
-                      Orders are processed and dispatched within 1-2 business
-                      days after payment confirmation. Estimated delivery
-                      times: 3-6 business days (domestic) and 12-26 days
-                      (international). You will receive a tracking number once
-                      your order ships.
-                    </p>
+
+                  {/* Write a review */}
+                  <div className="mt_20">
+                    <h6 className="fw-5 mb_20">Write a review</h6>
+                    {reviewError && (
+                      <div className="alert alert-danger py-2 mb-3">
+                        {reviewError}
+                      </div>
+                    )}
+                    {reviewSuccess && (
+                      <div className="alert alert-success py-2 mb-3">
+                        {reviewSuccess}
+                      </div>
+                    )}
+                    {user ? (
+                      <form className="form-review" onSubmit={submitReview}>
+                        <div className="mb_20">
+                          <label className="fw-6 fs-14 d-block mb-2">
+                            Your rating
+                          </label>
+                          <div className="d-flex align-items-center gap-2">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                              <button
+                                key={star}
+                                type="button"
+                                onClick={() => setRating(star)}
+                                aria-label={`${star} star${star > 1 ? "s" : ""}`}
+                                className="bg-transparent border-0 p-0 fs-4 lh-1"
+                                style={{ cursor: "pointer" }}
+                              >
+                                <i
+                                  className={`icon-star ${
+                                    star <= rating ? "text-warning" : "text_black-2"
+                                  }`}
+                                />
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="mb_20">
+                          <label
+                            htmlFor="review-comment"
+                            className="fw-6 fs-14 d-block mb-2"
+                          >
+                            Your review
+                          </label>
+                          <textarea
+                            id="review-comment"
+                            rows={4}
+                            className="tf-control w-100"
+                            placeholder="Tell others what you think about this product…"
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
+                            maxLength={1000}
+                            required
+                          />
+                        </div>
+                        <button
+                          type="submit"
+                          className="tf-btn btn-fill animate-hover-btn radius-3"
+                          disabled={reviewSubmitting}
+                        >
+                          <span>
+                            {reviewSubmitting
+                              ? "Submitting..."
+                              : "Submit review"}
+                          </span>
+                        </button>
+                      </form>
+                    ) : (
+                      <p className="fs-15 text-paragraph mb-0">
+                        Please{" "}
+                        <a
+                          href="#login"
+                          data-bs-toggle="modal"
+                          className="text-decoration-underline"
+                        >
+                          log in
+                        </a>{" "}
+                        to write a review.
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div
                   className={`widget-content-inner ${
-                    currentTab == 4 ? "active" : ""
+                    currentTab == 3 ? "active" : ""
                   } `}
                 >
                   <div className="tf-page-privacy-policy">

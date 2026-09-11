@@ -78,6 +78,9 @@ export default function SellerOrders() {
   // Per-order inline editing state: { [orderId]: { status, agent, saving, msg } }
   const [edits, setEdits] = useState({});
 
+  // Which order card is expanded (null = none)
+  const [expandedId, setExpandedId] = useState(null);
+
   const loadStats = async () => {
     try {
       const { data } = await api.get('/seller/orders/stats', { params: { period: 'all' } });
@@ -129,8 +132,16 @@ export default function SellerOrders() {
     setEdits((prev) => {
       const next = { ...prev };
       orders.forEach((o) => {
+        const assignedAgent = o.delivery_agent?._id
+          ? String(o.delivery_agent._id)
+          : '';
         if (!next[o._id]) {
-          next[o._id] = { status: o.status, agent: '', saving: false, msg: '' };
+          next[o._id] = {
+            status: o.status,
+            agent: assignedAgent,
+            saving: false,
+            msg: '',
+          };
         } else {
           // Sync status from server if not currently being edited
           next[o._id] = { ...next[o._id], status: o.status };
@@ -153,9 +164,12 @@ export default function SellerOrders() {
 
     const newStatus = edit.status;
     const agent = edit.agent || undefined;
+    const currentAgent = order.delivery_agent?._id
+      ? String(order.delivery_agent._id)
+      : '';
 
     // Only send if something changed
-    if (newStatus === order.status && !agent) {
+    if (newStatus === order.status && agent === currentAgent) {
       updateEdit(order._id, 'msg', 'No changes to save.');
       return;
     }
@@ -169,10 +183,18 @@ export default function SellerOrders() {
 
       await api.put(`/orders/${order._id}/status`, payload);
 
-      // Update the local order list to reflect the new status
+      // Update the local order list to reflect the new status + courier
       setOrders((prev) =>
         prev.map((o) =>
-          o._id === order._id ? { ...o, status: newStatus } : o
+          o._id === order._id
+            ? {
+                ...o,
+                status: newStatus,
+                delivery_agent: agent
+                  ? { ...(o.delivery_agent || {}), _id: agent }
+                  : o.delivery_agent,
+              }
+            : o
         )
       );
       updateEdit(order._id, 'msg', 'Saved!');
@@ -181,6 +203,10 @@ export default function SellerOrders() {
     } finally {
       updateEdit(order._id, 'saving', false);
     }
+  };
+
+  const toggleExpand = (orderId) => {
+    setExpandedId((prev) => (prev === orderId ? null : orderId));
   };
 
   // Allowed transitions for an order's current status
@@ -241,7 +267,7 @@ export default function SellerOrders() {
                       </div>
                     </div>
 
-                    {/* Orders table */}
+                    {/* Orders list (expandable) */}
                     <div>
                       <div className="d-flex align-items-center justify-content-between flex-wrap gap-3 mb_20">
                         <h6 className="fw-5 mb-0">All Orders</h6>
@@ -274,118 +300,193 @@ export default function SellerOrders() {
                       )}
                       {!orderLoading && !orderError && orders.length > 0 && (
                         <>
-                          <div className="table-responsive">
-                            <table className="table align-middle">
-                              <thead>
-                                <tr>
-                                  <th className="fw-6">Order</th>
-                                  <th className="fw-6">Customer</th>
-                                  <th className="fw-6">Date</th>
-                                  <th className="fw-6">Total</th>
-                                  <th className="fw-6" style={{ minWidth: 120 }}>Status</th>
-                                  <th className="fw-6" style={{ minWidth: 140 }}>Courier</th>
-                                  <th className="fw-6"></th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {orders.map((order) => {
-                                  const edit = edits[order._id] || { status: order.status, agent: '', saving: false, msg: '' };
-                                  const allowed = getAllowedTransitions(order.status);
-                                  const hasChanges = edit.status !== order.status || edit.agent;
-                                  const showCourier = edit.status === 'shipped' && !order.delivery_agent;
+                          <div className="d-flex flex-column gap-3">
+                            {orders.map((order) => {
+                              const isExpanded = expandedId === order._id;
+                              const edit = edits[order._id] || {
+                                status: order.status,
+                                agent: order.delivery_agent?._id ? String(order.delivery_agent._id) : '',
+                                saving: false,
+                                msg: '',
+                              };
+                              const allowed = getAllowedTransitions(order.status);
+                              const courierName = order.delivery_agent?.name || order.delivery_agent?.email || '';
 
-                                  return (
-                                    <tr key={order._id}>
-                                      <td>
-                                        <span className="fw-6">#{shortId(order._id)}</span>
-                                      </td>
-                                      <td>{order.user?.name || '—'}</td>
-                                      <td>{fmtDate(order.createdAt)}</td>
-                                      <td>${(order.total_price || 0).toFixed(2)}</td>
-                                      <td>
-                                        <div className="d-flex align-items-center gap-2">
-                                          <span
-                                            className="badge"
-                                            style={{
-                                              backgroundColor: STATUS_COLORS[order.status] || '#6c757d',
-                                              color: '#fff',
-                                              fontSize: '0.7rem',
-                                              padding: '3px 6px',
-                                            }}
+                              return (
+                                <div
+                                  key={order._id}
+                                  className="border rounded-3 overflow-hidden"
+                                  style={{ boxShadow: '0 1px 4px rgba(0,0,0,.06)' }}
+                                >
+                                  {/* Collapsed / header row — click to expand */}
+                                  <button
+                                    type="button"
+                                    onClick={() => toggleExpand(order._id)}
+                                    className="w-100 bg-white border-0 text-start px-3 py-3 d-flex align-items-center justify-content-between gap-3"
+                                    style={{ cursor: 'pointer' }}
+                                    aria-expanded={isExpanded}
+                                  >
+                                    <div className="d-flex align-items-center gap-3 flex-wrap">
+                                      <span className="fw-6">#{shortId(order._id)}</span>
+                                      <span
+                                        className="badge"
+                                        style={{
+                                          backgroundColor: STATUS_COLORS[order.status] || '#6c757d',
+                                          color: '#fff',
+                                          fontSize: '0.7rem',
+                                          padding: '3px 6px',
+                                        }}
+                                      >
+                                        {STATUS_LABEL[order.status] || order.status}
+                                      </span>
+                                    </div>
+                                    <div className="d-flex align-items-center gap-3">
+                                      <span className="small text-secondary d-none d-md-inline">
+                                        {order.user?.name || '—'} · {fmtDate(order.createdAt)}
+                                      </span>
+                                      <span className="fw-6">
+                                        ${(order.total_price || 0).toFixed(2)}
+                                      </span>
+                                      <i
+                                        className="icon icon-arrow-right"
+                                        style={{ transition: 'transform .2s', transform: isExpanded ? 'rotate(90deg)' : 'none' }}
+                                      />
+                                    </div>
+                                  </button>
+
+                                  {/* Expanded panel */}
+                                  {isExpanded && (
+                                    <div className="border-top bg-light p-3">
+                                      <div className="row g-3 mb-3">
+                                        <div className="col-md-4">
+                                          <div className="small text-secondary mb-1">Customer</div>
+                                          <div className="fw-6">{order.user?.name || '—'}</div>
+                                          <div className="small text-secondary">{order.user?.email || ''}</div>
+                                        </div>
+                                        <div className="col-md-4">
+                                          <div className="small text-secondary mb-1">Shipping Address</div>
+                                          <div className="fw-6">
+                                            {order.shipping_address?.street}, {order.shipping_address?.city},{' '}
+                                            {order.shipping_address?.state} {order.shipping_address?.zip_code}
+                                          </div>
+                                          <div className="small text-secondary">
+                                            {order.shipping_address?.country}
+                                          </div>
+                                        </div>
+                                        <div className="col-md-4">
+                                          <div className="small text-secondary mb-1">Payment</div>
+                                          <div className="fw-6 text-capitalize">{order.payment_method}</div>
+                                          <div className="small text-secondary">
+                                            Total: ${(order.total_price || 0).toFixed(2)}
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      {/* Items */}
+                                      <div className="bg-white border rounded-3 mb-3 p-3">
+                                        <div className="small fw-6 text-secondary mb-2">Items</div>
+                                        {order.items?.map((item, idx) => (
+                                          <div
+                                            key={idx}
+                                            className="d-flex align-items-center justify-content-between gap-3 py-1"
                                           >
-                                            {STATUS_LABEL[order.status] || order.status}
-                                          </span>
-                                          {allowed.length > 0 && (
-                                            <div className="select-custom select-sm" style={{ minWidth: 120 }}>
+                                            <span>{item.name}</span>
+                                            <span className="small text-secondary">
+                                              {item.quantity} × ${(item.price || 0).toFixed(2)} ={' '}
+                                              <span className="fw-6 text-dark">
+                                                ${((item.price || 0) * (item.quantity || 0)).toFixed(2)}
+                                              </span>
+                                            </span>
+                                          </div>
+                                        ))}
+                                      </div>
+
+                                      {/* Status + courier controls */}
+                                      <div className="bg-white border rounded-3 p-3">
+                                        <div className="row g-3 align-items-end">
+                                          <div className="col-md-4">
+                                            <label className="form-label small text-secondary">
+                                              Order status
+                                            </label>
+                                            {allowed.length > 0 ? (
+                                              <div className="select-custom">
+                                                <select
+                                                  className="tf-select"
+                                                  value={edit.status}
+                                                  onChange={(e) => updateEdit(order._id, 'status', e.target.value)}
+                                                  disabled={edit.saving}
+                                                  aria-label={`Change status for order ${shortId(order._id)}`}
+                                                >
+                                                  <option value={order.status}>
+                                                    {STATUS_LABEL[order.status] || order.status} (current)
+                                                  </option>
+                                                  {allowed.map((s) => (
+                                                    <option key={s} value={s}>{STATUS_LABEL[s] || s}</option>
+                                                  ))}
+                                                </select>
+                                              </div>
+                                            ) : (
+                                              <div className="text-secondary small pt-2">
+                                                No further changes available.
+                                              </div>
+                                            )}
+                                          </div>
+                                          <div className="col-md-4">
+                                            <label className="form-label small text-secondary">
+                                              Delivery driver (courier)
+                                            </label>
+                                            <div className="select-custom">
                                               <select
                                                 className="tf-select"
-                                                value={edit.status}
-                                                onChange={(e) => updateEdit(order._id, 'status', e.target.value)}
+                                                value={edit.agent}
+                                                onChange={(e) => updateEdit(order._id, 'agent', e.target.value)}
                                                 disabled={edit.saving}
-                                                aria-label={`Change status for order ${shortId(order._id)}`}
+                                                aria-label={`Assign courier for order ${shortId(order._id)}`}
                                               >
-                                                <option value={order.status}>
-                                                  {STATUS_LABEL[order.status] || order.status} (current)
+                                                <option value="">
+                                                  {courierName ? `${courierName} (assigned)` : 'Select courier…'}
                                                 </option>
-                                                {allowed.map((s) => (
-                                                  <option key={s} value={s}>{STATUS_LABEL[s] || s}</option>
-                                                ))}
+                                                {agents
+                                                  .filter((a) => !(a._id === edit.agent))
+                                                  .map((a) => (
+                                                    <option key={a._id} value={a._id}>
+                                                      {a.name || a.email}
+                                                    </option>
+                                                  ))}
                                               </select>
                                             </div>
-                                          )}
-                                        </div>
-                                      </td>
-                                      <td>
-                                        {showCourier ? (
-                                          <div className="select-custom select-sm" style={{ minWidth: 130 }}>
-                                            <select
-                                              className="tf-select"
-                                              value={edit.agent}
-                                              onChange={(e) => updateEdit(order._id, 'agent', e.target.value)}
+                                          </div>
+                                          <div className="col-md-4">
+                                            <button
+                                              type="button"
+                                              className="tf-btn btn-fill animate-hover-btn radius-3 w-100"
+                                              onClick={() => handleSave(order)}
                                               disabled={edit.saving}
-                                              aria-label={`Assign courier for order ${shortId(order._id)}`}
                                             >
-                                              <option value="">Select courier…</option>
-                                              {agents.map((a) => (
-                                                <option key={a._id} value={a._id}>{a.name || a.email}</option>
-                                              ))}
-                                            </select>
+                                              <span>{edit.saving ? 'Saving…' : 'Update order'}</span>
+                                            </button>
+                                            {edit.msg && (
+                                              <div
+                                                className={`small mt-2 text-center ${
+                                                  edit.msg === 'Saved!' || edit.msg === 'No changes to save.'
+                                                    ? 'text-success'
+                                                    : 'text-danger'
+                                                }`}
+                                              >
+                                                {edit.msg}
+                                              </div>
+                                            )}
                                           </div>
-                                        ) : order.delivery_agent ? (
-                                          <span className="small text-secondary">Assigned</span>
-                                        ) : (
-                                          <span className="small text-muted">—</span>
-                                        )}
-                                      </td>
-                                      <td>
-                                        {allowed.length > 0 && hasChanges && (
-                                          <button
-                                            type="button"
-                                            className="tf-btn btn-fill animate-hover-btn radius-3"
-                                            style={{ fontSize: '0.8rem', padding: '4px 12px' }}
-                                            onClick={() => handleSave(order)}
-                                            disabled={edit.saving}
-                                          >
-                                            <span>{edit.saving ? '…' : 'Save'}</span>
-                                          </button>
-                                        )}
-                                        {edit.msg && (
-                                          <div
-                                            className={`small mt-1 ${edit.msg === 'Saved!' || edit.msg === 'No changes to save.' ? 'text-success' : 'text-danger'}`}
-                                            style={{ fontSize: '0.7rem' }}
-                                          >
-                                            {edit.msg}
-                                          </div>
-                                        )}
-                                      </td>
-                                    </tr>
-                                  );
-                                })}
-                              </tbody>
-                            </table>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )}
+                                </div>
+                              );
+                            })}
                           </div>
                           {orderPages > 1 && (
-                            <ul className="tf-pagination-wrap tf-pagination-list tf-pagination-btn mb-0">
+                            <ul className="tf-pagination-wrap tf-pagination-list tf-pagination-btn mb-0 mt-3">
                               <Pagination
                                 page={orderPage}
                                 pages={orderPages}

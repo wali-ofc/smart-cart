@@ -36,6 +36,11 @@ exports.createOrder = async (userId, { shipping_address, payment_method, notes }
     if (!ci.product) {
       throw new ApiError(400, 'One or more cart items are no longer available');
     }
+    // Out-of-stock guard: block checkout when stock is exhausted
+    const stock = Number(ci.product.stock) || 0;
+    if (stock <= 0) {
+      throw new ApiError(400, `"${ci.product.name}" is out of stock`);
+    }
     return {
       product: ci.product._id,
       name: ci.product.name,
@@ -92,7 +97,8 @@ exports.getSellerOrders = async ({ sellerId, status, page = 1, limit = 8 }) => {
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limitNum)
-      .populate('user', 'name email profileImage'),
+      .populate('user', 'name email profileImage')
+      .populate('delivery_agent', 'name email profileImage'),
     Order.countDocuments(query)
   ]);
 
@@ -131,8 +137,16 @@ exports.updateOrderStatus = async ({ userId, role, orderId, status, delivery_age
     throw new ApiError(404, 'Order not found');
   }
 
+  // A seller may (re)assign a courier on a shipped order even when the status
+  // itself stays 'shipped' — the courier hand-off happens at ship time.
+  const isCourierReassign =
+    role === 'seller' &&
+    order.status === 'shipped' &&
+    status === 'shipped' &&
+    !!delivery_agent;
+
   const allowed = role === 'seller' ? SELLER_TRANSITIONS[order.status] : DELIVERY_TRANSITIONS[order.status];
-  if (!allowed || !allowed.includes(status)) {
+  if (!isCourierReassign && (!allowed || !allowed.includes(status))) {
     throw new ApiError(400, `Cannot transition order from "${order.status}" to "${status}"`);
   }
 
@@ -140,7 +154,7 @@ exports.updateOrderStatus = async ({ userId, role, orderId, status, delivery_age
     if (order.seller && order.seller.toString() !== userId) {
       throw new ApiError(403, 'Not authorized to update this order');
     }
-    if (status === 'shipped' && delivery_agent) {
+    if (delivery_agent) {
       order.delivery_agent = delivery_agent;
     }
   } else {

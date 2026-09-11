@@ -21,7 +21,16 @@ export default function DashboardNav() {
     } catch (err) {
       console.error("Logout failed:", err);
     } finally {
-      navigate("/login");
+      navigate("/");
+      setTimeout(() => {
+        const el = document.getElementById("login");
+        if (el) {
+          import("bootstrap").then((bootstrap) => {
+            const instance = bootstrap.Modal.getOrCreateInstance(el);
+            instance.show();
+          });
+        }
+      }, 100);
     }
   };
 

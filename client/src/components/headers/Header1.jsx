@@ -17,7 +17,16 @@ export default function Header1() {
     } catch (err) {
       console.error("Logout failed:", err);
     } finally {
-      navigate("/login");
+      navigate("/");
+      setTimeout(() => {
+        const el = document.getElementById("login");
+        if (el) {
+          import("bootstrap").then((bootstrap) => {
+            const instance = bootstrap.Modal.getOrCreateInstance(el);
+            instance.show();
+          });
+        }
+      }, 100);
     }
   };
 
@@ -85,7 +94,7 @@ export default function Header1() {
                       <i className="icon icon-account" />
                     </a>
                     <div className="sub-menu submenu-default">
-                      <ul className="menu-list">
+                      <ul className="menu-list d-flex flex-column align-items-start gap-2 mb-0">
                         <li>
                           <Link to="/profile" className="menu-link-text link text_black-2">
                             Profile Dashboard

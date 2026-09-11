@@ -210,12 +210,22 @@ export const CartProvider = ({ children }) => {
   const addProductToCart = useCallback(
     async (id, qty) => {
       const q = Math.max(1, Number(qty) || 1);
+
+      // Out-of-stock guard: block the add when the server catalog says stock is exhausted
+      const server = resolveServerProduct({ id });
+      const available = server && Number(server.stock) > 0;
+      if (server && !available) {
+        setCartError('This product is out of stock and cannot be added to the cart.');
+        return;
+      }
+
       const append = (prev) => {
         const matched = resolveServerProduct({ id });
+        const size = Number(matched?.stock) || Infinity;
         return prev.some((elm) => elm.id == id)
           ? prev.map((elm) =>
               elm.id == id
-                ? { ...elm, quantity: Number(elm.quantity) + q }
+                ? { ...elm, quantity: Math.min(size, Number(elm.quantity) + q) }
                 : elm
             )
           : [
@@ -229,18 +239,19 @@ export const CartProvider = ({ children }) => {
                       imgSrc: '',
                       price: 0
                     }),
-                quantity: q
+                quantity: Math.min(size, q)
               }
             ];
       };
 
       if (!isAuthenticated) {
+        // resolvable here implies stock > 0 (checked above); keep the add for legacy static items
         persistLocal(append(localItems));
+        setCartError(null);
         openCartModal();
         return;
       }
 
-      const server = resolveServerProduct({ id });
       if (server) {
         try {
           await api.post('/cart', { product: String(server._id), quantity: q });
@@ -255,6 +266,7 @@ export const CartProvider = ({ children }) => {
 
       // static-only product while signed in → local overlay (demo item, not orderable)
       persistLocal(append(localItems));
+      setCartError(null);
       openCartModal();
     },
     [isAuthenticated, resolveServerProduct, refreshServerCart, localItems, persistLocal]
@@ -262,7 +274,12 @@ export const CartProvider = ({ children }) => {
 
   const updateQuantity = useCallback(
     async (id, qty) => {
-      const q = Math.min(99, Math.max(1, Number(qty) || 1));
+      // never exceed the product's available stock
+      const matched = resolveServerProduct({ id });
+      const stockCap = matched && Number(matched.stock) > 0
+        ? Number(matched.stock)
+        : 99;
+      const q = Math.min(stockCap, Math.max(1, Number(qty) || 1));
       if (!items.some((elm) => elm.id == id)) {
         // legacy behavior: quantity set on a non-cart item adds it
         addProductToCart(id, q);

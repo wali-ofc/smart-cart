@@ -27,6 +27,9 @@ exports.addToCart = async (req, res) => {
   if (!product) {
     throw new ApiError(404, 'Product not found');
   }
+  if (product.stock <= 0) {
+    throw new ApiError(400, 'This product is out of stock and cannot be added to the cart');
+  }
 
   const qty = Math.min(99, Math.max(1, Number(quantity) || 1));
   const user = await User.findById(req.user.id);

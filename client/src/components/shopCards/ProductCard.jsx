@@ -40,7 +40,7 @@ export const ProductCard = ({ product }) => {
             height={1005}
           />
         </Link>
-        {product.soldOut ? (
+        {!product.isAvailable ? (
           <div className="sold-out">
             <span>Sold out</span>
           </div>

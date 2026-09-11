@@ -109,6 +109,7 @@ export default function Context({ children }) {
     updateQuantity: cart.updateQuantity,
     removeFromCart: cart.removeFromCart,
     clearCart: cart.clearCart,
+    cartError: cart.cartError,
   };
   return (
     <dataContext.Provider value={contextElement}>

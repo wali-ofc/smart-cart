@@ -6,6 +6,7 @@ import MetaComponent from '@/components/common/MetaComponent';
 import SellerNav from '@/components/othersPages/dashboard/SellerNav';
 import api from '@/api/axios';
 import { useAuth } from '@/context/AuthContext';
+import CustomSelect from '@/components/common/CustomSelect';
 
 const metadata = {
   title: 'Seller Products || SmartCart - Modern Multipurpose eCommerce',
@@ -282,24 +283,13 @@ export default function SellerProductsPage() {
                 </div>
                 <div className="col-md-6">
                   <label className="form-label small mb_8">Category *</label>
-                  <div className="select-custom">
-                    <select
-                      name="category"
-                      className="tf-select"
-                      value={form.category}
-                      onChange={handleChange}
-                      required
-                    >
-                      <option value="" disabled>
-                        Select category
-                      </option>
-                      {CATEGORIES.map((c) => (
-                        <option key={c} value={c}>
-                          {c}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <CustomSelect
+                    name="category"
+                    value={form.category}
+                    placeholder="Select category"
+                    options={CATEGORIES}
+                    onChange={(e) => handleChange(e)}
+                  />
                 </div>
                 <div className="col-md-6">
                   <label className="form-label small mb_8">Sub-category</label>

@@ -74,55 +74,74 @@ export default function DetailsOuterZoom({ product }) {
                       ${Number(product.price).toFixed(2)}
                     </div>
                   </div>
-                  <div className="tf-product-info-quantity">
-                    <div className="quantity-title fw-6">Quantity</div>
-                    <Quantity setQuantity={setQuantity} />
-                  </div>
+                  {product.isAvailable && (
+                    <div className="tf-product-info-quantity">
+                      <div className="quantity-title fw-6">Quantity</div>
+                      <Quantity setQuantity={setQuantity} />
+                    </div>
+                  )}
                   <div className="tf-product-info-buy-button">
-                    <form onSubmit={(e) => e.preventDefault()} className="">
-                      <a
-                        onClick={() => {
-                          openCartModal();
-                          addProductToCart(product.id, quantity ? quantity : 1);
-                        }}
-                        className="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn"
-                      >
-                        <span>
-                          {isAddedToCartProducts(product.id)
-                            ? "Already Added"
-                            : "Add to cart"}{" "}
-                          -{" "}
-                        </span>
-                        <span className="tf-qty-price">
-                          ${(Number(product.price) * quantity).toFixed(2)}
-                        </span>
-                      </a>
-                      <a
-                        onClick={() => addToWishlist(product.id)}
-                        className="tf-product-btn-wishlist hover-tooltip box-icon bg_white wishlist btn-icon-action"
-                      >
-                        <span
-                          className={`icon icon-heart ${
-                            isAddedtoWishlist(product.id) ? "added" : ""
-                          }`}
-                        />
-                        <span className="tooltip">
-                          {" "}
-                          {isAddedtoWishlist(product.id)
-                            ? "Already Wishlisted"
-                            : "Add to Wishlist"}
-                        </span>
-                        <span className="icon icon-delete" />
-                      </a>
-                      <div className="w-100">
-                        <a href="#" className="btns-full">
-                          Buy now
+                    {product.isAvailable ? (
+                      <form onSubmit={(e) => e.preventDefault()} className="">
+                        <a
+                          onClick={() => {
+                            openCartModal();
+                            addProductToCart(product.id, quantity ? quantity : 1);
+                          }}
+                          className="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn"
+                        >
+                          <span>
+                            {isAddedToCartProducts(product.id)
+                              ? "Already Added"
+                              : "Add to cart"}{" "}
+                            -{" "}
+                          </span>
+                          <span className="tf-qty-price">
+                            ${(Number(product.price) * quantity).toFixed(2)}
+                          </span>
                         </a>
-                        <a href="#" className="payment-more-option">
-                          More payment options
+                        <a
+                          onClick={() => addToWishlist(product.id)}
+                          className="tf-product-btn-wishlist hover-tooltip box-icon bg_white wishlist btn-icon-action"
+                        >
+                          <span
+                            className={`icon icon-heart ${
+                              isAddedtoWishlist(product.id) ? "added" : ""
+                            }`}
+                          />
+                          <span className="tooltip">
+                            {" "}
+                            {isAddedtoWishlist(product.id)
+                              ? "Already Wishlisted"
+                              : "Add to Wishlist"}
+                          </span>
+                          <span className="icon icon-delete" />
+                        </a>
+                      </form>
+                    ) : (
+                      <div className="d-flex align-items-center gap-2">
+                        <a className="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btns-sold-out cursor-not-allowed">
+                          Sold out
+                        </a>
+                        <a
+                          onClick={() => addToWishlist(product.id)}
+                          className="tf-product-btn-wishlist hover-tooltip box-icon bg_white wishlist btn-icon-action"
+                        >
+                          <span
+                            className={`icon icon-heart ${
+                              isAddedtoWishlist(product.id) ? "added" : ""
+                            }`}
+                          />
+                          <span className="tooltip">
+                            {" "}
+                            {isAddedtoWishlist(product.id)
+                              ? "Already Wishlisted"
+                              : "Add to Wishlist"}
+                          </span>
+                          <span className="icon icon-delete" />
                         </a>
                       </div>
-                    </form>
+                    )}
                   </div>
                   <div className="tf-product-info-extra-link">
                     <a

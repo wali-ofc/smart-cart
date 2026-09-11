@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
+import CustomSelect from "@/components/common/CustomSelect";
 
 export default function Register() {
   const { register } = useAuth();
@@ -102,19 +103,17 @@ export default function Register() {
                 />
                 <label className="tf-field-label">Password *</label>
               </div>
-              <div className="tf-field style-1">
-                <div className="select-custom">
-                  <select
-                    className="tf-field-input tf-input tf-select"
-                    value={role}
-                    onChange={(e) => setRole(e.target.value)}
-                  >
-                    <option value="customer">Customer</option>
-                    <option value="seller">Seller</option>
-                    <option value="delivery">Delivery agent</option>
-                  </select>
-                </div>
-                <label className="tf-field-label">Account type</label>
+              <div className="mb-3">
+                <label className="form-label small mb_8">Account type *</label>
+                <CustomSelect
+                  options={[
+                    { value: "customer", label: "Customer" },
+                    { value: "seller", label: "Seller" },
+                    { value: "delivery", label: "Delivery agent" }
+                  ]}
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                />
               </div>
               <div className="bottom">
                 <div className="w-100">

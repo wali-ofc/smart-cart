@@ -91,12 +91,15 @@ export default function QuickView() {
                 <div className="tf-product-info-price">
                   <div className="price">${price.toFixed(2)}</div>
                 </div>
+                {quickViewItem.isAvailable && (
                 <div className="tf-product-info-quantity">
                   <div className="quantity-title fw-6">Quantity</div>
                   <Quantity setQuantity={setQuantity} />
                 </div>
-                <div className="tf-product-info-buy-button">
-                  <form onSubmit={(e) => e.preventDefault()} className="">
+              )}
+              <div className="tf-product-info-buy-button">
+                <form onSubmit={(e) => e.preventDefault()} className="">
+                  {quickViewItem.isAvailable ? (
                     <a
                       href="#"
                       className="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn"
@@ -116,30 +119,29 @@ export default function QuickView() {
                         ${(price * quantity).toFixed(2)}
                       </span>
                     </a>
-                    <a
-                      onClick={() => addToWishlist(quickViewItem.id)}
-                      className="tf-product-btn-wishlist hover-tooltip box-icon bg_white wishlist btn-icon-action"
-                    >
-                      <span
-                        className={`icon icon-heart ${
-                          isAddedtoWishlist(quickViewItem.id) ? "added" : ""
-                        }`}
-                      />
-                      <span className="tooltip">
-                        {isAddedtoWishlist(quickViewItem.id)
-                          ? "Already Wishlisted"
-                          : "Add to Wishlist"}
-                      </span>
-                      <span className="icon icon-delete" />
+                  ) : (
+                    <a className="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btns-sold-out cursor-not-allowed">
+                      Sold out
                     </a>
-                    <div className="w-100">
-                      <a href="#" className="btns-full">Buy now</a>
-                      <a href="#" className="payment-more-option">
-                        More payment options
-                      </a>
-                    </div>
-                  </form>
-                </div>
+                  )}
+                  <a
+                    onClick={() => addToWishlist(quickViewItem.id)}
+                    className="tf-product-btn-wishlist hover-tooltip box-icon bg_white wishlist btn-icon-action"
+                  >
+                    <span
+                      className={`icon icon-heart ${
+                        isAddedtoWishlist(quickViewItem.id) ? "added" : ""
+                      }`}
+                    />
+                    <span className="tooltip">
+                      {isAddedtoWishlist(quickViewItem.id)
+                        ? "Already Wishlisted"
+                        : "Add to Wishlist"}
+                    </span>
+                    <span className="icon icon-delete" />
+                  </a>
+                </form>
+              </div>
                 <div>
                   <Link
                     to={`/product-detail/${quickViewItem.id}`}
