@@ -155,6 +155,41 @@ exports.getSellerOrderDetail = async (req, res) => {
   res.status(200).json({ success: true, data: order });
 };
 
+/** GET /api/seller/delivery-agents — list all delivery-role users (for courier dropdown) */
+exports.getDeliveryAgents = async (req, res) => {
+  const agents = await User.find({ role: 'delivery' }).select('name email createdAt');
+  res.status(200).json({ success: true, agents });
+};
+
+/** POST /api/seller/delivery-agents — create a new delivery user */
+exports.createDeliveryAgent = async (req, res) => {
+  const { name, email, password } = req.body;
+  if (!name || !email || !password) {
+    throw new ApiError(400, 'Name, email, and password are required');
+  }
+  if (password.length < 6) {
+    throw new ApiError(400, 'Password must be at least 6 characters');
+  }
+
+  const existing = await User.findOne({ email: email.toLowerCase() });
+  if (existing) {
+    throw new ApiError(400, 'A user with this email already exists');
+  }
+
+  const agent = await User.create({ name, email, password, role: 'delivery' });
+  res.status(201).json({ success: true, agent: { _id: agent._id, name: agent.name, email: agent.email } });
+};
+
+/** DELETE /api/seller/delivery-agents/:id — remove a delivery user */
+exports.deleteDeliveryAgent = async (req, res) => {
+  const agent = await User.findOne({ _id: req.params.id, role: 'delivery' });
+  if (!agent) {
+    throw new ApiError(404, 'Delivery agent not found');
+  }
+  await agent.deleteOne();
+  res.status(200).json({ success: true, data: {} });
+};
+
 /** GET /api/seller/products/:id/analytics — units sold / revenue / orders per product */
 exports.getProductAnalytics = async (req, res) => {
   const product = await Product.findOne({ _id: req.params.id, seller: req.user.id });

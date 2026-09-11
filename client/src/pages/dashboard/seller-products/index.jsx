@@ -113,9 +113,9 @@ export default function SellerProductsPage() {
     const formData = new FormData();
     formData.append('image', file);
     try {
-      const { data } = await api.post('/upload', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      // Do NOT set Content-Type manually — axios auto-sets multipart/form-data
+      // with the correct boundary when the body is a FormData instance.
+      const { data } = await api.post('/upload', formData);
       setForm((prev) => ({ ...prev, image: data.image }));
     } catch (err) {
       setUploadError(err?.response?.data?.error || 'Failed to upload image from device.');
@@ -282,22 +282,24 @@ export default function SellerProductsPage() {
                 </div>
                 <div className="col-md-6">
                   <label className="form-label small mb_8">Category *</label>
-                  <select
-                    name="category"
-                    className="form-select"
-                    value={form.category}
-                    onChange={handleChange}
-                    required
-                  >
-                    <option value="" disabled>
-                      Select category
-                    </option>
-                    {CATEGORIES.map((c) => (
-                      <option key={c} value={c}>
-                        {c}
+                  <div className="select-custom">
+                    <select
+                      name="category"
+                      className="tf-select"
+                      value={form.category}
+                      onChange={handleChange}
+                      required
+                    >
+                      <option value="" disabled>
+                        Select category
                       </option>
-                    ))}
-                  </select>
+                      {CATEGORIES.map((c) => (
+                        <option key={c} value={c}>
+                          {c}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
                 <div className="col-md-6">
                   <label className="form-label small mb_8">Sub-category</label>

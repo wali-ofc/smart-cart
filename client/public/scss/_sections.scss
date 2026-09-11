@@ -1840,8 +1840,9 @@
 
 .progress-wrap {
   position: fixed;
-  bottom: 90px;
-  right: 40px;
+  bottom: 30px;
+  left: 30px;
+  right: auto;
   height: 40px;
   width: 40px;
   cursor: pointer;

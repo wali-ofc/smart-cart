@@ -45,12 +45,14 @@ export default function ColorCompare() {
                     <span>Beige</span>
                   </div>
                   <form onSubmit={(e) => e.preventDefault()} className="">
-                    <select className="tf-select" name="id">
+                    <div className="select-custom">
+                      <select className="tf-select" name="id">
                       <option value={46633906045232}>S - $8.00</option>
                       <option value={47256262738224}>M - $8.00</option>
                       <option value={47256262770992}>L - $8.00</option>
                       <option value={47256262803760}>XL - $8.00</option>
                     </select>
+                  </div>
                     <a
                       href="#"
                       className="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn"
@@ -88,12 +90,14 @@ export default function ColorCompare() {
                     <span>Blue</span>
                   </div>
                   <form onSubmit={(e) => e.preventDefault()} className="">
-                    <select className="tf-select" name="id" required>
+                    <div className="select-custom">
+                      <select className="tf-select" name="id" required>
                       <option value={46633906045232}>S - $8.00</option>
                       <option value={47256262738224}>M - $8.00</option>
                       <option value={47256262770992}>L - $8.00</option>
                       <option value={47256262803760}>XL - $8.00</option>
                     </select>
+                  </div>
                     <a
                       href="#"
                       className="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn"
@@ -132,12 +136,14 @@ export default function ColorCompare() {
                     <span>Black</span>
                   </div>
                   <form onSubmit={(e) => e.preventDefault()} className="">
-                    <select className="tf-select" name="id">
+                    <div className="select-custom">
+                      <select className="tf-select" name="id">
                       <option value={46633906045232}>S - $8.00</option>
                       <option value={47256262738224}>M - $8.00</option>
                       <option value={47256262770992}>L - $8.00</option>
                       <option value={47256262803760}>XL - $8.00</option>
                     </select>
+                  </div>
                     <a
                       href="#"
                       className="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn"
@@ -175,12 +181,14 @@ export default function ColorCompare() {
                     <span>White</span>
                   </div>
                   <form onSubmit={(e) => e.preventDefault()} className="">
-                    <select className="tf-select" name="id">
+                    <div className="select-custom">
+                      <select className="tf-select" name="id">
                       <option value={46633906045232}>S - $8.00</option>
                       <option value={47256262738224}>M - $8.00</option>
                       <option value={47256262770992}>L - $8.00</option>
                       <option value={47256262803760}>XL - $8.00</option>
                     </select>
+                  </div>
                     <a
                       href="#"
                       className="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn"

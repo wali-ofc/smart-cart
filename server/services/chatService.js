@@ -15,16 +15,17 @@ const INTENTS = {
   // Order intents
   orderCount:       /\b(how\s+many\s+orders|total\s+orders|number\s+of\s+orders|order\s+count|count\s+(of\s+)?(my\s+)?orders?)\b/i,
   orderTotal:       /\b(total\s+(spent|price|cost|amount)|how\s+much\s+(have\s+i\s+)?spent|total\s+spending|spending\s+total)\b/i,
-  orderPriceOf:     /\b(price|cost|total|amount)\s+(of\s+)?order\s*#?\s*([a-f0-9]{6,24})\b/i,
-  orderStatusOf:    /\b(status|state|where|update|track)\s+(of\s+)?order\s*#?\s*([a-f0-9]{6,24})\b/i,
-  orderNameOf:      /\b(what('s|\s+is)\s+)?(in\s+)?order\s*#?\s*([a-f0-9]{6,24})|items?\s+in\s+order\s*#?\s*([a-f0-9]{6,24})\b/i,
-  specificOrder:    /\border\s*#?\s*([a-f0-9]{6,24})\b/i,
+  orderPriceOf:     /\b(price|cost|total|amount)\s+(of|for)?\s*order\s*#?\s*([a-f0-9]{6,24})\b|\border\s*#?\s*([a-f0-9]{6,24})\s+(price|cost|total|amount)\b/i,
+  orderStatusOf:    /\b(status|state|where|update|track)\s+(of|for)?\s*order\s*#?\s*([a-f0-9]{6,24})\b|\border\s*#?\s*([a-f0-9]{6,24})\s+(status|state)\b/i,
+  orderNameOf:      /\b(names?|items?|products?)\s+(of|in|for)?\s*order\s*#?\s*([a-f0-9]{6,24})\b|\b(what('s|\s+is)\s+)?(in|inside)\s+order\s*#?\s*([a-f0-9]{6,24})\b|\border\s*#?\s*([a-f0-9]{6,24})\s+(items?|names?|products?)\b/i,
+  specificOrder:    /\b(details?\s+(of|for)?\s*)?order\s*#?\s*([a-f0-9]{6,24})\b|\border\s*#?\s*([a-f0-9]{6,24})\s+details?\b/i,
   orderStatus:      /\b(where\s+(is|are)\s+my|track|status\s+of|how\s+is|update\s+on)\s+(order|delivery|package)/i,
   myOrders:         /\b(my\s+orders?|order\s+history|show\s+(my\s+)?orders?|view\s+(my\s+)?orders?|all\s+orders?|list\s+(my\s+)?orders?)\b/i,
 
   // Cart intents
-  cartCount:        /\b(how\s+many\s+items?\s+(in\s+)?(my\s+)?cart|cart\s+count|number\s+of\s+items?\s+in\s+cart|items?\s+(in\s+)?(my\s+)?cart)\b/i,
-  cartTotal:        /\b(cart\s+total|total\s+price\s+of\s+cart|how\s+much\s+is\s+(my\s+)?cart|cost\s+of\s+(my\s+)?cart|what('?s|\s+is)\s+my\s+cart\s+total)\b/i,
+  cartCount:        /\b(how\s+many\s+items?\s+(are\s+)?(in\s+)?(my\s+)?cart|cart\s+count|number\s+of\s+items?\s+in\s+cart|how\s+many\s+products?\s+(in\s+)?(my\s+)?cart|items?\s+in\s+my\s+cart\s+count)\b/i,
+  cartTotal:        /\b(total\s+cart\s*(amount|price|cost)?|cart\s+total\s*(amount|price|cost)?|total\s+(price|cost|amount)\s+(of|in)\s+(my\s+)?cart|how\s+much\s+is\s+(my\s+)?cart|cost\s+of\s+(my\s+)?cart|what('?s|\s+is)\s+(my\s+)?cart\s+total)\b/i,
+  cartItems:        /\b(names?\s+of\s+(items?|products?)\s+(in\s+)?(my\s+)?cart|items?\s+(in|names?)\s+(in\s+)?(my\s+)?cart|what\s+(items?|products?)\s+(are\s+)?(in\s+)?(my\s+)?cart|list\s+(items?|products?)\s+(in\s+)?(my\s+)?cart|show\s+(my\s+)?cart\s+(items?|products?))\b/i,
   cart:             /\b(my\s+cart|view\s+cart|cart\s+contents?|open\s+cart|go\s+to\s+cart)\b/i,
 
   // Navigation
@@ -45,6 +46,11 @@ const INTENTS = {
 // ---------------------------------------------------------------------------
 // Data helpers
 // ---------------------------------------------------------------------------
+function extractOrderIdentifier(message) {
+  const match = message.match(/\border\s*#?\s*([a-f0-9]{6,24})\b/i) || message.match(/\b#?([a-f0-9]{6,24})\b/i);
+  return match ? match[1] : null;
+}
+
 async function getOrders(userId, limit = 10) {
   try {
     return await Order.find({ user: userId })
@@ -59,20 +65,22 @@ async function getOrders(userId, limit = 10) {
 }
 
 async function findOrderByIdentifier(userId, identifier) {
+  if (!identifier) return null;
   try {
+    const cleanId = String(identifier).trim().toLowerCase();
     const mongoose = require('mongoose');
-    if (mongoose.Types.ObjectId.isValid(identifier) && identifier.length === 24) {
-      const order = await Order.findOne({ _id: identifier, user: userId })
+    if (mongoose.Types.ObjectId.isValid(cleanId) && cleanId.length === 24) {
+      const order = await Order.findOne({ _id: cleanId, user: userId })
         .populate('items.product', 'name image price')
         .lean();
       if (order) return order;
     }
-    // Fall back to short-ID match: full _id ends with the identifier.
+    // Fall back to short-ID match: full _id ends with cleanId.
     const orders = await Order.find({ user: userId })
       .populate('items.product', 'name image price')
       .sort({ createdAt: -1 })
       .lean();
-    return orders.find((o) => o._id.toString().slice(-identifier.length) === identifier.toLowerCase()) || null;
+    return orders.find((o) => o._id.toString().toLowerCase().endsWith(cleanId)) || null;
   } catch (err) {
     console.error('Failed to find order:', err.message);
     return null;
@@ -154,12 +162,11 @@ async function handleIntent(intent, message, userId) {
     }
 
     case 'specificOrder': {
-      const match = message.match(INTENTS.specificOrder);
-      const identifier = match[1];
+      const identifier = extractOrderIdentifier(message);
       const order = await findOrderByIdentifier(userId, identifier);
       if (!order) {
         return {
-          reply: `I couldn't find an order matching "${identifier}". Please check the order ID and try again, or ask "show my orders" to see all your orders.`,
+          reply: `I couldn't find an order matching "${identifier || 'that ID'}". Please check the order ID and try again, or ask "show my orders" to see all your orders.`,
           actions: [{ type: 'navigate', label: 'View All Orders', url: '/profile?section=orders' }]
         };
       }
@@ -170,12 +177,11 @@ async function handleIntent(intent, message, userId) {
     }
 
     case 'orderPriceOf': {
-      const match = message.match(INTENTS.orderPriceOf);
-      const identifier = match[3];
+      const identifier = extractOrderIdentifier(message);
       const order = await findOrderByIdentifier(userId, identifier);
       if (!order) {
         return {
-          reply: `I couldn't find an order matching "${identifier}". Try asking "show my orders" to see all your orders.`,
+          reply: `I couldn't find an order matching "${identifier || 'that ID'}". Try asking "show my orders" to see all your orders.`,
           actions: [{ type: 'navigate', label: 'View All Orders', url: '/profile?section=orders' }]
         };
       }
@@ -186,12 +192,11 @@ async function handleIntent(intent, message, userId) {
     }
 
     case 'orderStatusOf': {
-      const match = message.match(INTENTS.orderStatusOf);
-      const identifier = match[3];
+      const identifier = extractOrderIdentifier(message);
       const order = await findOrderByIdentifier(userId, identifier);
       if (!order) {
         return {
-          reply: `I couldn't find an order matching "${identifier}". Try asking "show my orders" to see all your orders.`,
+          reply: `I couldn't find an order matching "${identifier || 'that ID'}". Try asking "show my orders" to see all your orders.`,
           actions: [{ type: 'navigate', label: 'View All Orders', url: '/profile?section=orders' }]
         };
       }
@@ -202,12 +207,11 @@ async function handleIntent(intent, message, userId) {
     }
 
     case 'orderNameOf': {
-      const match = message.match(INTENTS.orderNameOf);
-      const identifier = match[4] || match[5];
+      const identifier = extractOrderIdentifier(message);
       const order = await findOrderByIdentifier(userId, identifier);
       if (!order) {
         return {
-          reply: `I couldn't find an order matching "${identifier}". Try asking "show my orders" to see all your orders.`,
+          reply: `I couldn't find an order matching "${identifier || 'that ID'}". Try asking "show my orders" to see all your orders.`,
           actions: [{ type: 'navigate', label: 'View All Orders', url: '/profile?section=orders' }]
         };
       }
@@ -270,7 +274,7 @@ async function handleIntent(intent, message, userId) {
       const totalItems = cart.reduce((sum, it) => sum + it.quantity, 0);
       return {
         reply: totalItems > 0
-          ? `You have ${totalItems} item${totalItems !== 1 ? 's' : ''} in your cart (${cart.length} product${cart.length !== 1 ? 's' : ''}).`
+          ? `You have ${totalItems} item${totalItems !== 1 ? 's' : ''} in your cart (${cart.length} unique product${cart.length !== 1 ? 's' : ''}).`
           : 'Your cart is empty.',
         actions: totalItems > 0
           ? [{ type: 'navigate', label: 'View My Cart', url: '/profile?section=cart' }]
@@ -289,10 +293,31 @@ async function handleIntent(intent, message, userId) {
       }
       const total = cart.reduce((sum, it) => sum + (it.product?.price || 0) * it.quantity, 0);
       const breakdown = cart.map((it) =>
-        `  - ${it.product?.name || 'Unknown'} x${it.quantity} = $${((it.product?.price || 0) * it.quantity).toFixed(2)}`
+        `- ${it.product?.name || 'Unknown'} x${it.quantity} = $${((it.product?.price || 0) * it.quantity).toFixed(2)}`
       ).join('\n');
       return {
-        reply: `Your cart total is $${total.toFixed(2)} for ${totalItems} item${totalItems !== 1 ? 's' : ''}:\n\n${breakdown}`,
+        reply: `Your total cart amount is $${total.toFixed(2)} for ${totalItems} item${totalItems !== 1 ? 's' : ''}:\n\n${breakdown}`,
+        actions: [{ type: 'navigate', label: 'View My Cart', url: '/profile?section=cart' }]
+      };
+    }
+
+    case 'cartItems': {
+      const cart = await getCartDetails(userId);
+      const totalItems = cart.reduce((sum, it) => sum + it.quantity, 0);
+      if (totalItems === 0) {
+        return {
+          reply: 'Your cart is empty.',
+          actions: [{ type: 'navigate', label: 'Start Shopping', url: '/shop' }]
+        };
+      }
+      const itemLines = cart.map((it) => {
+        const pName = it.product?.name || 'Unknown item';
+        const price = Number(it.product?.price || 0).toFixed(2);
+        const subtotal = ((it.product?.price || 0) * it.quantity).toFixed(2);
+        return `- ${pName} (x${it.quantity}) - $${price} each ($${subtotal} subtotal)`;
+      }).join('\n');
+      return {
+        reply: `You have ${totalItems} item${totalItems !== 1 ? 's' : ''} in your cart:\n\n${itemLines}`,
         actions: [{ type: 'navigate', label: 'View My Cart', url: '/profile?section=cart' }]
       };
     }
@@ -562,27 +587,23 @@ class ChatService {
 
   async saveMessage(userId, message, reply, actions = []) {
     try {
-      let session = await ChatSession.findOne({ user: userId }).sort({ createdAt: -1 });
-      if (!session) {
-        session = new ChatSession({ user: userId, messages: [], context: {} });
-      }
+      const aiReplyText = typeof reply === 'string' ? reply : (reply?.reply || '');
+      const newMessages = [
+        { sender: 'user', message, timestamp: new Date() },
+        { sender: 'ai', message: aiReplyText, actions, timestamp: new Date() }
+      ];
 
-      session.messages.push({ sender: 'user', message, timestamp: new Date() });
-      session.messages.push({
-        sender: 'ai',
-        message: typeof reply === 'string' ? reply : (reply.reply || ''),
-        actions,
-        timestamp: new Date()
-      });
-
-      // Cap history to the last 50 messages.
-      if (session.messages.length > 50) {
-        session.messages = session.messages.slice(-50);
-      }
-
-      await session.save();
+      await ChatSession.findOneAndUpdate(
+        { user: userId },
+        {
+          $push: {
+            messages: { $each: newMessages, $slice: -50 }
+          }
+        },
+        { upsert: true, returnDocument: 'after' }
+      );
     } catch (error) {
-      console.error('Failed to save chat message:', error);
+      console.error('Failed to save chat message:', error.message);
     }
   }
 }

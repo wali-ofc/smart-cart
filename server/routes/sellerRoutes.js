@@ -5,6 +5,9 @@ const {
   getSellerOrders,
   getOrderStats,
   getSellerOrderDetail,
+  getDeliveryAgents,
+  createDeliveryAgent,
+  deleteDeliveryAgent,
   getProductAnalytics
 } = require('../controllers/sellerController');
 const { protect, authorize } = require('../middleware/authMiddleware');
@@ -26,6 +29,11 @@ router.get('/orders/stats', getOrderStats);
 
 // GET /api/seller/orders/:id — single order detail
 router.get('/orders/:id', getSellerOrderDetail);
+
+// Delivery agents (couriers) CRUD
+router.get('/delivery-agents', getDeliveryAgents);
+router.post('/delivery-agents', createDeliveryAgent);
+router.delete('/delivery-agents/:id', deleteDeliveryAgent);
 
 // GET /api/seller/products
 router.get('/products', getMyProducts);

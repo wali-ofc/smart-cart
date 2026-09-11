@@ -1,4 +1,5 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 
 const accountLinks = [
   { href: "/my-account", label: "Dashboard" },
@@ -10,6 +11,20 @@ const accountLinks = [
 
 export default function DashboardNav() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      await logout();
+    } catch (err) {
+      console.error("Logout failed:", err);
+    } finally {
+      navigate("/login");
+    }
+  };
+
   return (
     <ul className="my-account-nav">
       {accountLinks.map((link, index) => (
@@ -25,7 +40,7 @@ export default function DashboardNav() {
         </li>
       ))}
       <li>
-        <Link to={`/login`} className="my-account-nav-item">
+        <Link to="/login" onClick={handleLogout} className="my-account-nav-item">
           Logout
         </Link>
       </li>

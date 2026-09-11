@@ -1,12 +1,26 @@
 import React from "react";
 import Nav from "./Nav";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CartLength from "../common/CartLength";
 import WishlistLength from "../common/WishlistLength";
 import { useAuth } from "@/context/AuthContext";
+
 export default function Header1() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      await logout();
+    } catch (err) {
+      console.error("Logout failed:", err);
+    } finally {
+      navigate("/login");
+    }
+  };
+
   return (
     <header id="header" className="header-default header-absolute">
       <div className="px_15 lg-px_40">
@@ -77,10 +91,28 @@ export default function Header1() {
                             Profile Dashboard
                           </Link>
                         </li>
+                        {user.role === 'seller' && (
+                          <li>
+                            <Link to="/seller" className="menu-link-text link text_black-2">
+                              Seller Dashboard
+                            </Link>
+                          </li>
+                        )}
+                        {user.role === 'delivery' && (
+                          <li>
+                            <Link to="/delivery" className="menu-link-text link text_black-2">
+                              Delivery Dashboard
+                            </Link>
+                          </li>
+                        )}
                         <li>
-                          <Link to="/seller" className="menu-link-text link text_black-2">
-                            Seller Dashboard
-                          </Link>
+                          <a
+                            href="#"
+                            onClick={handleLogout}
+                            className="menu-link-text link text_black-2"
+                          >
+                            Logout
+                          </a>
                         </li>
                       </ul>
                     </div>

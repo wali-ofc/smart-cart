@@ -206,19 +206,21 @@ export default function SellerOrderDetail() {
               <div className="col-md-4">
                 <label className="form-label small text-secondary">New Status</label>
                 {allowedTransitions.length > 0 ? (
-                  <select
-                    className="form-select"
-                    value={selectedStatus}
-                    onChange={(e) => setSelectedStatus(e.target.value)}
-                    disabled={saving}
-                    aria-label="Select new order status"
-                  >
-                    {STATUS_OPTIONS.map((opt) => (
-                      <option key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="select-custom">
+                    <select
+                      className="tf-select"
+                      value={selectedStatus}
+                      onChange={(e) => setSelectedStatus(e.target.value)}
+                      disabled={saving}
+                      aria-label="Select new order status"
+                    >
+                      {STATUS_OPTIONS.map((opt) => (
+                        <option key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 ) : (
                   <div className="text-secondary small">No status changes available.</div>
                 )}

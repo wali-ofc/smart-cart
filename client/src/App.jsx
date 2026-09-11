@@ -46,6 +46,7 @@ import SellerOrdersPage from "./pages/dashboard/SellerOrders";
 import SellerOrderDetailPage from "./pages/dashboard/SellerOrderDetail";
 import SellerProductsPage from "./pages/dashboard/seller-products";
 import SellerAiPredictionsPage from "./pages/dashboard/seller-ai-predictions";
+import SellerCouriersPage from "./pages/dashboard/SellerCouriers";
 import DeliveryDashboard from "./pages/dashboard/DeliveryDashboard";
 
 import WishlistPage from "./pages/otherPages/wishlist";
@@ -224,6 +225,7 @@ function App() {
                 <Route path="seller/orders/:id" element={<SellerOrderDetailPage />} />
                 <Route path="seller/products" element={<SellerProductsPage />} />
                 <Route path="seller/ai-predictions" element={<SellerAiPredictionsPage />} />
+                <Route path="seller/couriers" element={<SellerCouriersPage />} />
                 <Route path="delivery" element={<DeliveryDashboard />} />
 
                 <Route path="payment-failure" element={<PaymentFailurePage />} />

@@ -55,18 +55,20 @@ export default function OrderStatusChart() {
     <div className="mb_30">
       <div className="d-flex align-items-center justify-content-between flex-wrap gap-3 mb_20">
         <h6 className="fw-5 mb-0">Orders Frequency</h6>
-        <select
-          className="form-select form-select-sm w-auto"
-          value={period}
-          onChange={(e) => setPeriod(e.target.value)}
-          aria-label="Chart time period"
-        >
-          {PERIOD_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+        <div className="select-custom select-sm w-auto">
+          <select
+            className="tf-select"
+            value={period}
+            onChange={(e) => setPeriod(e.target.value)}
+            aria-label="Chart time period"
+          >
+            {PERIOD_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       <div className="p-3 border rounded-3" style={{ height: 300 }}>
         {loading ? (

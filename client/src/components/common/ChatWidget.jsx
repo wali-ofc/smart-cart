@@ -1,19 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '@/api/axios';
 import { useAuth } from '@/context/AuthContext';
 
 /**
  * ChatWidget (documentation.md §4.3.3) — floating AI shopping assistant.
  * POST /api/chat (protected, rate-limited 50/day). Signed-in users only.
- * Message history is held in component state — the API does not expose history.
+ * Placed on the bottom-right of the screen per layout specification.
  */
 export default function ChatWidget() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const threadRef = useRef(null);
+  const abortControllerRef = useRef(null);
 
   useEffect(() => {
     if (threadRef.current) {
@@ -27,20 +30,46 @@ export default function ChatWidget() {
     e.preventDefault();
     const text = input.trim();
     if (!text || loading) return;
+
     setInput('');
     setMessages((prev) => [...prev, { role: 'user', text }]);
     setLoading(true);
+
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
     try {
-      const { data } = await api.post('/chat', { message: text });
-      setMessages((prev) => [...prev, { role: 'ai', text: data.reply }]);
+      const { data } = await api.post('/chat', { message: text }, { signal: controller.signal });
+      setMessages((prev) => [
+        ...prev,
+        { role: 'ai', text: data.reply, actions: data.actions || [] }
+      ]);
     } catch (err) {
-      const message =
-        err?.response?.data?.error ||
-        'AI assistant is unavailable right now. Please try again later.';
-      setMessages((prev) => [...prev, { role: 'ai', text: message, error: true }]);
+      if (err?.name === 'CanceledError' || err?.name === 'AbortError' || err?.code === 'ERR_CANCELED') {
+        setMessages((prev) => [
+          ...prev,
+          { role: 'ai', text: 'Generation stopped by user.', stopped: true }
+        ]);
+      } else {
+        const message =
+          err?.response?.data?.error ||
+          'AI assistant is unavailable right now. Please try again later.';
+        setMessages((prev) => [...prev, { role: 'ai', text: message, error: true }]);
+      }
     } finally {
       setLoading(false);
+      abortControllerRef.current = null;
     }
+  };
+
+  const stopGeneration = () => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+  };
+
+  const clearChat = () => {
+    setMessages([]);
   };
 
   const iconSvg = (
@@ -59,7 +88,7 @@ export default function ChatWidget() {
   );
 
   return (
-    <div className="chat-widget" style={{ position: "fixed", left: 20, bottom: 20, zIndex: 950 }}>
+    <div className="chat-widget" style={{ position: "fixed", right: 20, bottom: 20, zIndex: 950 }}>
       {open && (
         <div className="card chat-widget-panel shadow-sm" style={{ width: 340, marginBottom: 12, overflow: "hidden" }}>
           <div className="card-header d-flex align-items-center justify-content-between py-2">
@@ -67,13 +96,38 @@ export default function ChatWidget() {
               {iconSvg}
               SmartCart Assistant
             </span>
-            <button
-              className="btn btn-link p-0 text-dark border-0"
-              onClick={() => setOpen(false)}
-              aria-label="Close chat"
-            >
-              <span className="icon-close icon-close-popup" />
-            </button>
+            <div className="d-flex align-items-center gap-2">
+              {messages.length > 0 && (
+                <button
+                  className="btn btn-link p-0 text-dark border-0"
+                  onClick={clearChat}
+                  aria-label="Clear chat history"
+                  title="Clear chat"
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M3 6h18" />
+                    <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+                  </svg>
+                </button>
+              )}
+              <button
+                className="btn btn-link p-0 text-dark border-0"
+                onClick={() => setOpen(false)}
+                aria-label="Close chat"
+              >
+                <span className="icon-close icon-close-popup" />
+              </button>
+            </div>
           </div>
           <div
             ref={threadRef}
@@ -83,7 +137,7 @@ export default function ChatWidget() {
             {messages.length === 0 && (
               <p className="small text-secondary mb-0 text-center py-2">
                 Hi {user?.name?.split(" ")[0] || "there"}! Ask me about products,
-                recommendations or your orders.
+                cart contents, or your orders.
               </p>
             )}
             {messages.map((m, i) => (
@@ -99,16 +153,33 @@ export default function ChatWidget() {
                       ? "bg-dark text-white"
                       : m.error
                         ? "bg-white border text-danger"
-                        : "bg-white border"
+                        : m.stopped
+                          ? "bg-white border text-secondary fst-italic"
+                          : "bg-white border"
                   }`}
-                  style={{ maxWidth: "80%", wordBreak: "break-word" }}
+                  style={{ maxWidth: "85%", wordBreak: "break-word", whiteSpace: "pre-wrap" }}
                 >
-                  {m.text}
+                  <div>{m.text}</div>
+                  {m.role === "ai" && m.actions && m.actions.length > 0 && (
+                    <div className="mt-2 pt-2 border-top d-flex flex-wrap gap-1">
+                      {m.actions.map((act, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => navigate(act.url)}
+                          className="btn btn-sm btn-outline-dark py-0 px-2 radius-3"
+                          style={{ fontSize: "11px" }}
+                        >
+                          {act.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
             {loading && (
-              <div className="small text-secondary fst-italic">
+              <div className="small text-secondary fst-italic py-1">
                 SmartCart is typing...
               </div>
             )}
@@ -116,18 +187,32 @@ export default function ChatWidget() {
           <form onSubmit={sendMessage} className="card-footer d-flex gap-2 py-2">
             <input
               className="form-control form-control-sm"
-              placeholder="Ask about products, orders..."
+              placeholder="Ask about products, cart, orders..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
               disabled={loading}
             />
-            <button
-              type="submit"
-              className="tf-btn btn-fill animate-hover-btn radius-3"
-              disabled={loading}
-            >
-              <span>Send</span>
-            </button>
+            {loading ? (
+              <button
+                type="button"
+                onClick={stopGeneration}
+                className="btn btn-danger btn-sm radius-3 d-flex align-items-center gap-1"
+                title="Stop generation"
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="4" y="4" width="16" height="16" rx="2" />
+                </svg>
+                <span>Stop</span>
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="tf-btn btn-fill animate-hover-btn radius-3"
+                disabled={!input.trim()}
+              >
+                <span>Send</span>
+              </button>
+            )}
           </form>
         </div>
       )}

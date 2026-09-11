@@ -29,7 +29,7 @@ export default function BoughtTogether() {
             <span className="tf-product-bundle-title">
               <strong>This item:</strong> Cotton jersey top
             </span>
-            <div className="tf-product-bundle-variant position-relative">
+            <div className="tf-product-bundle-variant position-relative select-custom">
               <select className="tf-select">
                 <option>Beige / S</option>
                 <option>Beige / M</option>
@@ -102,7 +102,7 @@ export default function BoughtTogether() {
             <a href="#" className="tf-product-bundle-title">
               Oversized Printed T-shirt
             </a>
-            <div className="tf-product-bundle-variant position-relative">
+            <div className="tf-product-bundle-variant position-relative select-custom">
               <select className="tf-select">
                 <option>Beige / S</option>
                 <option>Beige / M</option>

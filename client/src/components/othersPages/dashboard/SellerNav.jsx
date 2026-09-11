@@ -1,14 +1,30 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 
 const sellerLinks = [
   { href: "/seller", label: "Dashboard" },
   { href: "/seller/orders", label: "Orders" },
   { href: "/seller/products", label: "Products" },
+  { href: "/seller/couriers", label: "Couriers" },
   { href: "/seller/ai-predictions", label: "AI Predictions" },
 ];
 
 export default function SellerNav() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      await logout();
+    } catch (err) {
+      console.error("Logout failed:", err);
+    } finally {
+      navigate("/login");
+    }
+  };
+
   return (
     <ul className="my-account-nav">
       {sellerLinks.map((link, index) => (
@@ -28,7 +44,7 @@ export default function SellerNav() {
         </li>
       ))}
       <li>
-        <Link to={`/login`} className="my-account-nav-item">
+        <Link to="/login" onClick={handleLogout} className="my-account-nav-item">
           Logout
         </Link>
       </li>

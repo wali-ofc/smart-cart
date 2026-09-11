@@ -103,15 +103,17 @@ export default function Register() {
                 <label className="tf-field-label">Password *</label>
               </div>
               <div className="tf-field style-1">
-                <select
-                  className="tf-field-input tf-input"
-                  value={role}
-                  onChange={(e) => setRole(e.target.value)}
-                >
-                  <option value="customer">Customer</option>
-                  <option value="seller">Seller</option>
-                  <option value="delivery">Delivery agent</option>
-                </select>
+                <div className="select-custom">
+                  <select
+                    className="tf-field-input tf-input tf-select"
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                  >
+                    <option value="customer">Customer</option>
+                    <option value="seller">Seller</option>
+                    <option value="delivery">Delivery agent</option>
+                  </select>
+                </div>
                 <label className="tf-field-label">Account type</label>
               </div>
               <div className="bottom">
