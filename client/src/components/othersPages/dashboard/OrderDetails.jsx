@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import api from "@/api/axios";
 
 const STATUS_LABEL = {
@@ -10,6 +10,9 @@ const STATUS_LABEL = {
   cancelled: "Cancelled",
   refunded: "Refunded",
 };
+
+// statuses a customer may cancel on their own (order not yet shipped)
+const CANCELLABLE_STATUS = ["pending", "processing"];
 
 const PAYMENT_LABEL = {
   cod: "Cash on Delivery",
@@ -28,9 +31,12 @@ const fmtDateTime = (iso) =>
 
 export default function OrderDetails() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [actionError, setActionError] = useState("");
+  const [cancelling, setCancelling] = useState(false);
 
   useEffect(() => {
     if (!id) {
@@ -99,6 +105,22 @@ export default function OrderDetails() {
     tabs();
   }, [order]);
 
+  const handleCancel = async () => {
+    if (!window.confirm("Cancel this order? Its reserved stock will be released.")) {
+      return;
+    }
+    setCancelling(true);
+    setActionError("");
+    try {
+      await api.delete(`/orders/${order._id}`);
+      navigate("/orders");
+    } catch (err) {
+      setActionError(err?.response?.data?.error || "Could not cancel this order.");
+    } finally {
+      setCancelling(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="wd-form-order">
@@ -135,6 +157,9 @@ export default function OrderDetails() {
 
   return (
     <div className="wd-form-order">
+      {actionError && (
+        <p className="mb-3 text-danger">{actionError}</p>
+      )}
       <div className="order-head">
         <figure className="img-product">
           <img alt="product" src={firstImage} width="720" height="1005" />
@@ -146,6 +171,16 @@ export default function OrderDetails() {
           <h6 className="mt-8 fw-5">
             Order #{order._id.slice(-6).toUpperCase()}
           </h6>
+          {CANCELLABLE_STATUS.includes(order.status) && (
+            <button
+              type="button"
+              className="tf-btn btn-line radius-3 justify-content-center text-danger"
+              onClick={handleCancel}
+              disabled={cancelling}
+            >
+              <span>{cancelling ? "Cancelling…" : "Cancel Order"}</span>
+            </button>
+          )}
         </div>
       </div>
       <div className="tf-grid-layout md-col-2 gap-15">

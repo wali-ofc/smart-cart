@@ -22,6 +22,24 @@ const DELIVERY_TRANSITIONS = {
 // Single source of truth for valid statuses (mirrors the model enum).
 const ORDER_STATUSES = Order.schema.path('status').enumValues;
 
+// Statuses a customer may cancel on their own (before the order ships).
+const CUSTOMER_CANCELLABLE_STATUSES = ['pending', 'processing'];
+
+/**
+ * Release the reserved units of every line back to available stock.
+ * Used on cancelled/refunded orders and on customer-deleted orders.
+ */
+const restockOrderItems = async (order) => {
+  await Promise.all(
+    order.items.map((item) =>
+      Product.updateOne(
+        { _id: item.product },
+        { $inc: { stock: item.quantity } }
+      )
+    )
+  );
+};
+
 /**
  * Create an order from the user's cart (spec POST /api/orders).
  * Calculates items_price/total_price, records the seller, clears the cart.
@@ -167,15 +185,33 @@ exports.updateOrderStatus = async ({ userId, role, orderId, status, delivery_age
   // Role-agnostic — seller cancels (incl. refunds) and delivery-agent cancels
   // both hand the goods back to the seller's stock.
   if (status === 'cancelled' || status === 'refunded') {
-    await Promise.all(
-      order.items.map((item) =>
-        Product.updateOne(
-          { _id: item.product },
-          { $inc: { stock: item.quantity } }
-        )
-      )
+    await restockOrderItems(order);
+  }
+
+  return order;
+};
+
+/**
+ * Customer cancels their own order (DELETE /api/orders/:id).
+ * Hard-deletes the order and releases its reserved stock back to availability.
+ * Allowed only before shipping (pending / processing) — once the goods are in
+ * transit, cancellation belongs to the seller/delivery flow.
+ */
+exports.deleteOrder = async ({ userId, orderId }) => {
+  const order = await Order.findOne({ _id: orderId, user: userId });
+  if (!order) {
+    throw new ApiError(404, 'Order not found');
+  }
+
+  if (!CUSTOMER_CANCELLABLE_STATUSES.includes(order.status)) {
+    throw new ApiError(
+      400,
+      `Order with status "${order.status}" can no longer be cancelled`
     );
   }
+
+  await restockOrderItems(order);
+  await order.deleteOne();
 
   return order;
 };

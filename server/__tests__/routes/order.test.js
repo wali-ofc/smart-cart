@@ -166,4 +166,71 @@ describe('Order stock lifecycle (reserve on cart, consume on checkout, release o
     const doc = await Product.findById(product._id);
     expect(doc.stock).toBe(7);
   });
+
+  it('lets a customer delete their own pending order (releases stock)', async () => {
+    const customer = await registerAgent({ email: 'buyer4@example.com' });
+    const product = await Product.create({ ...PRODUCT_BASE, stock: 8 });
+
+    await customer
+      .post('/api/cart')
+      .send({ product: product._id.toString(), quantity: 5 })
+      .expect(201);
+    expect((await Product.findById(product._id)).stock).toBe(3);
+
+    const orderRes = await customer
+      .post('/api/orders')
+      .send({ shipping_address: SHIPPING, payment_method: 'cod' })
+      .expect(201);
+    const orderId = orderRes.body.data._id;
+
+    const del = await customer.delete(`/api/orders/${orderId}`).expect(200);
+    expect(del.body.success).toBe(true);
+
+    // stock released, order gone
+    expect((await Product.findById(product._id)).stock).toBe(8);
+    await customer.get(`/api/orders/${orderId}`).expect(404);
+  });
+
+  it("rejects deleting someone else's order", async () => {
+    const owner = await registerAgent({ email: 'owner@example.com' });
+    const other = await registerAgent({ email: 'other@example.com' });
+    const product = await Product.create(PRODUCT_BASE);
+
+    await owner
+      .post('/api/cart')
+      .send({ product: product._id.toString(), quantity: 2 })
+      .expect(201);
+    const orderRes = await owner
+      .post('/api/orders')
+      .send({ shipping_address: SHIPPING, payment_method: 'cod' })
+      .expect(201);
+
+    await other.delete(`/api/orders/${orderRes.body.data._id}`).expect(404);
+
+    // stock stays reserved for the owner
+    expect((await Product.findById(product._id)).stock).toBe(8);
+  });
+
+  it('blocks deleting an order that has already shipped', async () => {
+    const customer = await registerAgent({ email: 'buyer5@example.com' });
+    const product = await Product.create(PRODUCT_BASE);
+
+    await customer
+      .post('/api/cart')
+      .send({ product: product._id.toString(), quantity: 2 })
+      .expect(201);
+    const orderRes = await customer
+      .post('/api/orders')
+      .send({ shipping_address: SHIPPING, payment_method: 'cod' })
+      .expect(201);
+    const orderId = orderRes.body.data._id;
+
+    // force the order into a shipped state (bypasses the seller flow)
+    await Order.findByIdAndUpdate(orderId, { status: 'shipped' });
+
+    await customer.delete(`/api/orders/${orderId}`).expect(400);
+
+    // no release happened — the units stay consumed
+    expect((await Product.findById(product._id)).stock).toBe(8);
+  });
 });

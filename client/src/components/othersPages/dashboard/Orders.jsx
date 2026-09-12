@@ -11,6 +11,9 @@ const STATUS_LABEL = {
   refunded: "Refunded",
 };
 
+// statuses a customer may cancel on their own (order not yet shipped)
+const CANCELLABLE_STATUS = ["pending", "processing"];
+
 const fmtDate = (iso) =>
   new Date(iso).toLocaleDateString("en-US", {
     year: "numeric",
@@ -22,6 +25,7 @@ export default function Orders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [busyId, setBusyId] = useState(null);
 
   useEffect(() => {
     let active = true;
@@ -43,6 +47,22 @@ export default function Orders() {
       active = false;
     };
   }, []);
+
+  const handleCancel = async (order) => {
+    if (!window.confirm("Cancel this order? Its reserved stock will be released.")) {
+      return;
+    }
+    setBusyId(order._id);
+    try {
+      await api.delete(`/orders/${order._id}`);
+      setOrders((prev) => prev.filter((o) => o._id !== order._id));
+      setError("");
+    } catch (err) {
+      setError(err?.response?.data?.error || "Could not cancel this order.");
+    } finally {
+      setBusyId(null);
+    }
+  };
 
   return (
     <div className="my-account-content account-order">
@@ -92,12 +112,26 @@ export default function Orders() {
                     {order.items.length === 1 ? "item" : "items"}
                   </td>
                   <td>
-                    <Link
-                      to={`/my-account-orders-details/${order._id}`}
-                      className="tf-btn btn-fill animate-hover-btn rounded-0 justify-content-center"
-                    >
-                      <span>View</span>
-                    </Link>
+                    <div className="d-flex align-items-center gap-2 flex-wrap">
+                      <Link
+                        to={`/my-account-orders-details/${order._id}`}
+                        className="tf-btn btn-fill animate-hover-btn rounded-0 justify-content-center"
+                      >
+                        <span>View</span>
+                      </Link>
+                      {CANCELLABLE_STATUS.includes(order.status) && (
+                        <button
+                          type="button"
+                          className="tf-btn btn-line rounded-0 justify-content-center text-danger"
+                          onClick={() => handleCancel(order)}
+                          disabled={busyId === order._id}
+                        >
+                          <span>
+                            {busyId === order._id ? "Cancelling…" : "Cancel"}
+                          </span>
+                        </button>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}

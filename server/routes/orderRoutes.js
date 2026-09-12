@@ -4,7 +4,8 @@ const {
   createOrder,
   getUserOrders,
   getOrderById,
-  updateOrderStatus
+  updateOrderStatus,
+  deleteOrder
 } = require('../controllers/orderController');
 const { protect } = require('../middleware/authMiddleware');
 
@@ -38,5 +39,8 @@ router.get('/:id', getOrderById);
 
 // PUT /api/orders/:id/status — seller or delivery agent
 router.put('/:id/status', updateOrderStatus);
+
+// DELETE /api/orders/:id — customer cancels & deletes their own order
+router.delete('/:id', deleteOrder);
 
 module.exports = router;

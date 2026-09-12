@@ -54,3 +54,12 @@ exports.updateOrderStatus = async (req, res) => {
   });
   res.status(200).json({ success: true, data: order });
 };
+
+/** DELETE /api/orders/:id — customer cancels & deletes their own order */
+exports.deleteOrder = async (req, res) => {
+  const order = await orderService.deleteOrder({
+    userId: req.user.id,
+    orderId: req.params.id
+  });
+  res.status(200).json({ success: true, data: { id: order._id } });
+};

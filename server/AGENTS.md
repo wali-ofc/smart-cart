@@ -54,6 +54,7 @@ server/
 | `/api/orders` | GET | `protect` — my history |
 | `/api/orders/:id` | GET | `protect` — owner / seller / assigned agent |
 | `/api/orders/:id/status` | PUT | `protect` — role-checked transitions (seller: pending→processing→shipped(+delivery_agent)+cancelled; delivery: shipped→delivered/cancelled) |
+| `/api/orders/:id` | DELETE | `protect` — customer cancels their own order (owner only, pending/processing only); hard-deletes + releases reserved stock |
 | `/api/seller/dashboard` | GET | `protect` + `authorize('seller')` |
 | `/api/seller/products` | GET | `protect` + `authorize('seller')` — paginated, seller-scoped |
 | `/api/seller/products/:id/analytics` | GET | `protect` + `authorize('seller')` + owner |
@@ -93,7 +94,7 @@ server/
 - **Hardcoded demo bypass REMOVED in Phase 2** (was `admin_hardcoded_id` in authController + middleware/auth.js — that file is deleted). Demo seller access now requires a real `seller` account (Phase 4 seed creates one). Do NOT reintroduce synthetic identities.
 - **Fallback secrets:** `'secret123'` / local `MONGODB_URI` defaults — env vars required for production (§6.2); do not extend fallbacks
 - **Multi-seller orders:** schema records ONE `seller` per order (MVP: first item's seller) — documented gap, revisit if spec grows
-- **Stock is NOT decremented on order** — MVP scope decision recorded in plan (Phase 8 revisit)
+- **Stock reservation model (2026-09-12):** `Product.stock` = currently available (unreserved) units. Units are decremented atomically when added to the cart (`cartController` caps at available stock, rejects overshoot), released on cart removal/clear, order cancel/refund (`orderService.updateOrderStatus`), and customer order deletion (`orderService.deleteOrder`). Checkout consumes the already-reserved units (cart cleared directly, stock untouched). Do NOT reintroduce the old "stock untouched" behavior.
 - **connectDB swallows connection errors** (dev when mongod is off) — server boots without DB; endpoints then 500 via errorMiddleware
 
 ## COMMANDS

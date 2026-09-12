@@ -4,11 +4,12 @@ import Header2 from "@/components/headers/Header2";
 import Products from "@/components/shopDetails/Products";
 import RecentProducts from "@/components/shopDetails/RecentProducts";
 import ShopDetailsTab from "@/components/shopDetails/ShopDetailsTab";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import DetailsOuterZoom from "@/components/shopDetails/DetailsOuterZoom";
 import MetaComponent from "@/components/common/MetaComponent";
 import api from "@/api/axios";
+import { useCart } from "@/context/CartContext";
 import { normalizeProduct } from "@/utlis/productMap";
 
 const metadata = {
@@ -18,14 +19,21 @@ const metadata = {
 
 export default function ProductDetailPage() {
   const { id } = useParams();
+  const { cartVersion } = useCart();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const prevVersionRef = useRef(cartVersion);
 
   useEffect(() => {
     let cancelled = false;
-    setLoading(true);
-    setError(null);
+    // a cartVersion bump is a background refresh — keep the current product on
+    // screen (no loader flash); only a fresh id navigation shows "Loading…"
+    if (prevVersionRef.current === cartVersion) {
+      setLoading(true);
+      setError(null);
+    }
+    prevVersionRef.current = cartVersion;
     api
       .get(`/products/${id}`)
       .then(({ data }) => {
@@ -46,7 +54,7 @@ export default function ProductDetailPage() {
     return () => {
       cancelled = true;
     };
-  }, [id]);
+  }, [id, cartVersion]);
 
   return (
     <>

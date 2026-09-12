@@ -52,25 +52,32 @@ export const CartProvider = ({ children }) => {
   const [catalog, setCatalog] = useState([]);
   const [isCartLoading, setCartLoading] = useState(false);
   const [cartError, setCartError] = useState(null);
+  // bumped after every successful server cart mutation — consumers (product
+  // detail, QuickView) refetch on change so stock readouts stay live
+  const [cartVersion, setCartVersion] = useState(0);
 
   const persistLocal = useCallback((next) => {
     setLocalItems(next);
     localStorage.setItem(CART_LOCAL_KEY, JSON.stringify(next));
   }, []);
 
-  // Load the seeded server catalog once (50 products — a single page at limit=50)
+  // Load the seeded server catalog once (50 products — a single page at limit=50) and
+  // keep it current after every cart change so stock readouts reflect new reservations.
   useEffect(() => {
     let cancelled = false;
     api
       .get('/products', { params: { limit: 50 } })
       .then(({ data }) => {
-        if (!cancelled) setCatalog(data.products || []);
+        if (!cancelled) {
+          setCatalog(data.products || []);
+          catalogLoadedRef.current = true;
+        }
       })
       .catch(() => {});
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [cartVersion]);
 
   // Anonymous mount / sign-out: rehydrate local cart from localStorage
   useEffect(() => {
@@ -256,6 +263,7 @@ export const CartProvider = ({ children }) => {
         try {
           await api.post('/cart', { product: String(server._id), quantity: q });
           await refreshServerCart();
+          setCartVersion((v) => v + 1);
           setCartError(null);
           openCartModal();
         } catch (error) {
@@ -294,6 +302,7 @@ export const CartProvider = ({ children }) => {
       try {
         await api.put(`/cart/${id}`, { quantity: q });
         await refreshServerCart();
+        setCartVersion((v) => v + 1);
         setCartError(null);
       } catch (error) {
         setCartError(error?.response?.data?.error || 'Could not update quantity');
@@ -311,6 +320,7 @@ export const CartProvider = ({ children }) => {
       try {
         await api.delete(`/cart/${id}`);
         await refreshServerCart();
+        setCartVersion((v) => v + 1);
         setCartError(null);
       } catch (error) {
         setCartError(error?.response?.data?.error || 'Could not remove item');
@@ -326,6 +336,7 @@ export const CartProvider = ({ children }) => {
     try {
       await api.delete('/cart');
       setServerItems([]);
+      setCartVersion((v) => v + 1);
       setCartError(null);
     } catch (error) {
       setCartError(error?.response?.data?.error || 'Could not clear cart');
@@ -355,7 +366,9 @@ export const CartProvider = ({ children }) => {
     clearCart,
     isAddedToCartProducts,
     isCartLoading,
-    cartError
+    cartError,
+    cartVersion,
+    catalog
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

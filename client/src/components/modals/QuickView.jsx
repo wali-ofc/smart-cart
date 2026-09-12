@@ -1,4 +1,5 @@
 import { useContextElement } from "@/context/Context";
+import { useCart } from "@/context/CartContext";
 
 import { Link } from "react-router-dom";
 
@@ -8,6 +9,7 @@ import Quantity from "../shopDetails/Quantity";
 import React, { useState } from "react";
 
 export default function QuickView() {
+  const { catalog } = useCart();
   const {
     quickViewItem,
     addProductToCart,
@@ -18,6 +20,17 @@ export default function QuickView() {
   const [quantity, setQuantity] = useState(1);
 
   if (!quickViewItem) return null;
+
+  // The click-time snapshot is kept render-stable, but stock readouts resolve
+  // against the live catalog (refreshed by CartContext after every cart change),
+  // so "- in stock / Out of Stock" stays correct without a page refresh.
+  const live = catalog.find(
+    (p) => String(p._id) === String(quickViewItem.id)
+  );
+  const stock = live
+    ? Number(live.stock)
+    : Number(quickViewItem.stock);
+  const isAvailable = live ? Number(live.stock) > 0 : quickViewItem.isAvailable;
   const price = Number(quickViewItem.price) || 0;
   const imgSrc = quickViewItem.imgSrc;
 
@@ -73,10 +86,10 @@ export default function QuickView() {
                 <div className="tf-product-info-badges">
                   <div
                     className={`badges ${
-                      quickViewItem.isAvailable ? "" : "text_red"
+                      isAvailable ? "" : "text_red"
                     }`}
                   >
-                    {quickViewItem.isAvailable ? `${quickViewItem.stock} in stock` : "Out of Stock"}
+                    {isAvailable ? `${stock} in stock` : "Out of Stock"}
                   </div>
                   {Number(quickViewItem.rating?.stars) > 0 && (
                     <div className="product-status-content">
@@ -91,15 +104,15 @@ export default function QuickView() {
                 <div className="tf-product-info-price">
                   <div className="price">${price.toFixed(2)}</div>
                 </div>
-                {quickViewItem.isAvailable && (
+                {isAvailable && (
                 <div className="tf-product-info-quantity">
                   <div className="quantity-title fw-6">Quantity</div>
-                  <Quantity setQuantity={setQuantity} max={quickViewItem.stock} />
+                  <Quantity setQuantity={setQuantity} max={stock} />
                 </div>
               )}
               <div className="tf-product-info-buy-button">
                 <form onSubmit={(e) => e.preventDefault()} className="">
-                  {quickViewItem.isAvailable ? (
+                  {isAvailable ? (
                     <a
                       href="#"
                       className="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn"
