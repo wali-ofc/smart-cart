@@ -103,7 +103,7 @@ describe('Chat API (/api/chat - documentation.md §3.3.1 & §4.2.5)', () => {
       expect(cartRes.body.reply).toMatch(/3 items in your cart/i);
       expect(cartRes.body.actions).toEqual(
         expect.arrayContaining([
-          expect.objectContaining({ type: 'navigate', url: '/profile?section=cart' })
+          expect.objectContaining({ type: 'navigate', url: '/cart' })
         ])
       );
     });
@@ -254,7 +254,7 @@ describe('Chat API (/api/chat - documentation.md §3.3.1 & §4.2.5)', () => {
       expect(detailsRes.body.reply).toMatch(/123 Tech Lane/);
       expect(detailsRes.body.actions).toEqual(
         expect.arrayContaining([
-          expect.objectContaining({ type: 'navigate', url: `/orders/${fullId}` })
+          expect.objectContaining({ type: 'navigate', url: `/my-account-orders-details/${fullId}` })
         ])
       );
     });
@@ -270,7 +270,7 @@ describe('Chat API (/api/chat - documentation.md §3.3.1 & §4.2.5)', () => {
       expect(res.body.reply).toMatch(/couldn't find an order matching/i);
       expect(res.body.actions).toEqual(
         expect.arrayContaining([
-          expect.objectContaining({ type: 'navigate', url: '/profile?section=orders' })
+          expect.objectContaining({ type: 'navigate', url: '/orders' })
         ])
       );
     });
