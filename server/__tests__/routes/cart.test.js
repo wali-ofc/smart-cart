@@ -97,23 +97,24 @@ describe('Cart API (spec §3.3.1 /api/cart + F011 Update Quantity, D13)', () => 
     expect(res.body.cart[0].product.price).toBe(PRODUCT_BASE.price);
   });
 
-  it('increments quantity when the same product is added again', async () => {
+  it('caps add-to-cart quantity at the available stock (reserves units)', async () => {
     const agent = await registerAgent();
-    const product = await Product.create(PRODUCT_BASE);
+    const product = await Product.create(PRODUCT_BASE); // stock 25
 
-    await agent.post('/api/cart').send({ product: product._id.toString() }).expect(201);
     const res = await agent
       .post('/api/cart')
-      .send({ product: product._id.toString(), quantity: 2 })
+      .send({ product: product._id.toString(), quantity: 150 })
       .expect(201);
 
-    expect(res.body.count).toBe(1);
-    expect(res.body.cart[0].quantity).toBe(3);
+    expect(res.body.cart[0].quantity).toBe(25);
+
+    const after = await Product.findById(product._id);
+    expect(after.stock).toBe(0);
   });
 
-  it('clamps add-to-cart quantity to a maximum of 99', async () => {
+  it('still applies the 99 cap when stock is higher', async () => {
     const agent = await registerAgent();
-    const product = await Product.create(PRODUCT_BASE);
+    const product = await Product.create({ ...PRODUCT_BASE, stock: 150 });
 
     const res = await agent
       .post('/api/cart')
@@ -121,6 +122,22 @@ describe('Cart API (spec §3.3.1 /api/cart + F011 Update Quantity, D13)', () => 
       .expect(201);
 
     expect(res.body.cart[0].quantity).toBe(99);
+  });
+
+  it('rejects adding more than the remaining stock', async () => {
+    const agent = await registerAgent();
+    const product = await Product.create(PRODUCT_BASE); // stock 25
+
+    await agent
+      .post('/api/cart')
+      .send({ product: product._id.toString(), quantity: 25 })
+      .expect(201);
+
+    const res = await agent
+      .post('/api/cart')
+      .send({ product: product._id.toString(), quantity: 1 })
+      .expect(400);
+    expect(res.body.success).toBe(false);
   });
 
   it('updates quantity absolutely via PUT (F011 Update Quantity)', async () => {
@@ -139,9 +156,9 @@ describe('Cart API (spec §3.3.1 /api/cart + F011 Update Quantity, D13)', () => 
     expect(res.body.cart[0].quantity).toBe(5);
   });
 
-  it('clamps PUT quantity to the 1..99 range', async () => {
+  it('clamps PUT quantity to the 1..99 range and to available stock', async () => {
     const agent = await registerAgent();
-    const product = await Product.create(PRODUCT_BASE);
+    const product = await Product.create(PRODUCT_BASE); // stock 25
 
     await agent.post('/api/cart').send({ product: product._id.toString(), quantity: 1 }).expect(201);
 
@@ -155,7 +172,41 @@ describe('Cart API (spec §3.3.1 /api/cart + F011 Update Quantity, D13)', () => 
       .put(`/api/cart/${product._id.toString()}`)
       .send({ quantity: 1000 })
       .expect(200);
-    expect(huge.body.cart[0].quantity).toBe(99);
+    // 24 units reserved by other adds/remaining stock: 1 held + 24 left = 25 max
+    expect(huge.body.cart[0].quantity).toBe(25);
+  });
+
+  it('reserves and releases stock on PUT quantity changes', async () => {
+    const agent = await registerAgent();
+    const product = await Product.create(PRODUCT_BASE); // stock 25
+
+    await agent.post('/api/cart').send({ product: product._id.toString(), quantity: 5 }).expect(201);
+    let doc = await Product.findById(product._id);
+    expect(doc.stock).toBe(20);
+
+    // increase → reserves more
+    await agent.put(`/api/cart/${product._id.toString()}`).send({ quantity: 10 }).expect(200);
+    doc = await Product.findById(product._id);
+    expect(doc.stock).toBe(15);
+
+    // decrease → releases back
+    await agent.put(`/api/cart/${product._id.toString()}`).send({ quantity: 3 }).expect(200);
+    doc = await Product.findById(product._id);
+    expect(doc.stock).toBe(22);
+  });
+
+  it('increments quantity when the same product is added again', async () => {
+    const agent = await registerAgent();
+    const product = await Product.create(PRODUCT_BASE);
+
+    await agent.post('/api/cart').send({ product: product._id.toString() }).expect(201);
+    const res = await agent
+      .post('/api/cart')
+      .send({ product: product._id.toString(), quantity: 2 })
+      .expect(201);
+
+    expect(res.body.count).toBe(1);
+    expect(res.body.cart[0].quantity).toBe(3);
   });
 
   it('returns 404 when updating a product that is not in the cart', async () => {
@@ -168,26 +219,29 @@ describe('Cart API (spec §3.3.1 /api/cart + F011 Update Quantity, D13)', () => 
       .expect(404);
   });
 
-  it('removes one product line via DELETE /api/cart/:productId', async () => {
+  it('removes one product line via DELETE /api/cart/:productId and releases stock', async () => {
     const agent = await registerAgent();
     const product = await Product.create(PRODUCT_BASE);
 
-    await agent.post('/api/cart').send({ product: product._id.toString() }).expect(201);
+    await agent.post('/api/cart').send({ product: product._id.toString(), quantity: 6 }).expect(201);
 
     const res = await agent.delete(`/api/cart/${product._id.toString()}`).expect(200);
     expect(res.body.count).toBe(0);
     expect(res.body.cart).toEqual([]);
+
+    const after = await Product.findById(product._id);
+    expect(after.stock).toBe(25);
   });
 
-  it('clears the whole cart via DELETE /api/cart', async () => {
+  it('clears the whole cart via DELETE /api/cart and releases all reserved stock', async () => {
     const agent = await registerAgent();
     const [p1, p2] = await Promise.all([
       Product.create(PRODUCT_BASE),
       Product.create({ ...PRODUCT_BASE, name: 'Smart Watch', price: 199.5 })
     ]);
 
-    await agent.post('/api/cart').send({ product: p1._id.toString() }).expect(201);
-    await agent.post('/api/cart').send({ product: p2._id.toString() }).expect(201);
+    await agent.post('/api/cart').send({ product: p1._id.toString(), quantity: 4 }).expect(201);
+    await agent.post('/api/cart').send({ product: p2._id.toString(), quantity: 5 }).expect(201);
 
     const res = await agent.delete('/api/cart').expect(200);
     expect(res.body.count).toBe(0);
@@ -195,6 +249,13 @@ describe('Cart API (spec §3.3.1 /api/cart + F011 Update Quantity, D13)', () => 
 
     const after = await agent.get('/api/cart').expect(200);
     expect(after.body.count).toBe(0);
+
+    const [d1, d2] = await Promise.all([
+      Product.findById(p1._id),
+      Product.findById(p2._id)
+    ]);
+    expect(d1.stock).toBe(25);
+    expect(d2.stock).toBe(25);
   });
 
   it('validates the product id on POST', async () => {

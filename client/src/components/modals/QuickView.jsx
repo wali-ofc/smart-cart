@@ -76,7 +76,7 @@ export default function QuickView() {
                       quickViewItem.isAvailable ? "" : "text_red"
                     }`}
                   >
-                    {quickViewItem.isAvailable ? "In Stock" : "Out of Stock"}
+                    {quickViewItem.isAvailable ? `${quickViewItem.stock} in stock` : "Out of Stock"}
                   </div>
                   {Number(quickViewItem.rating?.stars) > 0 && (
                     <div className="product-status-content">
@@ -94,7 +94,7 @@ export default function QuickView() {
                 {quickViewItem.isAvailable && (
                 <div className="tf-product-info-quantity">
                   <div className="quantity-title fw-6">Quantity</div>
-                  <Quantity setQuantity={setQuantity} />
+                  <Quantity setQuantity={setQuantity} max={quickViewItem.stock} />
                 </div>
               )}
               <div className="tf-product-info-buy-button">

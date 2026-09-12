@@ -70,7 +70,7 @@ export default function QuickAdd() {
             </div>
             <div className="tf-product-info-quantity mb_15">
               <div className="quantity-title fw-6">Quantity</div>
-              <Quantity setQuantity={setQuantity} />
+              <Quantity setQuantity={setQuantity} max={item.stock} />
             </div>
             <div className="tf-product-info-buy-button">
               <form onSubmit={(e) => e.preventDefault()} className="">

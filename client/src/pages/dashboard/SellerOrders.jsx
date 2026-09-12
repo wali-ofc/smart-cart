@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import CustomSelect from '@/components/common/CustomSelect';
 import Pagination from '@/components/common/Pagination';
 import Footer1 from '@/components/footers/Footer1';
 import Header2 from '@/components/headers/Header2';
@@ -409,22 +410,25 @@ export default function SellerOrders() {
                                               Order status
                                             </label>
                                             {allowed.length > 0 ? (
-                                              <div className="select-custom">
-                                                <select
-                                                  className="tf-select"
-                                                  value={edit.status}
-                                                  onChange={(e) => updateEdit(order._id, 'status', e.target.value)}
-                                                  disabled={edit.saving}
-                                                  aria-label={`Change status for order ${shortId(order._id)}`}
-                                                >
-                                                  <option value={order.status}>
-                                                    {STATUS_LABEL[order.status] || order.status} (current)
-                                                  </option>
-                                                  {allowed.map((s) => (
-                                                    <option key={s} value={s}>{STATUS_LABEL[s] || s}</option>
-                                                  ))}
-                                                </select>
-                                              </div>
+                                              <CustomSelect
+                                                options={[
+                                                  {
+                                                    value: order.status,
+                                                    label: `${STATUS_LABEL[order.status] || order.status} (current)`,
+                                                  },
+                                                  ...allowed.map((s) => ({
+                                                    value: s,
+                                                    label: STATUS_LABEL[s] || s,
+                                                  })),
+                                                ]}
+                                                value={edit.status}
+                                                onChange={(e) =>
+                                                  updateEdit(order._id, 'status', e.target.value)
+                                                }
+                                                name={`status-${order._id}`}
+                                                placeholder="Order status"
+                                                disabled={edit.saving}
+                                              />
                                             ) : (
                                               <div className="text-secondary small pt-2">
                                                 No further changes available.
@@ -435,26 +439,23 @@ export default function SellerOrders() {
                                             <label className="form-label small text-secondary">
                                               Delivery driver (courier)
                                             </label>
-                                            <div className="select-custom">
-                                              <select
-                                                className="tf-select"
-                                                value={edit.agent}
-                                                onChange={(e) => updateEdit(order._id, 'agent', e.target.value)}
-                                                disabled={edit.saving}
-                                                aria-label={`Assign courier for order ${shortId(order._id)}`}
-                                              >
-                                                <option value="">
-                                                  {courierName ? `${courierName} (assigned)` : 'Select courier…'}
-                                                </option>
-                                                {agents
-                                                  .filter((a) => !(a._id === edit.agent))
-                                                  .map((a) => (
-                                                    <option key={a._id} value={a._id}>
-                                                      {a.name || a.email}
-                                                    </option>
-                                                  ))}
-                                              </select>
-                                            </div>
+                                            <CustomSelect
+                                              options={agents.map((a) => ({
+                                                value: String(a._id),
+                                                label: a.name || a.email,
+                                              }))}
+                                              value={edit.agent || ''}
+                                              onChange={(e) =>
+                                                updateEdit(order._id, 'agent', e.target.value)
+                                              }
+                                              name={`agent-${order._id}`}
+                                              placeholder={
+                                                courierName
+                                                  ? `${courierName} (assigned)`
+                                                  : 'Select courier…'
+                                              }
+                                              disabled={edit.saving}
+                                            />
                                           </div>
                                           <div className="col-md-4">
                                             <button

@@ -29,7 +29,7 @@ export default function StickyItem({ product }) {
             <form onSubmit={(e) => e.preventDefault()} className="">
               <div className="tf-sticky-atc-btns">
                 <div className="tf-product-info-quantity">
-                  <Quantity />
+                  <Quantity max={product.stock} />
                 </div>
                 {soldOut ? (
                   <a className="tf-btn btns-sold-out cursor-not-allowed btn-fill radius-3 justify-content-center fw-6 fs-14 flex-grow-1 animate-hover-btn ">

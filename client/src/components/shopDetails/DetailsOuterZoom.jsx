@@ -57,7 +57,7 @@ export default function DetailsOuterZoom({ product }) {
                         product.isAvailable ? "" : "text_red"
                       }`}
                     >
-                      {product.isAvailable ? "In Stock" : "Out of Stock"}
+                      {product.isAvailable ? `${product.stock} in stock` : "Out of Stock"}
                     </div>
                     {product.rating.stars > 0 && (
                       <div className="product-status-content">
@@ -77,7 +77,7 @@ export default function DetailsOuterZoom({ product }) {
                   {product.isAvailable && (
                     <div className="tf-product-info-quantity">
                       <div className="quantity-title fw-6">Quantity</div>
-                      <Quantity setQuantity={setQuantity} />
+                      <Quantity setQuantity={setQuantity} max={product.stock} />
                     </div>
                   )}
                   <div className="tf-product-info-buy-button">

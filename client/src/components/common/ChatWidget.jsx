@@ -18,6 +18,30 @@ export default function ChatWidget() {
   const threadRef = useRef(null);
   const abortControllerRef = useRef(null);
 
+  // Persisted conversation is server-side (ChatSession, 30d TTL) — hydrate on
+  // mount so history survives page reloads / widget reopens.
+  useEffect(() => {
+    if (!user) return;
+    let cancelled = false;
+    api
+      .get('/chat/history')
+      .then(({ data }) => {
+        if (cancelled) return;
+        const history = (data.messages || []).map((m) => ({
+          role: m.sender === 'user' ? 'user' : 'ai',
+          text: m.message,
+          actions: m.actions || []
+        }));
+        setMessages(history);
+      })
+      .catch(() => {
+        // history is a nice-to-have; never block the widget on it
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [user]);
+
   useEffect(() => {
     if (threadRef.current) {
       threadRef.current.scrollTop = threadRef.current.scrollHeight;
@@ -70,6 +94,8 @@ export default function ChatWidget() {
 
   const clearChat = () => {
     setMessages([]);
+    // clear the server-side conversation too, so it also stays gone on reload
+    api.delete('/chat/history').catch(() => {});
   };
 
   const iconSvg = (
@@ -88,7 +114,18 @@ export default function ChatWidget() {
   );
 
   return (
-    <div className="chat-widget" style={{ position: "fixed", right: 20, bottom: 20, zIndex: 950 }}>
+    <div
+      className="chat-widget"
+      style={{
+        position: "fixed",
+        right: 20,
+        bottom: 20,
+        zIndex: 950,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-end"
+      }}
+    >
       {open && (
         <div className="card chat-widget-panel shadow-sm" style={{ width: 340, marginBottom: 12, overflow: "hidden" }}>
           <div className="card-header d-flex align-items-center justify-content-between py-2">

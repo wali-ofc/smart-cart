@@ -1,5 +1,6 @@
 const Order = require('../models/Order');
 const User = require('../models/User');
+const Product = require('../models/Product');
 const ApiError = require('../utils/ApiError');
 
 /**
@@ -35,11 +36,6 @@ exports.createOrder = async (userId, { shipping_address, payment_method, notes }
   const items = user.cart.map((ci) => {
     if (!ci.product) {
       throw new ApiError(400, 'One or more cart items are no longer available');
-    }
-    // Out-of-stock guard: block checkout when stock is exhausted
-    const stock = Number(ci.product.stock) || 0;
-    if (stock <= 0) {
-      throw new ApiError(400, `"${ci.product.name}" is out of stock`);
     }
     return {
       product: ci.product._id,
@@ -166,5 +162,20 @@ exports.updateOrderStatus = async ({ userId, role, orderId, status, delivery_age
 
   order.status = status;
   await order.save();
+
+  // Released on cancel/refund: the reserved units return to availability.
+  // Role-agnostic — seller cancels (incl. refunds) and delivery-agent cancels
+  // both hand the goods back to the seller's stock.
+  if (status === 'cancelled' || status === 'refunded') {
+    await Promise.all(
+      order.items.map((item) =>
+        Product.updateOne(
+          { _id: item.product },
+          { $inc: { stock: item.quantity } }
+        )
+      )
+    );
+  }
+
   return order;
 };
