@@ -91,12 +91,6 @@ export default function QuickAdd() {
                   <i className="icon-heart" />
                   <i className="icon-delete" />
                 </div>
-                <div className="w-100">
-                  <a href="#" className="btns-full">Buy now</a>
-                  <a href="#" className="payment-more-option">
-                    More payment options
-                  </a>
-                </div>
               </form>
             </div>
           </div>

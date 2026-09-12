@@ -98,6 +98,28 @@ export default function ChatWidget() {
     api.delete('/chat/history').catch(() => {});
   };
 
+  // Auth is handled by the Login/Register modals (there are no /login or
+  // /register pages in this app) — open the matching modal instead of
+  // navigating to a route that would 404.
+  const handleActionClick = (url) => {
+    const authTarget =
+      url === '/register' ? 'register' : url === '/login' ? 'login' : null;
+    if (authTarget) {
+      import('bootstrap')
+        .then((bootstrap) => {
+          const el = document.getElementById(authTarget);
+          if (el) {
+            bootstrap.Modal.getOrCreateInstance(el).show();
+          } else {
+            navigate('/');
+          }
+        })
+        .catch(() => navigate('/'));
+    } else {
+      navigate(url);
+    }
+  };
+
   const iconSvg = (
     <svg
       width="24"
@@ -203,7 +225,7 @@ export default function ChatWidget() {
                         <button
                           key={idx}
                           type="button"
-                          onClick={() => navigate(act.url)}
+                          onClick={() => handleActionClick(act.url)}
                           className="btn btn-sm btn-outline-dark py-0 px-2 radius-3"
                           style={{ fontSize: "11px" }}
                         >

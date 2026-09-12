@@ -143,8 +143,8 @@ async function handleIntent(intent, message, userId) {
           ? `You have ${orders.length} order${orders.length !== 1 ? 's' : ''} in total.`
           : "You don't have any orders yet. Start shopping to place your first order!",
         actions: orders.length > 0
-          ? [{ type: 'navigate', label: 'View My Orders', url: '/profile?section=orders' }]
-          : [{ type: 'navigate', label: 'Browse Products', url: '/shop' }]
+          ? [{ type: 'navigate', label: 'View My Orders', url: '/orders' }]
+          : [{ type: 'navigate', label: 'Browse Products', url: '/products' }]
       };
     }
 
@@ -156,8 +156,8 @@ async function handleIntent(intent, message, userId) {
           ? `You've spent a total of $${totalSpent.toFixed(2)} across ${orders.length} order${orders.length !== 1 ? 's' : ''}.`
           : "You haven't placed any orders yet.",
         actions: orders.length > 0
-          ? [{ type: 'navigate', label: 'View My Orders', url: '/profile?section=orders' }]
-          : [{ type: 'navigate', label: 'Start Shopping', url: '/shop' }]
+          ? [{ type: 'navigate', label: 'View My Orders', url: '/orders' }]
+          : [{ type: 'navigate', label: 'Start Shopping', url: '/products' }]
       };
     }
 
@@ -167,12 +167,12 @@ async function handleIntent(intent, message, userId) {
       if (!order) {
         return {
           reply: `I couldn't find an order matching "${identifier || 'that ID'}". Please check the order ID and try again, or ask "show my orders" to see all your orders.`,
-          actions: [{ type: 'navigate', label: 'View All Orders', url: '/profile?section=orders' }]
+          actions: [{ type: 'navigate', label: 'View All Orders', url: '/orders' }]
         };
       }
       return {
         reply: formatSingleOrder(order),
-        actions: [{ type: 'navigate', label: `View Order #${shortId(order)}`, url: `/orders/${order._id}` }]
+        actions: [{ type: 'navigate', label: `View Order #${shortId(order)}`, url: `/my-account-orders-details/${order._id}` }]
       };
     }
 
@@ -182,12 +182,12 @@ async function handleIntent(intent, message, userId) {
       if (!order) {
         return {
           reply: `I couldn't find an order matching "${identifier || 'that ID'}". Try asking "show my orders" to see all your orders.`,
-          actions: [{ type: 'navigate', label: 'View All Orders', url: '/profile?section=orders' }]
+          actions: [{ type: 'navigate', label: 'View All Orders', url: '/orders' }]
         };
       }
       return {
         reply: `Order #${shortId(order)} total is $${Number(order.total_price || 0).toFixed(2)} (items: $${Number(order.items_price || 0).toFixed(2)}).`,
-        actions: [{ type: 'navigate', label: `View Order #${shortId(order)}`, url: `/orders/${order._id}` }]
+        actions: [{ type: 'navigate', label: `View Order #${shortId(order)}`, url: `/my-account-orders-details/${order._id}` }]
       };
     }
 
@@ -197,12 +197,12 @@ async function handleIntent(intent, message, userId) {
       if (!order) {
         return {
           reply: `I couldn't find an order matching "${identifier || 'that ID'}". Try asking "show my orders" to see all your orders.`,
-          actions: [{ type: 'navigate', label: 'View All Orders', url: '/profile?section=orders' }]
+          actions: [{ type: 'navigate', label: 'View All Orders', url: '/orders' }]
         };
       }
       return {
         reply: `Order #${shortId(order)} is currently ${statusLabel(order.status)}.`,
-        actions: [{ type: 'navigate', label: `View Order #${shortId(order)}`, url: `/orders/${order._id}` }]
+        actions: [{ type: 'navigate', label: `View Order #${shortId(order)}`, url: `/my-account-orders-details/${order._id}` }]
       };
     }
 
@@ -212,13 +212,13 @@ async function handleIntent(intent, message, userId) {
       if (!order) {
         return {
           reply: `I couldn't find an order matching "${identifier || 'that ID'}". Try asking "show my orders" to see all your orders.`,
-          actions: [{ type: 'navigate', label: 'View All Orders', url: '/profile?section=orders' }]
+          actions: [{ type: 'navigate', label: 'View All Orders', url: '/orders' }]
         };
       }
       const items = (order.items || []).map((it) => `${it.name || 'Unknown'} x${it.quantity}`).join(', ');
       return {
         reply: `Order #${shortId(order)} contains: ${items || 'no items'}.`,
-        actions: [{ type: 'navigate', label: `View Order #${shortId(order)}`, url: `/orders/${order._id}` }]
+        actions: [{ type: 'navigate', label: `View Order #${shortId(order)}`, url: `/my-account-orders-details/${order._id}` }]
       };
     }
 
@@ -227,7 +227,7 @@ async function handleIntent(intent, message, userId) {
       if (!orders.length) {
         return {
           reply: "You don't have any orders yet. Start shopping to place your first order!",
-          actions: [{ type: 'navigate', label: 'Browse Products', url: '/shop' }]
+          actions: [{ type: 'navigate', label: 'Browse Products', url: '/products' }]
         };
       }
       const lines = orders.map((o) => {
@@ -240,7 +240,7 @@ async function handleIntent(intent, message, userId) {
         actions: orders.slice(0, 5).map((o) => ({
           type: 'navigate',
           label: `Order #${shortId(o)} - ${statusLabel(o.status)}`,
-          url: `/orders/${o._id}`
+          url: `/my-account-orders-details/${o._id}`
         }))
       };
     }
@@ -254,8 +254,8 @@ async function handleIntent(intent, message, userId) {
             ? 'You have no active orders right now. All your recent orders have been delivered or cancelled.'
             : "You don't have any orders yet.",
           actions: orders.length > 0
-            ? [{ type: 'navigate', label: 'View Order History', url: '/profile?section=orders' }]
-            : [{ type: 'navigate', label: 'Browse Products', url: '/shop' }]
+            ? [{ type: 'navigate', label: 'View Order History', url: '/orders' }]
+            : [{ type: 'navigate', label: 'Browse Products', url: '/products' }]
         };
       }
       const lines = active.map((o) => `Order #${shortId(o)} - ${statusLabel(o.status)} - $${Number(o.total_price || 0).toFixed(2)}`);
@@ -264,7 +264,7 @@ async function handleIntent(intent, message, userId) {
         actions: active.map((o) => ({
           type: 'navigate',
           label: `Order #${shortId(o)} - ${statusLabel(o.status)}`,
-          url: `/orders/${o._id}`
+          url: `/my-account-orders-details/${o._id}`
         }))
       };
     }
@@ -277,8 +277,8 @@ async function handleIntent(intent, message, userId) {
           ? `You have ${totalItems} item${totalItems !== 1 ? 's' : ''} in your cart (${cart.length} unique product${cart.length !== 1 ? 's' : ''}).`
           : 'Your cart is empty.',
         actions: totalItems > 0
-          ? [{ type: 'navigate', label: 'View My Cart', url: '/profile?section=cart' }]
-          : [{ type: 'navigate', label: 'Start Shopping', url: '/shop' }]
+          ? [{ type: 'navigate', label: 'View My Cart', url: '/cart' }]
+          : [{ type: 'navigate', label: 'Start Shopping', url: '/products' }]
       };
     }
 
@@ -288,7 +288,7 @@ async function handleIntent(intent, message, userId) {
       if (totalItems === 0) {
         return {
           reply: 'Your cart is empty.',
-          actions: [{ type: 'navigate', label: 'Start Shopping', url: '/shop' }]
+          actions: [{ type: 'navigate', label: 'Start Shopping', url: '/products' }]
         };
       }
       const total = cart.reduce((sum, it) => sum + (it.product?.price || 0) * it.quantity, 0);
@@ -297,7 +297,7 @@ async function handleIntent(intent, message, userId) {
       ).join('\n');
       return {
         reply: `Your total cart amount is $${total.toFixed(2)} for ${totalItems} item${totalItems !== 1 ? 's' : ''}:\n\n${breakdown}`,
-        actions: [{ type: 'navigate', label: 'View My Cart', url: '/profile?section=cart' }]
+        actions: [{ type: 'navigate', label: 'View My Cart', url: '/cart' }]
       };
     }
 
@@ -307,7 +307,7 @@ async function handleIntent(intent, message, userId) {
       if (totalItems === 0) {
         return {
           reply: 'Your cart is empty.',
-          actions: [{ type: 'navigate', label: 'Start Shopping', url: '/shop' }]
+          actions: [{ type: 'navigate', label: 'Start Shopping', url: '/products' }]
         };
       }
       const itemLines = cart.map((it) => {
@@ -318,20 +318,20 @@ async function handleIntent(intent, message, userId) {
       }).join('\n');
       return {
         reply: `You have ${totalItems} item${totalItems !== 1 ? 's' : ''} in your cart:\n\n${itemLines}`,
-        actions: [{ type: 'navigate', label: 'View My Cart', url: '/profile?section=cart' }]
+        actions: [{ type: 'navigate', label: 'View My Cart', url: '/cart' }]
       };
     }
 
     case 'cart':
       return {
         reply: 'Opening your cart.',
-        actions: [{ type: 'navigate', label: 'View Cart', url: '/profile?section=cart' }]
+        actions: [{ type: 'navigate', label: 'View Cart', url: '/cart' }]
       };
 
     case 'shop':
       return {
         reply: 'Here you go! Browse our full product catalog with filters for category, price, and ratings.',
-        actions: [{ type: 'navigate', label: 'Open Shop', url: '/shop' }]
+        actions: [{ type: 'navigate', label: 'Open Shop', url: '/products' }]
       };
 
     case 'home':
@@ -358,9 +358,9 @@ async function handleIntent(intent, message, userId) {
           + '- Selling or delivery questions: "How do I sell on SmartCart?"\n\n'
           + 'What would you like to do?',
         actions: [
-          { type: 'navigate', label: 'Browse Products', url: '/shop' },
-          { type: 'navigate', label: 'My Orders', url: '/profile?section=orders' },
-          { type: 'navigate', label: 'My Cart', url: '/profile?section=cart' }
+          { type: 'navigate', label: 'Browse Products', url: '/products' },
+          { type: 'navigate', label: 'My Orders', url: '/orders' },
+          { type: 'navigate', label: 'My Cart', url: '/cart' }
         ]
       };
 
@@ -391,7 +391,7 @@ async function handleIntent(intent, message, userId) {
           + '- Delivery times depend on the seller and your location\n'
           + '- You can track your order status from your order history\n\n'
           + 'For specific delivery estimates, check the order details after placing your order.',
-        actions: [{ type: 'navigate', label: 'My Orders', url: '/profile?section=orders' }]
+        actions: [{ type: 'navigate', label: 'My Orders', url: '/orders' }]
       };
 
     case 'returnPolicy':
@@ -401,7 +401,7 @@ async function handleIntent(intent, message, userId) {
           + '- Items must be unused and in original packaging\n'
           + '- Refunds are processed within 5-7 business days after the return is approved\n\n'
           + 'Contact the seller directly from your order page to initiate a return.',
-        actions: [{ type: 'navigate', label: 'My Orders', url: '/profile?section=orders' }]
+        actions: [{ type: 'navigate', label: 'My Orders', url: '/orders' }]
       };
 
     case 'paymentMethods':
@@ -410,7 +410,7 @@ async function handleIntent(intent, message, userId) {
           + '- Credit/Debit Card\n'
           + '- Cash on Delivery (COD)\n\n'
           + 'You can select your preferred payment method during checkout.',
-        actions: [{ type: 'navigate', label: 'Start Shopping', url: '/shop' }]
+        actions: [{ type: 'navigate', label: 'Start Shopping', url: '/products' }]
       };
 
     case 'contactSupport':
@@ -418,7 +418,7 @@ async function handleIntent(intent, message, userId) {
         reply: 'You can reach our support team at:\n\n'
           + '- Email: support@smartcart.com\n\n'
           + 'For order-specific issues, it\'s fastest to check your order details first - many answers are right there!',
-        actions: [{ type: 'navigate', label: 'My Orders', url: '/profile?section=orders' }]
+        actions: [{ type: 'navigate', label: 'My Orders', url: '/orders' }]
       };
 
     default:
@@ -454,12 +454,12 @@ function buildAIPrompt(message, orders, cartItems, chatHistory) {
   return `You are Violet, a professional customer service AI assistant for SmartCart, an e-commerce store.
 
 AVAILABLE PAGES (you may suggest these as actions):
-- /shop - Product catalog with filters
+- /products - Product catalog with filters
 - / - Homepage
 - /profile - Account settings
-- /profile?section=orders - Order history
-- /orders/{order_id} - Specific order detail
-- /profile?section=cart - Shopping cart
+- /orders - Order history
+- /my-account-orders-details/{order_id} - Specific order detail
+- /cart - Shopping cart
 - /register - Register a new account
 - /login - Log in
 

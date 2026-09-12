@@ -1,30 +1,70 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 import api from "@/api/axios";
 import { normalizeProduct } from "@/utlis/productMap";
+
+const QUICK_LINKS = [
+  { label: "Fashion", path: "/category/Fashion%20%26%20Apparel" },
+  { label: "Electronics", path: "/category/Electronics%20%26%20Gadgets" },
+  { label: "Beauty", path: "/category/Beauty%20%26%20Personal%20Care" },
+  { label: "Home & Kitchen", path: "/category/Home%20%26%20Kitchen" },
+  { label: "Health", path: "/category/Health%20%26%20Fitness" },
+];
+
 export default function SearchModal() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [searched, setSearched] = useState(false);
+  const [error, setError] = useState("");
+
+  // Preload a few products so the "Need some inspiration?" area is alive
+  // before the user types anything.
+  useEffect(() => {
+    let cancelled = false;
+    api
+      .get("/products", { params: { limit: 4 } })
+      .then(({ data }) => {
+        if (cancelled) return;
+        setResults(
+          Array.isArray(data.products) ? data.products.map(normalizeProduct) : []
+        );
+      })
+      .catch(() => {
+        // Preload is a nice-to-have; don't surface errors for it.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const handleSearch = (e) => {
     e.preventDefault();
     const q = query.trim();
     if (!q) return;
+    setError("");
     api
       .get("/products", { params: { search: q, limit: 4 } })
       .then(({ data }) => {
         setResults(
-          Array.isArray(data.products)
-            ? data.products.map(normalizeProduct)
-            : []
+          Array.isArray(data.products) ? data.products.map(normalizeProduct) : []
         );
         setSearched(true);
       })
       .catch(() => {
         setResults([]);
         setSearched(true);
+        setError("Search is temporarily unavailable. Please try again.");
       });
+  };
+
+  // Hide the offcanvas WITHOUT data-bs-dismiss: on an <a> that attribute
+  // calls preventDefault(), which would cancel the link navigation.
+  const closeOffcanvas = () => {
+    import("bootstrap").then((bootstrap) => {
+      const el = document.getElementById("canvasSearch");
+      if (el) bootstrap.Offcanvas.getOrCreateInstance(el).hide();
+    });
   };
   return (
     <div className="offcanvas offcanvas-end canvas-search" id="canvasSearch">
@@ -67,26 +107,13 @@ export default function SearchModal() {
               <div className="tf-col-quicklink">
                 <div className="tf-search-content-title fw-5">Quick link</div>
                 <ul className="tf-quicklink-list">
-                  <li className="tf-quicklink-item">
-                    <Link to={`/shop-default`} className="">
-                      Fashion
-                    </Link>
-                  </li>
-                  <li className="tf-quicklink-item">
-                    <Link to={`/shop-default`} className="">
-                      Men
-                    </Link>
-                  </li>
-                  <li className="tf-quicklink-item">
-                    <Link to={`/shop-default`} className="">
-                      Women
-                    </Link>
-                  </li>
-                  <li className="tf-quicklink-item">
-                    <Link to={`/shop-default`} className="">
-                      Accessories
-                    </Link>
-                  </li>
+                  {QUICK_LINKS.map((link) => (
+                    <li className="tf-quicklink-item" key={link.label}>
+                      <Link to={link.path} className="">
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div className="tf-col-content">
@@ -95,12 +122,15 @@ export default function SearchModal() {
                 </div>
                 <div className="tf-search-hidden-inner">
                   {searched && !results.length ? (
-                    <p>No products found for "{query}".</p>
+                    <p>{error || `No products found for "${query}".`}</p>
                   ) : (
                     results.map((product, index) => (
                       <div className="tf-loop-item" key={index}>
                         <div className="image">
-                          <Link to={`/product-detail/${product.id}`}>
+                          <Link
+                            to={`/product-detail/${product.id}`}
+                            onClick={closeOffcanvas}
+                          >
                             <img
                               alt={product.title}
                               src={product.imgSrc}
@@ -110,7 +140,10 @@ export default function SearchModal() {
                           </Link>
                         </div>
                         <div className="content">
-                          <Link to={`/product-detail/${product.id}`}>
+                          <Link
+                            to={`/product-detail/${product.id}`}
+                            onClick={closeOffcanvas}
+                          >
                             {product.title}
                           </Link>
                           <div className="tf-product-info-price">
