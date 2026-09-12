@@ -8,6 +8,7 @@ const {
   deleteReview
 } = require('../controllers/reviewController');
 const { protect } = require('../middleware/authMiddleware');
+const { reviewLimiter } = require('../middleware/rateLimitMiddleware');
 
 const router = express.Router();
 
@@ -20,6 +21,7 @@ router.get('/my-reviews', protect, getMyReviews);
 // POST /api/reviews/product/:productId — protected
 router.post(
   '/product/:productId',
+  reviewLimiter,
   protect,
   [
     body('rating').isInt({ min: 1, max: 5 }).withMessage('Rating must be between 1 and 5'),
@@ -31,6 +33,7 @@ router.post(
 // PUT /api/reviews/:id — protected, owner only
 router.put(
   '/:id',
+  reviewLimiter,
   protect,
   [
     body('rating').optional().isInt({ min: 1, max: 5 }).withMessage('Rating must be between 1 and 5'),

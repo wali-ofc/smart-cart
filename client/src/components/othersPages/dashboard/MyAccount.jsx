@@ -55,13 +55,9 @@ export default function MyAccount() {
           <Link className="text_primary" to={`/my-account-orders`}>
             recent orders
           </Link>
-          , manage your{" "}
-          <Link className="text_primary" to={`/my-account-edit`}>
-            shipping and billing addresses
-          </Link>
           , and{" "}
           <Link className="text_primary" to={`/my-account-edit`}>
-            edit your password and account details
+            edit your account details
           </Link>
           .
         </p>

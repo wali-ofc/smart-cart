@@ -28,6 +28,10 @@ exports.protect = async (req, res, next) => {
       return res.status(401).json({ success: false, error: 'User not found' });
     }
 
+    if (user.disabled) {
+      return res.status(403).json({ success: false, error: 'This account has been disabled' });
+    }
+
     req.user = user;
     next();
   } catch (error) {

@@ -4,7 +4,6 @@ import { useAuth } from "@/context/AuthContext";
 const accountLinks = [
   { href: "/my-account", label: "Dashboard" },
   { href: "/my-account-orders", label: "Orders" },
-  { href: "/my-account-address", label: "Addresses" },
   { href: "/my-account-edit", label: "Account Details" },
   { href: "/my-account-wishlist", label: "Wishlist" },
 ];

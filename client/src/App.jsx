@@ -38,7 +38,6 @@ import PaymentFailurePage from "./pages/otherPages/payment-failure";
 
 import MyAccountPage from "./pages/dashboard/my-account";
 import MyAccountOrderPage from "./pages/dashboard/my-account-orders";
-import MyAccountAddedssPage from "./pages/dashboard/my-account-address";
 import MyAccountEditPage from "./pages/dashboard/my-account-edit";
 import MyAccountWishlistPage from "./pages/dashboard/my-account-wishlist";
 import MyAccountOrderDetailsPage from "./pages/dashboard/my-account-orders-details";
@@ -215,7 +214,6 @@ function App() {
                 {/* Dashboard Sub-routes */}
                 <Route path="my-account" element={<MyAccountPage />} />
                 <Route path="my-account-orders" element={<MyAccountOrderPage />} />
-                <Route path="my-account-address" element={<MyAccountAddedssPage />} />
                 <Route path="my-account-edit" element={<MyAccountEditPage />} />
                 <Route path="my-account-wishlist" element={<MyAccountWishlistPage />} />
                 <Route path="my-account-orders-details" element={<MyAccountOrderDetailsPage />} />

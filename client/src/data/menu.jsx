@@ -719,11 +719,7 @@ export const pages = [
         text: "My order details",
         className: "menu-link-text link text_black-2",
       },
-      {
-        href: "/my-account-address",
-        text: "My address",
-        className: "menu-link-text link text_black-2",
-      },
+
       {
         href: "/my-account-edit",
         text: "My account details",

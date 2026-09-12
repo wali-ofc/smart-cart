@@ -20,4 +20,56 @@ const chatLimiter = rateLimit({
   }
 });
 
-module.exports = { chatLimiter };
+/**
+ * Per-IP register rate limit: 5 requests / 15 min.
+ * Runs BEFORE any auth middleware so keyed by IP.
+ */
+const registerLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 5,
+  standardHeaders: 'draft-7',
+  legacyHeaders: false,
+  keyGenerator: (req) => ipKeyGenerator(req),
+  handler: (req, res) => {
+    res.status(429).json({
+      success: false,
+      error: 'Too many registration attempts. Please try again later.'
+    });
+  }
+});
+
+/**
+ * Per-IP login rate limit: 10 requests / 15 min.
+ */
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 10,
+  standardHeaders: 'draft-7',
+  legacyHeaders: false,
+  keyGenerator: (req) => ipKeyGenerator(req),
+  handler: (req, res) => {
+    res.status(429).json({
+      success: false,
+      error: 'Too many login attempts. Please try again later.'
+    });
+  }
+});
+
+/**
+ * Per-IP review rate limit: 20 requests / 15 min.
+ */
+const reviewLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 20,
+  standardHeaders: 'draft-7',
+  legacyHeaders: false,
+  keyGenerator: (req) => ipKeyGenerator(req),
+  handler: (req, res) => {
+    res.status(429).json({
+      success: false,
+      error: 'Too many reviews. Please try again later.'
+    });
+  }
+});
+
+module.exports = { chatLimiter, registerLimiter, loginLimiter, reviewLimiter };

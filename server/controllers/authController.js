@@ -58,3 +58,19 @@ exports.getMe = async (req, res) => {
   const user = await authService.getMe(req.user.id);
   res.status(200).json({ success: true, user: user.toSafeJSON() });
 };
+
+/** PUT /api/auth/me — protected; update profile info */
+exports.updateProfile = async (req, res) => {
+  failed(req);
+  const { name, email } = req.body;
+  const user = await authService.updateProfile(req.user.id, { name, email });
+  res.status(200).json({ success: true, user: user.toSafeJSON() });
+};
+
+/** PUT /api/auth/password — protected; change password */
+exports.changePassword = async (req, res) => {
+  failed(req);
+  const { currentPassword, newPassword } = req.body;
+  await authService.changePassword(req.user.id, { currentPassword, newPassword });
+  res.status(200).json({ success: true, data: {}, message: 'Password updated successfully' });
+};
