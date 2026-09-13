@@ -140,7 +140,7 @@ Products are seeded from the **Free E-commerce Products API**:
 | F020 | Product Management | Add, edit, delete products |
 | F021 | Product Analytics | View per-product sales data |
 | F022 | Order Management | View and manage orders |
-| F023 | AI Predictions | View AI-powered insights (UI placeholder) |
+| F023 | AI Predictions | View AI-powered demand forecasts and insights |
 
 ### 2.1.6 Delivery Dashboard
 
@@ -820,7 +820,7 @@ exports.getAIResponse = async (message, orderContext) => {
 **Seller Pages**:
 - `/seller` - Dashboard with analytics
 - `/seller/products` - Manage products
-- `/seller/ai-predictions` - AI insights (placeholder)
+- `/seller/ai-predictions` - AI demand forecasts & insights
 
 **Delivery Pages**:
 - `/delivery` - Assigned deliveries
@@ -862,7 +862,7 @@ const api = axios.create({ baseURL: '/api', withCredentials: true });
 ### Placeholder Features (Coming Soon)
 
 - [ ] Payment processing
-- [ ] AI predictions (dashboard placeholders)
+- [x] AI predictions (demand forecasts, trend, stock-risk insights)
 - [ ] Email notifications
 - [ ] Advanced analytics
 
@@ -999,7 +999,7 @@ describe('POST /api/auth/register', () => {
 ## 5.4 Known Issues and Limitations
 
 1. **Payment Processing**: UI only, no actual payment integration
-2. **AI Predictions**: Placeholder UI, no real analytics
+2. **AI Predictions**: Demand forecasting uses lightweight statistical models (recency-weighted rates), not deep-learning forecasts
 3. **Email Notifications**: Not implemented
 4. **Search Suggestions**: Basic text search only
 

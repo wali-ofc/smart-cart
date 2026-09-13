@@ -8,7 +8,8 @@ const {
   getDeliveryAgents,
   createDeliveryAgent,
   deleteDeliveryAgent,
-  getProductAnalytics
+  getProductAnalytics,
+  getPredictions
 } = require('../controllers/sellerController');
 const { protect, authorize } = require('../middleware/authMiddleware');
 
@@ -20,6 +21,9 @@ router.use(authorize('seller'));
 
 // GET /api/seller/dashboard
 router.get('/dashboard', getDashboard);
+
+// GET /api/seller/predictions — demand forecasts + AI insights
+router.get('/predictions', getPredictions);
 
 // GET /api/seller/orders — order book (status filter + pagination)
 router.get('/orders', getSellerOrders);

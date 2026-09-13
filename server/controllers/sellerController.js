@@ -4,6 +4,7 @@ const User = require('../models/User');
 const mongoose = require('mongoose');
 const productService = require('../services/productService');
 const orderService = require('../services/orderService');
+const predictionService = require('../services/predictionService');
 const ApiError = require('../utils/ApiError');
 
 const ACTIVE_ORDER_STATUSES = ['processing', 'shipped', 'delivered'];
@@ -214,4 +215,10 @@ exports.getProductAnalytics = async (req, res) => {
   const stats = agg[0] || { unitsSold: 0, revenue: 0, orders: 0 };
 
   res.status(200).json({ success: true, data: { product, ...stats } });
+};
+
+/** GET /api/seller/predictions — demand forecasts (7/30-day), trend, stock risk + AI insights */
+exports.getPredictions = async (req, res) => {
+  const data = await predictionService.getPredictions(req.user.id);
+  res.status(200).json({ success: true, data });
 };

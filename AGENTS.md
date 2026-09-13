@@ -64,7 +64,7 @@ smart-cart-fyp/
 | Server routes | `server/routes/*.js` | auth / product / cart / order / seller / delivery / chat / review |
 | Auth middleware | `server/middleware/authMiddleware.js` | cookie JWT + role guard |
 | Role dashboards | `client/src/pages/dashboard/` | SellerDashboard + seller-products + seller-ai-predictions; DeliveryDashboard; my-account-* |
-| Seller API | `server/controllers/sellerController.js` | dashboard / products / products/:id/analytics |
+| Seller API | `server/controllers/sellerController.js` | dashboard / products / products/:id/analytics / predictions (demand forecasts + stock risk, `predictionService`) |
 | Seed data + script | `server/scripts/seedData.json` + `seedProducts.js` | 50 products (10/category) + demo seller |
 | FYP spec / architecture | `documentation.md` | chapters: req analysis, design, impl, testing |
 

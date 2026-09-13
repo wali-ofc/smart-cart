@@ -56,6 +56,7 @@ server/
 | `/api/orders/:id/status` | PUT | `protect` — role-checked transitions (seller: pending→processing→shipped(+delivery_agent)+cancelled; delivery: shipped→delivered/cancelled) |
 | `/api/orders/:id` | DELETE | `protect` — customer cancels their own order (owner only, pending/processing only); hard-deletes + releases reserved stock |
 | `/api/seller/dashboard` | GET | `protect` + `authorize('seller')` |
+| `/api/seller/predictions` | GET | `protect` + `authorize('seller')` — demand forecasts (7/30-day from 28d order history), trend, stock risk, template insights + optional Ollama briefing (graceful fallback) |
 | `/api/seller/products` | GET | `protect` + `authorize('seller')` — paginated, seller-scoped |
 | `/api/seller/products/:id/analytics` | GET | `protect` + `authorize('seller')` + owner |
 | `/api/delivery/assigned` | GET | `protect` + `authorize('delivery')` — shipped+delivered |
