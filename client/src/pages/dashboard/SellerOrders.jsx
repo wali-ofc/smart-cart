@@ -316,14 +316,16 @@ export default function SellerOrders() {
                               return (
                                 <div
                                   key={order._id}
-                                  className="border rounded-3 overflow-hidden"
+                                  className={`border rounded-3 ${isExpanded ? '' : 'overflow-hidden'}`}
                                   style={{ boxShadow: '0 1px 4px rgba(0,0,0,.06)' }}
                                 >
                                   {/* Collapsed / header row — click to expand */}
                                   <button
                                     type="button"
                                     onClick={() => toggleExpand(order._id)}
-                                    className="w-100 bg-white border-0 text-start px-3 py-3 d-flex align-items-center justify-content-between gap-3"
+                                    className={`w-100 bg-white border-0 text-start px-3 py-3 d-flex align-items-center justify-content-between gap-3 ${
+                                      isExpanded ? 'rounded-top' : ''
+                                    }`}
                                     style={{ cursor: 'pointer' }}
                                     aria-expanded={isExpanded}
                                   >
@@ -357,7 +359,7 @@ export default function SellerOrders() {
 
                                   {/* Expanded panel */}
                                   {isExpanded && (
-                                    <div className="border-top bg-light p-3">
+                                    <div className="border-top bg-light p-3 rounded-bottom">
                                       <div className="row g-3 mb-3">
                                         <div className="col-md-4">
                                           <div className="small text-secondary mb-1">Customer</div>
