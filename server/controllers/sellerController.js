@@ -53,7 +53,7 @@ exports.getDashboard = async (req, res) => {
     Order.find({ seller: sellerId })
       .sort({ createdAt: -1 })
       .limit(5)
-      .populate('user', 'name email profileImage')
+      .populate('user', 'name email')
   ]);
 
   const stats = revenueAgg[0] || { revenue: 0, orders: 0 };

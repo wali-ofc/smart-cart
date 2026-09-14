@@ -46,10 +46,6 @@ const userSchema = new mongoose.Schema({
     type: [cartItemSchema],
     default: []
   },
-  profileImage: {
-    type: String,
-    default: ''
-  },
   disabled: {
     type: Boolean,
     default: false
@@ -84,7 +80,6 @@ userSchema.methods.toSafeJSON = function() {
     name: this.name,
     email: this.email,
     role: this.role,
-    profileImage: this.profileImage,
     cart: this.cart,
     createdAt: this.createdAt
   };

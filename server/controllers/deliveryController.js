@@ -8,7 +8,7 @@ exports.getAssigned = async (req, res) => {
     status: { $in: ['shipped', 'delivered'] }
   })
     .sort({ createdAt: -1 })
-    .populate('user', 'name email profileImage')
+    .populate('user', 'name email')
     .populate('items.product', 'name image price');
 
   res.status(200).json({ success: true, count: orders.length, orders });

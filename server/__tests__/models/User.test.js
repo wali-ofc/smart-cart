@@ -82,7 +82,7 @@ describe('User model (spec §3.2.2)', () => {
     expect(safe.name).toBe('Ali');
     expect(safe.email).toBe('safe@example.com');
     expect(Object.keys(safe)).toEqual(
-      expect.arrayContaining(['_id', 'name', 'email', 'role', 'profileImage', 'cart'])
+      expect.arrayContaining(['_id', 'name', 'email', 'role', 'cart'])
     );
   });
 

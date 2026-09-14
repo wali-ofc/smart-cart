@@ -77,7 +77,7 @@ exports.listCategories = async () => {
 
 /** Single product detail (spec GET /api/products/:id). */
 exports.getProduct = async (productId) => {
-  const product = await Product.findById(productId).populate('seller', 'name email profileImage');
+  const product = await Product.findById(productId).populate('seller', 'name email');
   if (!product) {
     throw new ApiError(404, 'Product not found');
   }

@@ -18,7 +18,7 @@ const recomputeRating = async (productId) => {
 /** GET /api/reviews/product/:productId — public; reviews for a product */
 exports.getProductReviews = async (req, res) => {
   const reviews = await Review.find({ product: req.params.productId })
-    .populate('user', 'name profileImage')
+    .populate('user', 'name')
     .sort({ createdAt: -1 });
 
   res.status(200).json({ success: true, count: reviews.length, reviews });
