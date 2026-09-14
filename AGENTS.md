@@ -37,7 +37,7 @@ Workflow: trim template residue → implement documented endpoints/layers → re
 ```
 smart-cart-fyp/
 ├── client/                 # Vite + React 19 storefront (see client/AGENTS.md)
-│   ├── src/components/     # 196-file variant library (see components/AGENTS.md)
+│   ├── src/components/     # 80-file variant library, all imported (see components/AGENTS.md)
 │   ├── src/data/           # marketing data only (blogs/faqs/menu/...); catalog REMOVED (see data/AGENTS.md)
 │   ├── src/context/        # AuthContext + CartContext + Context (cart/wishlist localStorage)
 │   ├── src/api/            # axios instance (baseURL /api, withCredentials)
@@ -104,7 +104,7 @@ smart-cart-fyp/
 - **Hardcoded admin bypass REMOVED (Phase 2)** — `server/middleware/auth.js` and the admin email/password bypass are deleted; demo seller access requires a real `seller` account (Phase 4 seed creates `seller@smartcart.local` / `seller123`). Do NOT reintroduce synthetic identities.
 - **Root `*.cjs` / `add_route.js` patch scripts removed (2026-09-06)** — were one-off hacks (regex rewrites across components) that could corrupt source if re-run; do not recreate this pattern.
 - **Do NOT edit `admin dashboard/extracted-silva/`** — purchased vendor template (TS+JS duplicates, reference only). Its compiled output `client/public/admin-build/` was DELETED in Phase 7 (D10) — the iframe dashboard is gone.
-- **Do NOT "clean up" the hundreds of unused demo variants** in `client/src/components` — unused variants are tree-shaken at build; deletion risks breaking imports referenced by pages (58 variants already verified-dead and deleted — never bulk-delete without a zero-importer grep).
+- **Do NOT bulk-delete "unused" demo variants** in `client/src/components` without zero-importer verification — 58 variants were removed in an earlier pass and 119 more on 2026-09-14, each verified via import-graph analysis (resolve all imports, confirm 0 unresolved) + clean rebuild. Pages import a scattered subset; a plain grep "unused file" pass is NOT safe.
 - **Route suites missing** — only model tests (`server/__tests__/models/`) exist so far; adding route/service tests is welcome (Phase 8) but don't assume coverage exists.
 - **`client/src/utlis/` is a typo'd directory name** — not `utils/`; `@/utlis/*` imports depend on it. Renaming requires updating all importers.
 
