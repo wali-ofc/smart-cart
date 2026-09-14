@@ -139,10 +139,7 @@ export default function ShopDetailsTab({ product }) {
                             <div className="d-flex align-items-center gap-10">
                               <img
                                 className="radius-3"
-                                src={
-                                  review.user?.profileImage ||
-                                  "/images/avatar/avatar-default.png"
-                                }
+                                src="/images/avatar/avatar-default.svg"
                                 alt={review.user?.name || "Reviewer"}
                                 width={40}
                                 height={40}
