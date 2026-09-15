@@ -3360,6 +3360,10 @@
   .tf-top-bar .grid-3 {
     grid-template-columns: 1fr;
   }
+  .tf-top-bar_wrap {
+    display: block;
+    text-align: center;
+  }
 
   .wrapper-header {
     .nav-icon {
