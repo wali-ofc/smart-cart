@@ -13,8 +13,8 @@ const Order = require('../models/Order');
 const mongoose = require('mongoose');
 
 // Ollama transport config — same env vars as the chat service.
-const OLLAMA_BASE_URL = process.env.OLLAMA_BASE_URL || 'http://localhost:11434';
-const OLLAMA_MODEL = process.env.OLLAMA_MODEL || 'smartcart-bot';
+const OLLAMA_BASE_URL = process.env.OLLAMA_BASE_URL || process.env.OLLAMA_HOST || 'http://localhost:11434';
+const OLLAMA_MODEL = process.env.OLLAMA_MODEL || 'mystore-bot:latest';
 const OLLAMA_FALLBACK_MODEL = process.env.OLLAMA_FALLBACK_MODEL || 'gemma3:1b';
 
 const ACTIVE_ORDER_STATUSES = ['processing', 'shipped', 'delivered'];
