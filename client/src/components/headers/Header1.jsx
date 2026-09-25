@@ -97,7 +97,7 @@ export default function Header1() {
                       <ul className="menu-list d-flex flex-column align-items-start gap-2 mb-0">
                         <li>
                           <Link to="/profile" className="menu-link-text link text_black-2">
-                            Profile Dashboard
+                            Profile
                           </Link>
                         </li>
                         {user.role === 'seller' && (
