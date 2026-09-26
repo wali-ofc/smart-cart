@@ -18,7 +18,6 @@ import ResetPass from "@/components/modals/ResetPass";
 import SearchModal from "@/components/modals/SearchModal";
 import ShareModal from "@/components/modals/ShareModal";
 import ToolbarBottom from "@/components/modals/ToolbarBottom";
-import ToolbarShop from "@/components/modals/ToolbarShop";
 
 import ScrollTop from "@/components/common/ScrollTop";
 import { Route, Routes, useLocation } from "react-router-dom";
@@ -257,7 +256,6 @@ function App() {
           <SearchModal />
           <ShareModal />
           <ToolbarBottom />
-          <ToolbarShop />
           <ChatWidget />
         </Context>
         </CartProvider>

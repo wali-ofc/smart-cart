@@ -5,18 +5,6 @@ import WishlistLength from "../common/WishlistLength";
 export default function ToolbarBottom() {
   return (
     <div className="tf-toolbar-bottom type-1150">
-      <div className="toolbar-item active">
-        <a
-          href="#toolbarShopmb"
-          data-bs-toggle="offcanvas"
-          aria-controls="offcanvasLeft"
-        >
-          <div className="toolbar-icon">
-            <i className="icon-shop" />
-          </div>
-          <div className="toolbar-label">Shop</div>
-        </a>
-      </div>
       <div className="toolbar-item">
         <a
           href="#canvasSearch"
