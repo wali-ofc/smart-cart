@@ -330,3 +330,37 @@ html[dir="rtl"] {
     height: 18px;
   }
 }
+
+/* Mobile bottom-bar account menu.
+   Mirrors the desktop #header .nav-account dropdown (Profile / role dashboard /
+   Logout) but opens on tap, since the desktop one is :hover-driven.
+   position:fixed so it is not clipped by .tf-toolbar-bottom's overflow-y:hidden;
+   left/width are measured from the trigger in ToolbarBottom.jsx. */
+.toolbar-account-menu {
+  position: fixed;
+  bottom: 74px; /* clears the 67px bar */
+  z-index: 999;
+  margin: 0;
+  padding: 12px 16px;
+  list-style: none;
+  /* grow to fit labels like "Seller Dashboard"; min-width (from JS) keeps it at
+     least as wide as the trigger */
+  width: max-content;
+  max-width: calc(100vw - 24px);
+  background-color: var(--white);
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgb(235 235 235);
+  text-align: start;
+
+  .menu-link-text {
+    color: var(--text);
+    white-space: nowrap;
+  }
+  li:not(:last-child) {
+    margin-bottom: 10px;
+  }
+}
+/* keep the trigger visually "on" while its menu is open */
+.tf-toolbar-bottom .toolbar-item > a.active .toolbar-icon i {
+  color: var(--primary);
+}
