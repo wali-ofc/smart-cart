@@ -90,7 +90,7 @@ export default function Footer1({ bgColor = "" }) {
                     <li>
                       <p>
                         Address: 1234 Fashion Street, Suite 567, <br />
-                        New York, NY 10001
+                        Gujranwala, GUJ 10001
                       </p>
                     </li>
                     <li>
@@ -195,69 +195,7 @@ export default function Footer1({ bgColor = "" }) {
                   </li>
                 </ul>
               </div>
-              <div className="col-xl-3 col-md-6 col-12">
-                <div className="footer-newsletter footer-col-block">
-                  <div className="footer-heading footer-heading-desktop">
-                    <h6>Sign Up for Email</h6>
-                  </div>
-                  <div className="footer-heading footer-heading-moblie">
-                    <h6>Sign Up for Email</h6>
-                  </div>
-                  <div className="tf-collapse-content">
-                    <div className="footer-menu_item">
-                      Sign up to get first dibs on new arrivals, sales,
-                      exclusive content, events and more!
-                    </div>
-                    <div
-                      className={`tfSubscribeMsg ${
-                        showMessage ? "active" : ""
-                      }`}
-                    >
-                      {success ? (
-                        <p style={{ color: "rgb(52, 168, 83)" }}>
-                          You have successfully subscribed.
-                        </p>
-                      ) : (
-                        <p style={{ color: "red" }}>Something went wrong</p>
-                      )}
-                    </div>
-                    <form
-                      ref={formRef}
-                      onSubmit={sendEmail}
-                      className="form-newsletter subscribe-form"
-                      action="#"
-                      method="post"
-                      acceptCharset="utf-8"
-                      data-mailchimp="true"
-                    >
-                      <div className="subscribe-content">
-                        <fieldset className="email">
-                          <input
-                            required
-                            type="email"
-                            name="email"
-                            className="subscribe-email"
-                            placeholder="Enter your email...."
-                            tabIndex={0}
-                            aria-required="true"
-                            autoComplete="abc@xyz.com"
-                          />
-                        </fieldset>
-                        <div className="button-submit">
-                          <button
-                            className="subscribe-button tf-btn btn-sm radius-3 btn-fill btn-icon animate-hover-btn"
-                            type="submit"
-                          >
-                            Subscribe
-                            <i className="icon icon-arrow1-top-left" />
-                          </button>
-                        </div>
-                      </div>
-                      <div className="subscribe-msg" />
-                    </form>
-                  </div>
-                </div>
-              </div>
+              
             </div>
           </div>
         </div>
