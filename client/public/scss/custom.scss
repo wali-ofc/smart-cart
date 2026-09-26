@@ -294,3 +294,39 @@ html[dir="rtl"] {
     }
   }
 }
+
+/* Chat widget — responsive sizing.
+   ChatWidget.jsx passes these as var() references in inline styles (the
+   fallback keeps desktop working even if this block is ever dropped), so the
+   actual values live here. Only SIZE and POSITION change on mobile. */
+.chat-widget {
+  --chat-widget-inset-x: 20px;
+  --chat-widget-inset-y: 20px;
+  --chat-widget-panel-w: 340px;
+  --chat-widget-thread-h: 320px;
+  --chat-widget-size: 56px;
+}
+/* The fixed .tf-toolbar-bottom bar (67px tall, z-index 200) appears at
+   <=1150px. The widget is z-index 950, so lift it clear of the bar there. */
+@media (max-width: 1150px) {
+  .chat-widget {
+    --chat-widget-inset-y: 78px;
+  }
+}
+@media (max-width: 767px) {
+  .chat-widget {
+    --chat-widget-inset-x: 12px;
+    --chat-widget-panel-w: calc(100vw - 24px);
+    --chat-widget-thread-h: 40vh;
+    --chat-widget-size: 44px;
+  }
+  /* the icon svg carries width/height attributes, so override explicitly */
+  .chat-widget .chat-widget-toggle svg {
+    width: 20px;
+    height: 20px;
+  }
+  .chat-widget-panel .card-header svg {
+    width: 18px;
+    height: 18px;
+  }
+}

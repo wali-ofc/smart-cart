@@ -140,8 +140,8 @@ export default function ChatWidget() {
       className="chat-widget"
       style={{
         position: "fixed",
-        right: 20,
-        bottom: 20,
+        right: "var(--chat-widget-inset-x, 20px)",
+        bottom: "var(--chat-widget-inset-y, 20px)",
         zIndex: 950,
         display: "flex",
         flexDirection: "column",
@@ -149,7 +149,7 @@ export default function ChatWidget() {
       }}
     >
       {open && (
-        <div className="card chat-widget-panel shadow-sm" style={{ width: 340, marginBottom: 12, overflow: "hidden" }}>
+        <div className="card chat-widget-panel shadow-sm" style={{ width: "var(--chat-widget-panel-w, 340px)", marginBottom: 12, overflow: "hidden" }}>
           <div className="card-header d-flex align-items-center justify-content-between py-2">
             <span className="fw-5 d-flex align-items-center gap-2">
               {iconSvg}
@@ -191,7 +191,7 @@ export default function ChatWidget() {
           <div
             ref={threadRef}
             className="card-body"
-            style={{ maxHeight: 320, overflowY: "auto", background: "#f6f6f6" }}
+            style={{ maxHeight: "var(--chat-widget-thread-h, 320px)", overflowY: "auto", background: "#f6f6f6" }}
           >
             {messages.length === 0 && (
               <p className="small text-secondary mb-0 text-center py-2">
@@ -278,7 +278,12 @@ export default function ChatWidget() {
       <button
         onClick={() => setOpen((v) => !v)}
         className="tf-btn btn-fill animate-hover-btn chat-widget-toggle d-flex align-items-center justify-content-center"
-        style={{ width: 56, height: 56, borderRadius: "50%", padding: 0 }}
+        style={{
+          width: "var(--chat-widget-size, 56px)",
+          height: "var(--chat-widget-size, 56px)",
+          borderRadius: "50%",
+          padding: 0
+        }}
         aria-label={open ? "Close chat" : "Open chat"}
       >
         {iconSvg}
