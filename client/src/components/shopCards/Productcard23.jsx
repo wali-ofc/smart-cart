@@ -6,7 +6,6 @@ export default function Productcard23({ product }) {
   const [currentImage, setCurrentImage] = useState(product.imgSrc);
   const { setQuickViewItem } = useContextElement();
   const {
-    setQuickAddItem,
     addToWishlist,
     isAddedtoWishlist,
     addToCompareItem,
@@ -75,15 +74,6 @@ export default function Productcard23({ product }) {
           </div>
         )}
         <div className="list-product-btn">
-          <a
-            href="#quick_add"
-            onClick={() => setQuickAddItem(product.id)}
-            data-bs-toggle="modal"
-            className="box-icon quick-add style-3 hover-tooltip"
-          >
-            <span className="icon icon-bag" />
-            <span className="tooltip">Quick add</span>
-          </a>
           <a
             onClick={() => addToWishlist(product.id)}
             className="box-icon wishlist style-3 hover-tooltip"

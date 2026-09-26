@@ -21,7 +21,6 @@ export default function Context({ children }) {
   const [wishList, setWishList] = useState([]);
   const [compareItem, setCompareItem] = useState([]);
   const [quickViewItem, setQuickViewItem] = useState(null);
-  const [quickAddItem, setQuickAddItem] = useState(null);
 
   const addToWishlist = (id) => {
     if (!wishList.includes(id)) {
@@ -99,8 +98,6 @@ export default function Context({ children }) {
     quickViewItem,
     wishList,
     setQuickViewItem,
-    quickAddItem,
-    setQuickAddItem,
     addToCompareItem,
     isAddedtoCompareItem,
     removeFromCompareItem,

@@ -7,7 +7,6 @@ export const ProductCardWishlist = ({ product }) => {
   const [currentImage, setCurrentImage] = useState(product.imgSrc);
   const { setQuickViewItem } = useContextElement();
   const {
-    setQuickAddItem,
     addToWishlist,
     isAddedtoWishlist,
     removeFromWishlist,
@@ -47,15 +46,6 @@ export const ProductCardWishlist = ({ product }) => {
         </div>
 
         <div className="list-product-btn">
-          <a
-            href="#quick_add"
-            onClick={() => setQuickAddItem(product.id)}
-            data-bs-toggle="modal"
-            className="box-icon bg_white quick-add tf-btn-loading"
-          >
-            <span className="icon icon-bag" />
-            <span className="tooltip">Quick Add</span>
-          </a>
           <a
             onClick={() => addToWishlist(product.id)}
             className="box-icon bg_white wishlist btn-icon-action"

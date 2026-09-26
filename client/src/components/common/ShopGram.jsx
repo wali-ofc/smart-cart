@@ -4,9 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import api from "@/api/axios";
 import { normalizeProduct } from "@/utlis/productMap";
-import { useContextElement } from "@/context/Context";
 export default function ShopGram({ parentClass = "flat-spacing-7" }) {
-  const { setQuickAddItem } = useContextElement();
   const [items, setItems] = useState([]);
   useEffect(() => {
     let cancelled = false;
@@ -72,15 +70,6 @@ export default function ShopGram({ parentClass = "flat-spacing-7" }) {
                       height={400}
                     />
                   </div>
-                  <a
-                    href="#quick_add"
-                    onClick={() => setQuickAddItem(item.id)}
-                    data-bs-toggle="modal"
-                    className="box-icon"
-                  >
-                    <span className="icon icon-bag" />
-                    <span className="tooltip">Quick add</span>
-                  </a>
                 </div>
               </SwiperSlide>
             ))}

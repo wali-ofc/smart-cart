@@ -8,7 +8,6 @@ import HomesModal from "@/components/modals/HomesModal";
 import Context from "@/context/Context";
 import QuickView from "@/components/modals/QuickView";
 import ProductSidebar from "@/components/modals/ProductSidebar";
-import QuickAdd from "@/components/modals/QuickAdd";
 import ShopCart from "@/components/modals/ShopCart";
 import AskQuestion from "@/components/modals/AskQuestion";
 import FindSize from "@/components/modals/FindSize";
@@ -247,7 +246,6 @@ function App() {
           </div>
           <HomesModal /> 
           <QuickView />
-          <QuickAdd />
           <ProductSidebar />
           <ShopCart />
           <AskQuestion />
