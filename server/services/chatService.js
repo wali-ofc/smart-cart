@@ -12,6 +12,12 @@ const OLLAMA_FALLBACK_MODEL = process.env.OLLAMA_FALLBACK_MODEL || 'gemma3:1b';
 // generic ones so the best match wins (e.g. `price of order #x` before `order #x`).
 // ---------------------------------------------------------------------------
 const INTENTS = {
+  // Greetings are anchored (^...$) so they only fire on a message that IS just
+  // a greeting — they can never shadow a real shopping question. Pure greetings
+  // are answered here on purpose: sending them to Ollama costs a model call, and
+  // a cold model can blow the 60s budget and surface a 503 for a bare "Yo".
+  greeting:         /^\s*(hi|hey|hello|hiya|heya|yo|sup|howdy|greetings|good\s+(morning|afternoon|evening|day)|what'?s\s+up)\b[\s!,.?:-]*$/i,
+
   // Order intents
   orderCount:       /\b(how\s+many\s+orders|total\s+orders|number\s+of\s+orders|order\s+count|count\s+(of\s+)?(my\s+)?orders?)\b/i,
   orderTotal:       /\b(total\s+(spent|price|cost|amount)|how\s+much\s+(have\s+i\s+)?spent|total\s+spending|spending\s+total)\b/i,
@@ -430,6 +436,16 @@ async function handleIntent(intent, message, userId) {
         actions: [{ type: 'navigate', label: 'Open Profile', url: '/profile' }]
       };
 
+    case 'greeting':
+      return {
+        reply: "Hi there! 👋 I'm your SmartCart shopping assistant. I can help you track orders, check your cart, or answer questions about the store. What would you like to do?",
+        actions: [
+          { type: 'navigate', label: 'Browse Products', url: '/products' },
+          { type: 'navigate', label: 'My Orders', url: '/orders' },
+          { type: 'navigate', label: 'My Cart', url: '/cart' }
+        ]
+      };
+
     case 'help':
       return {
         reply: "Hi! I'm your SmartCart shopping assistant. Here's what I can help with:\n\n"
@@ -600,12 +616,27 @@ function parseAIResponse(rawReply) {
 // ---------------------------------------------------------------------------
 // Ollama transport (native fetch — no extra dependency)
 // ---------------------------------------------------------------------------
+// How long Ollama keeps the model resident in RAM/VRAM after a request. Ollama's
+// own default is 5 minutes, after which the next request pays a full ~0.8 GB
+// reload from disk (~40-50s here) and can blow the per-request budget below —
+// that was the "AI assistant is unavailable" 503 on a bare greeting. Pinning a
+// long keep_alive keeps the model warm between questions. Override with
+// OLLAMA_KEEP_ALIVE if you want Ollama's own eviction behaviour back.
+const OLLAMA_KEEP_ALIVE = process.env.OLLAMA_KEEP_ALIVE || '30m';
+
+// Per-model generation budget. The local 1B models are slow and highly variable
+// on a full customer-context prompt (measured 9.9s / 11.0s / 23.3s warm, and
+// over 60s when unlucky), so the old 60s ceiling surfaced a 503 for questions
+// that were merely unlucky rather than broken. 120s clears the observed ~118s
+// worst case. Override with OLLAMA_TIMEOUT_MS.
+const OLLAMA_TIMEOUT_MS = Number(process.env.OLLAMA_TIMEOUT_MS) || 120000;
+
 async function callOllama(model, prompt) {
   const response = await fetch(`${OLLAMA_BASE_URL}/api/generate`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    signal: AbortSignal.timeout(60000),
-    body: JSON.stringify({ model, prompt, stream: false })
+    signal: AbortSignal.timeout(OLLAMA_TIMEOUT_MS),
+    body: JSON.stringify({ model, prompt, stream: false, keep_alive: OLLAMA_KEEP_ALIVE })
   });
 
   if (!response.ok) {

@@ -197,12 +197,18 @@ INSTRUCTIONS:
 Write a concise briefing for the seller (under 90 words, plain text, no markdown, no bullet points). Cover: the strongest predicted sellers, any at-risk inventory to restock, any slowing products, and ONE concrete recommendation (restock, promote, or refresh). Base everything ONLY on the stats above — never invent data. Respond now:`;
 }
 
+// See the note in chatService.callOllama: Ollama's default 5-minute keep_alive
+// means a cold model can exceed this tighter 20s budget and silently blank the
+// seller briefing. Pinning a long keep_alive keeps it resident so the briefing
+// renders instead of dropping to aiAvailable: false.
+const OLLAMA_KEEP_ALIVE = process.env.OLLAMA_KEEP_ALIVE || '30m';
+
 async function callOllama(model, prompt) {
   const response = await fetch(`${OLLAMA_BASE_URL}/api/generate`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     signal: AbortSignal.timeout(20000),
-    body: JSON.stringify({ model, prompt, stream: false })
+    body: JSON.stringify({ model, prompt, stream: false, keep_alive: OLLAMA_KEEP_ALIVE })
   });
   if (!response.ok) throw new Error(`Ollama HTTP ${response.status}`);
   const data = await response.json();
