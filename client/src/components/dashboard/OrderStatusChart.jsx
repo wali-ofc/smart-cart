@@ -9,6 +9,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import api from '@/api/axios';
+import CustomSelect from '@/components/common/CustomSelect';
 
 const PERIOD_OPTIONS = [
   { value: 'all', label: 'All Time' },
@@ -55,20 +56,15 @@ export default function OrderStatusChart() {
     <div className="mb_30">
       <div className="d-flex align-items-center justify-content-between flex-wrap gap-3 mb_20">
         <h6 className="fw-5 mb-0">Orders Frequency</h6>
-        <div className="select-custom select-sm w-auto">
-          <select
-            className="tf-select"
-            value={period}
-            onChange={(e) => setPeriod(e.target.value)}
-            aria-label="Chart time period"
-          >
-            {PERIOD_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
-        </div>
+        <CustomSelect
+          options={PERIOD_OPTIONS}
+          value={period}
+          onChange={(e) => setPeriod(e.target.value)}
+          name="chart-period"
+          id="chart-period-select"
+          placeholder="Select period"
+          style={{ width: 'auto', minWidth: 160 }}
+        />
       </div>
       <div className="p-3 border rounded-3" style={{ height: 300 }}>
         {loading ? (
@@ -90,7 +86,7 @@ export default function OrderStatusChart() {
                 labelFormatter={formatLabel}
                 formatter={(value) => [value, 'Orders']}
               />
-              <Bar dataKey="count" fill="#4e7c58" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="count" fill="#000000" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         )}
