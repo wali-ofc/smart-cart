@@ -149,7 +149,7 @@ export default function SellerAiPredictionsPage() {
         <div className="mb_30">
           <div className="d-flex align-items-center justify-content-between flex-wrap gap-2 mb_20">
             <h6 className="fw-5 mb-0">AI Insights</h6>
-            {aiAvailable && aiSummary && badge("#4e7c58", "AI-GENERATED")}
+            {aiAvailable && aiSummary && badge("#000000", "AI-GENERATED")}
           </div>
           <div className="p-3 border rounded-3">
             {aiSummary && (
@@ -187,7 +187,7 @@ export default function SellerAiPredictionsPage() {
                   <Tooltip
                     formatter={(value) => [`${value} units`, "Predicted demand (30d)"]}
                   />
-                  <Bar dataKey="units" fill="#4e7c58" radius={[0, 4, 4, 0]} barSize={16} />
+                  <Bar dataKey="units" fill="#000000" radius={[0, 4, 4, 0]} barSize={16} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
