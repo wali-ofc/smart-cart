@@ -13,11 +13,12 @@ Vite 6 + React 19 storefront (SWC plugin, SCSS, Bootstrap 5, Swiper, PhotoSwipe,
 ```
 client/
 ├── src/
-│   ├── components/     # UI library — 196 files (see components/AGENTS.md)
+│   ├── components/     # UI library — 76 files in 14 folders (see components/AGENTS.md)
 │   ├── data/           # marketing data ONLY — blogs/faqs/menu/socials/... (catalog REMOVED)
 │   ├── context/        # Context.jsx (cart/wishlist localStorage) + AuthContext.jsx (JWT) + CartContext.jsx (server-synced)
 │   ├── api/            # axios.js — the ONLY HTTP client
-│   ├── pages/          # route views: dashboard/, otherPages/, shop/, shop-details/
+│   ├── pages/          # route views — one PascalCase file per page, grouped by area:
+│   │                   #   home/ shop/ blog/ cart/ account/ seller/ delivery/ payment/ engagement/ content/ error/
 │   └── utlis/          # TYPO'd dir name (wow.js, openCartModal.js, productMap.js)
 ├── public/
 │   ├── scss/           # SCSS source — NOT in src/
@@ -36,17 +37,17 @@ client/
 
 | Path | Page |
 |------|------|
-| `/` | HomePage1 (`pages/page.jsx`) |
-| `/products`, `/shop-default`, `/shop-collection-*` | ShopDefaultPage |
+| `/` | HomePage (`pages/home/HomePage.jsx`) |
+| `/products`, `/shop-default`, `/shop-collection-*` | ProductListPage |
 | `/category/:categoryId` | CategoryPage |
 | `/product/:id`, `/product-detail/:id` | ProductDetailPage (aliases per D14) |
 | `/blog-grid`, `/blog-detail/:id` | Blog pages |
 | `/cart`, `/view-cart`, `/checkout` | cart pages |
 | `/profile`, `/orders`, `/likes`, `/wishlist`, `/my-account-*` | customer dashboard pages |
 | `/seller`, `/seller/products`, `/seller/ai-predictions` | React seller pages (no iframe) |
-| `/delivery` | DeliveryDashboard |
+| `/delivery` | DeliveryDashboardPage |
 | `/payment-confirmation`, `/payment-failure` | payment result pages |
-| `*` | PageNotFoundPage |
+| `*` | NotFoundPage |
 
 ## STATE
 
@@ -57,7 +58,10 @@ client/
 
 ## CONVENTIONS
 
-- Components: PascalCase files; page dirs use `kebab-case/` with `index.jsx` (e.g. `pages/otherPages/view-cart/index.jsx`) EXCEPT `product-detail` which is `pages/shop-details/product-detail/`
+- Components: PascalCase files
+- **Pages: one PascalCase `.jsx` file per route, in a semantic group folder — no `index.jsx` wrappers.** The file name must equal the default export name, e.g. `pages/cart/CartPage.jsx` exports `CartPage`. Groups: `home/` (homepage) · `shop/` (listing, detail, category) · `blog/` · `cart/` (cart, checkout) · `account/` (dashboard-sidebar pages, `Account*` prefix) · `seller/` · `delivery/` · `payment/` · `engagement/` (standalone wishlist/likes) · `content/` (marketing + legal) · `error/`
+- Two pages may share a purpose across contexts (e.g. `engagement/WishlistPage` = standalone, `account/AccountWishlistPage` = sidebar variant). Disambiguate by prefix, never by merging.
+- **Route URLs are FROZEN** — the `<Route path=...>` values still use the legacy template slugs (`/shop-default`, `/my-account-*`, `/view-cart`, `/product-detail/:id`) and MUST NOT be renamed casually: ~36 `<Link to=...>` calls across `components/` and `data/` point at them. File names were normalized; URLs were deliberately left alone.
 - Imports: `@/` for everything under src
 - Use `useContextElement()` from `@/context/Context` for cart state — do not create new contexts for cart data
 - Scroll/header/preloader effects handled in `App.jsx`, not per-page

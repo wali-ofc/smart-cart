@@ -37,11 +37,11 @@ Workflow: trim template residue → implement documented endpoints/layers → re
 ```
 smart-cart-fyp/
 ├── client/                 # Vite + React 19 storefront (see client/AGENTS.md)
-│   ├── src/components/     # 80-file variant library, all imported (see components/AGENTS.md)
+│   ├── src/components/     # 76-file UI library in 14 folders, all imported (see components/AGENTS.md)
 │   ├── src/data/           # marketing data only (blogs/faqs/menu/...); catalog REMOVED (see data/AGENTS.md)
 │   ├── src/context/        # AuthContext + CartContext + Context (cart/wishlist localStorage)
 │   ├── src/api/            # axios instance (baseURL /api, withCredentials)
-│   ├── src/pages/          # route views incl. dashboard/ (Seller/Delivery: React, no iframe)
+│   ├── src/pages/          # route views: home/ shop/ blog/ cart/ account/ seller/ delivery/ payment/ engagement/ content/ error/
 │   ├── public/scss/        # SCSS source (compiled via import from App.jsx)
 │   └── public/images/      # 1,800+ static media assets
 ├── server/                 # Express 5 API (see server/AGENTS.md)
@@ -63,7 +63,7 @@ smart-cart-fyp/
 | Storefront product data | MongoDB via `/api/products` | NO static catalog — seeded 50 products; `normalizeProduct` in `client/src/utlis/productMap.js` |
 | Server routes | `server/routes/*.js` | auth / product / cart / order / seller / delivery / chat / review |
 | Auth middleware | `server/middleware/authMiddleware.js` | cookie JWT + role guard |
-| Role dashboards | `client/src/pages/dashboard/` | SellerDashboard + seller-products + seller-ai-predictions; DeliveryDashboard; my-account-* |
+| Role dashboards | `client/src/pages/{seller,delivery,account}/` | Seller/Delivery React dashboards (no iframe); `account/` = dashboard-sidebar pages, `engagement/` = standalone wishlist/likes |
 | Seller API | `server/controllers/sellerController.js` | dashboard / products / products/:id/analytics / predictions (demand forecasts + stock risk, `predictionService`) |
 | Seed data + script | `server/scripts/seedData.json` + `seedProducts.js` | 50 products (10/category) + demo seller |
 | FYP spec / architecture | `documentation.md` | chapters: req analysis, design, impl, testing |
@@ -79,10 +79,11 @@ smart-cart-fyp/
 | `CartProvider` | provider | `client/src/context/CartContext.jsx` | Server-synced cart (`/api/cart`) |
 | `AuthProvider` | provider | `client/src/context/AuthContext.jsx` | `/api/auth/me` session on mount |
 | `api` | axios instance | `client/src/api/axios.js` | baseURL `/api`, cookies |
-| `HomePage1` | page | `client/src/pages/page.jsx` | Index route |
-| `SellerDashboard` | page | `client/src/pages/dashboard/SellerDashboard.jsx` | React seller dashboard (no iframe) |
-| `DeliveryDashboard` | page | `client/src/pages/dashboard/DeliveryDashboard.jsx` | delivery role dashboard |
-| `Likes` | component | `client/src/components/othersPages/Likes.jsx` | server-synced liked products grid |
+| `HomePage` | page | `client/src/pages/home/HomePage.jsx` | Index route |
+| `ProductListPage` | page | `client/src/pages/shop/ProductListPage.jsx` | product listing (route `/products`) |
+| `SellerDashboardPage` | page | `client/src/pages/seller/SellerDashboardPage.jsx` | React seller dashboard (no iframe) |
+| `DeliveryDashboardPage` | page | `client/src/pages/delivery/DeliveryDashboardPage.jsx` | delivery role dashboard |
+| `LikesGrid` | component | `client/src/components/engagement/LikesGrid.jsx` | server-synced liked products grid |
 | `server.js` | entry | `server/server.js` | Express bootstrap, DB, route mounts |
 | `protect` / `authorize` | middleware | `server/middleware/authMiddleware.js` | JWT verify + role gate |
 | `User/Product/Order/Review/ChatSession` | models | `server/models/` | Mongoose schemas (ChatSession used by chat routes) |

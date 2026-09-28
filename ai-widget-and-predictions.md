@@ -3,7 +3,7 @@
 > Deep-dive into the two "AI" features the examiner will ask about. Every snippet is real code from this repo — paths are clickable in VS Code.
 >
 > - **AI Widget (chatbot):** `client/src/components/common/ChatWidget.jsx` → `server/routes/chatRoutes.js` → `server/controllers/chatController.js` → `server/services/chatService.js` → `server/models/ChatSession.js`
-> - **AI Predictions (seller):** `client/src/pages/dashboard/seller-ai-predictions/index.jsx` → `server/controllers/sellerController.js` (`getPredictions`) → `server/services/predictionService.js`
+> - **AI Predictions (seller):** `client/src/pages/seller/SellerAiPredictionsPage.jsx` → `server/controllers/sellerController.js` (`getPredictions`) → `server/services/predictionService.js`
 
 **Shared DNA (lead with this):** both features are **hybrid** — a *deterministic core that always works* (regex intents / statistical forecasting) plus an *optional Ollama-generated narrative that degrades gracefully* when the local model is down. Neither feature ever fails the endpoint because the AI layer is unavailable; the AI just gets skipped.
 
@@ -397,7 +397,7 @@ Generated as bullet lines from the computed forecasts:
 5. **Dormant** — products with zero sales in 28 days → *"may need promotion or removal from the catalog."*
 6. Special case: **no sales at all** → explanatory message ("Orders in processing/shipped/delivered status feed the model…").
 
-## 2.7 The page that renders it — `seller-ai-predictions/index.jsx`
+## 2.7 The page that renders it — `pages/seller/SellerAiPredictionsPage.jsx`
 
 ```jsx
 // fetch once on mount (seller role only)

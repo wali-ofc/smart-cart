@@ -16,7 +16,7 @@ smart-cart-fyp/
 │   ├── src/components/      # UI component library (template-derived variant set)
 │   ├── src/context/         # AuthContext (JWT) + CartContext (server-synced cart)
 │   ├── src/api/             # axios instance (baseURL /api, withCredentials)
-│   ├── src/pages/           # route views
+│   ├── src/pages/           # route views — one file per page, grouped by area (home/shop/cart/account/…)
 │   └── public/              # scss/, images/, admin-build/ (iframe seller dashboard)
 ├── server/                  # Express 5 API (controllers, models, routes, services)
 ├── scripts/                 # one-off maintenance scripts

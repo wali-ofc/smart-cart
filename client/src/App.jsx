@@ -4,65 +4,69 @@ import "../public/scss/main.scss";
 import "photoswipe/dist/photoswipe.css";
 import "rc-slider/assets/index.css";
 
-import HomesModal from "@/components/modals/HomesModal";
+import HomesModal from "@/components/modals/HomesModal.jsx";
 import Context from "@/context/Context";
-import QuickView from "@/components/modals/QuickView";
-import ProductSidebar from "@/components/modals/ProductSidebar";
-import ShopCart from "@/components/modals/ShopCart";
-import AskQuestion from "@/components/modals/AskQuestion";
-import FindSize from "@/components/modals/FindSize";
-import Login from "@/components/modals/Login";
-import MobileMenu from "@/components/modals/MobileMenu";
-import Register from "@/components/modals/Register";
-import ResetPass from "@/components/modals/ResetPass";
-import SearchModal from "@/components/modals/SearchModal";
-import ShareModal from "@/components/modals/ShareModal";
-import ToolbarBottom from "@/components/modals/ToolbarBottom";
+import QuickView from "@/components/modals/QuickView.jsx";
+import ProductSidebar from "@/components/modals/ProductSidebar.jsx";
+import ShopCart from "@/components/modals/ShopCart.jsx";
+import AskQuestion from "@/components/modals/AskQuestion.jsx";
+import FindSize from "@/components/modals/FindSize.jsx";
+import Login from "@/components/modals/Login.jsx";
+import MobileMenu from "@/components/modals/MobileMenu.jsx";
+import Register from "@/components/modals/Register.jsx";
+import ResetPass from "@/components/modals/ResetPass.jsx";
+import SearchModal from "@/components/modals/SearchModal.jsx";
+import ShareModal from "@/components/modals/ShareModal.jsx";
+import ToolbarBottom from "@/components/modals/ToolbarBottom.jsx";
 
 import ScrollTop from "@/components/common/ScrollTop";
 import { Route, Routes, useLocation } from "react-router-dom";
-import HomePage1 from "./pages/page";
-import BlogGridPage from "./pages/BlogGridPage";
-import BlogDetailPage from "./pages/BlogDetailPage";
 import WOW from "@/utlis/wow";
+import ScrollToTopBehaviour from "./components/common/ScrollToTopBehaviour.jsx";
 
-import ShopDefaultPage from "./pages/shop/shop-default";
-import ProductDetailPage from "./pages/shop-details/product-detail";
+import HomePage from "./pages/home/HomePage";
 
-import ViewCartPage from "./pages/otherPages/view-cart";
-import CheckoutPage from "./pages/otherPages/checkout";
-import PaymentCOnfirmationPage from "./pages/otherPages/payment-confirmation";
-import PaymentFailurePage from "./pages/otherPages/payment-failure";
+import ProductListPage from "./pages/shop/ProductListPage";
+import ProductDetailPage from "./pages/shop/ProductDetailPage";
+import CategoryPage from "./pages/shop/CategoryPage";
 
-import MyAccountPage from "./pages/dashboard/my-account";
-import MyAccountOrderPage from "./pages/dashboard/my-account-orders";
-import MyAccountEditPage from "./pages/dashboard/my-account-edit";
-import MyAccountWishlistPage from "./pages/dashboard/my-account-wishlist";
-import MyAccountOrderDetailsPage from "./pages/dashboard/my-account-orders-details";
-import SellerDashboard from "./pages/dashboard/SellerDashboard";
-import SellerOrdersPage from "./pages/dashboard/SellerOrders";
-import SellerOrderDetailPage from "./pages/dashboard/SellerOrderDetail";
-import SellerProductsPage from "./pages/dashboard/seller-products";
-import SellerAiPredictionsPage from "./pages/dashboard/seller-ai-predictions";
-import SellerCouriersPage from "./pages/dashboard/SellerCouriers";
-import DeliveryDashboard from "./pages/dashboard/DeliveryDashboard";
+import BlogGridPage from "./pages/blog/BlogGridPage";
+import BlogDetailPage from "./pages/blog/BlogDetailPage";
 
-import WishlistPage from "./pages/otherPages/wishlist";
-import LikesPage from "./pages/otherPages/likes";
-import PageNotFoundPage from "./pages/otherPages/page-not-found";
+import CartPage from "./pages/cart/CartPage";
+import CheckoutPage from "./pages/cart/CheckoutPage";
 
-import PrivacyPolicyPage from "./pages/otherPages/privacy-policy";
-import TermsConditionsPage from "./pages/otherPages/terms-conditions";
-import DeliveryReturnPage from "./pages/otherPages/delivery-return";
-import ShippingDeliveryPage from "./pages/otherPages/shipping-delivery";
-import AboutUsPage from "./pages/otherPages/about-us";
-import ContactUsPage from "./pages/otherPages/contact-us";
-import FaqPage from "./pages/otherPages/faq";
-import StoreLocationsPage from "./pages/otherPages/store-locations";
-import OurStoryPage from "./pages/otherPages/our-store";
+import AccountProfilePage from "./pages/account/AccountProfilePage";
+import AccountOrdersPage from "./pages/account/AccountOrdersPage";
+import AccountOrderDetailPage from "./pages/account/AccountOrderDetailPage";
+import AccountEditProfilePage from "./pages/account/AccountEditProfilePage";
+import AccountWishlistPage from "./pages/account/AccountWishlistPage";
 
-import ScrollTopBehaviour from "./components/common/ScrollToTopBehaviour";
-import CategoryPage from "./pages/shop/category";
+import SellerDashboardPage from "./pages/seller/SellerDashboardPage";
+import SellerOrdersPage from "./pages/seller/SellerOrdersPage";
+import SellerOrderDetailPage from "./pages/seller/SellerOrderDetailPage";
+import SellerProductsPage from "./pages/seller/SellerProductsPage";
+import SellerAiPredictionsPage from "./pages/seller/SellerAiPredictionsPage";
+import SellerCouriersPage from "./pages/seller/SellerCouriersPage";
+import DeliveryDashboardPage from "./pages/delivery/DeliveryDashboardPage";
+
+import WishlistPage from "./pages/engagement/WishlistPage";
+import LikesPage from "./pages/engagement/LikesPage";
+
+import PaymentConfirmationPage from "./pages/payment/PaymentConfirmationPage";
+import PaymentFailurePage from "./pages/payment/PaymentFailurePage";
+
+import AboutUsPage from "./pages/content/AboutUsPage";
+import ContactUsPage from "./pages/content/ContactUsPage";
+import FaqPage from "./pages/content/FaqPage";
+import PrivacyPolicyPage from "./pages/content/PrivacyPolicyPage";
+import TermsConditionsPage from "./pages/content/TermsConditionsPage";
+import ShippingDeliveryPage from "./pages/content/ShippingDeliveryPage";
+import ReturnsPage from "./pages/content/ReturnsPage";
+import StoreLocationsPage from "./pages/content/StoreLocationsPage";
+import OurStoryPage from "./pages/content/OurStoryPage";
+
+import NotFoundPage from "./pages/error/NotFoundPage";
 import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
 import ChatWidget from "./components/common/ChatWidget";
@@ -190,47 +194,47 @@ function App() {
           <div id="wrapper">
             <Routes>
               <Route path="/">
-                <Route index element={<HomePage1 />} />
-                <Route path="products" element={<ShopDefaultPage />} />
-                <Route path="shop-default" element={<ShopDefaultPage />} />
-                <Route path="shop-collection-list" element={<ShopDefaultPage />} />
-                <Route path="shop-collection-sub" element={<ShopDefaultPage />} />
+                <Route index element={<HomePage />} />
+                <Route path="products" element={<ProductListPage />} />
+                <Route path="shop-default" element={<ProductListPage />} />
+                <Route path="shop-collection-list" element={<ProductListPage />} />
+                <Route path="shop-collection-sub" element={<ProductListPage />} />
                 <Route path="category/:categoryId" element={<CategoryPage />} />
                 <Route path="product-detail/:id" element={<ProductDetailPage />} />
                 <Route path="product/:id" element={<ProductDetailPage />} />
                 <Route path="blog-grid" element={<BlogGridPage />} />
                 <Route path="blog-detail/:id" element={<BlogDetailPage />} />
-                <Route path="cart" element={<ViewCartPage />} />
-                <Route path="view-cart" element={<ViewCartPage />} />
+                <Route path="cart" element={<CartPage />} />
+                <Route path="view-cart" element={<CartPage />} />
                 <Route path="checkout" element={<CheckoutPage />} />
                 
-                <Route path="profile" element={<MyAccountPage />} />
-                <Route path="orders" element={<MyAccountOrderPage />} />
+                <Route path="profile" element={<AccountProfilePage />} />
+                <Route path="orders" element={<AccountOrdersPage />} />
                 <Route path="wishlist" element={<WishlistPage />} />
                 <Route path="likes" element={<LikesPage />} />
 
                 {/* Dashboard Sub-routes */}
-                <Route path="my-account" element={<MyAccountPage />} />
-                <Route path="my-account-orders" element={<MyAccountOrderPage />} />
-                <Route path="my-account-edit" element={<MyAccountEditPage />} />
-                <Route path="my-account-wishlist" element={<MyAccountWishlistPage />} />
-                <Route path="my-account-orders-details" element={<MyAccountOrderDetailsPage />} />
-                <Route path="my-account-orders-details/:id" element={<MyAccountOrderDetailsPage />} />
+                <Route path="my-account" element={<AccountProfilePage />} />
+                <Route path="my-account-orders" element={<AccountOrdersPage />} />
+                <Route path="my-account-edit" element={<AccountEditProfilePage />} />
+                <Route path="my-account-wishlist" element={<AccountWishlistPage />} />
+                <Route path="my-account-orders-details" element={<AccountOrderDetailPage />} />
+                <Route path="my-account-orders-details/:id" element={<AccountOrderDetailPage />} />
 
-                <Route path="seller" element={<SellerDashboard />} />
+                <Route path="seller" element={<SellerDashboardPage />} />
                 <Route path="seller/orders" element={<SellerOrdersPage />} />
                 <Route path="seller/orders/:id" element={<SellerOrderDetailPage />} />
                 <Route path="seller/products" element={<SellerProductsPage />} />
                 <Route path="seller/ai-predictions" element={<SellerAiPredictionsPage />} />
                 <Route path="seller/couriers" element={<SellerCouriersPage />} />
-                <Route path="delivery" element={<DeliveryDashboard />} />
+                <Route path="delivery" element={<DeliveryDashboardPage />} />
 
                 <Route path="payment-failure" element={<PaymentFailurePage />} />
-                <Route path="payment-confirmation" element={<PaymentCOnfirmationPage />} />
+                <Route path="payment-confirmation" element={<PaymentConfirmationPage />} />
 
                 <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
                 <Route path="terms-conditions" element={<TermsConditionsPage />} />
-                <Route path="delivery-return" element={<DeliveryReturnPage />} />
+                <Route path="delivery-return" element={<ReturnsPage />} />
                 <Route path="shipping-delivery" element={<ShippingDeliveryPage />} />
                 <Route path="about-us" element={<AboutUsPage />} />
                 <Route path="contact" element={<ContactUsPage />} />
@@ -238,8 +242,8 @@ function App() {
                 <Route path="store-location" element={<StoreLocationsPage />} />
                 <Route path="our-story" element={<OurStoryPage />} />
 
-                <Route path="page-not-found" element={<PageNotFoundPage />} />
-                <Route path="*" element={<PageNotFoundPage />} />
+                <Route path="page-not-found" element={<NotFoundPage />} />
+                <Route path="*" element={<NotFoundPage />} />
               </Route>
             </Routes>
           </div>
@@ -261,7 +265,7 @@ function App() {
         </CartProvider>
       </AuthProvider>
       <ScrollTop />
-      <ScrollTopBehaviour />
+      <ScrollToTopBehaviour />
     </>
   );
 }

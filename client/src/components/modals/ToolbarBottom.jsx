@@ -14,7 +14,7 @@ export default function ToolbarBottom() {
 
   // The desktop dropdown (#header .nav-account) is :hover-driven, which is
   // unusable on touch, so the bottom-bar copy toggles on tap instead. Content
-  // and logout flow are kept identical to Header1/Header2.
+  // and logout flow are kept identical to SiteHeader/PageHeader.
   useEffect(() => {
     setAccountOpen(false);
   }, [pathname]);
@@ -60,7 +60,7 @@ export default function ToolbarBottom() {
     };
   }, [accountOpen]);
 
-  // Mirrors Header1/Header2: log out, return home, then surface the login modal.
+  // Mirrors SiteHeader/PageHeader: log out, return home, then surface the login modal.
   const handleLogout = async (e) => {
     e.preventDefault();
     try {

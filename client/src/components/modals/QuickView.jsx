@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import Quantity from "../shopDetails/Quantity";
+import ProductQuantity from "../product/ProductQuantity.jsx";
 import React, { useState } from "react";
 
 export default function QuickView() {
@@ -107,7 +107,7 @@ export default function QuickView() {
                 {isAvailable && (
                 <div className="tf-product-info-quantity">
                   <div className="quantity-title fw-6">Quantity</div>
-                  <Quantity setQuantity={setQuantity} max={stock} />
+                  <ProductQuantity setQuantity={setQuantity} max={stock} />
                 </div>
               )}
               <div className="tf-product-info-buy-button">

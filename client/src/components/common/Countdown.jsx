@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Countdown from "react-countdown";
+import ReactCountdown from "react-countdown";
 const Completionist = () => <span>You are good to go!</span>;
 
 // Renderer callback with condition
@@ -40,7 +40,7 @@ const renderer2 = ({ days, hours, minutes, seconds, completed }) => {
     );
   }
 };
-export default function CountdownComponent({
+export default function Countdown({
   fullLabel = false,
   labels,
   targetDate = "2025-6-07",
@@ -143,7 +143,7 @@ export default function CountdownComponent({
   return (
     <>
       {showCountdown && (
-        <Countdown
+        <ReactCountdown
           date={
             new Date(
               targetDate
