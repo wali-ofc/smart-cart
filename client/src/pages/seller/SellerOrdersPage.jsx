@@ -272,20 +272,14 @@ export default function SellerOrdersPage() {
                     <div>
                       <div className="d-flex align-items-center justify-content-between flex-wrap gap-3 mb_20">
                         <h6 className="fw-5 mb-0">All Orders</h6>
-                        <div className="select-custom select-sm w-auto">
-                          <select
-                            className="tf-select"
-                            value={statusFilter}
-                            onChange={(e) => onFilterChange(e.target.value)}
-                            aria-label="Filter orders by status"
-                          >
-                            {STATUS_OPTIONS.map((opt) => (
-                              <option key={opt.value || 'all'} value={opt.value}>
-                                {opt.label}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
+                        <CustomSelect
+                          name="status-filter"
+                          options={STATUS_OPTIONS}
+                          value={statusFilter}
+                          onChange={(e) => onFilterChange(e.target.value)}
+                          placeholder="All statuses"
+                          style={{ width: 'auto', minWidth: 180 }}
+                        />
                       </div>
 
                       {orderLoading && (

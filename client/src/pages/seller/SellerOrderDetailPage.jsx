@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import CustomSelect from '@/components/common/CustomSelect';
 import Footer from '@/components/layout/Footer';
 import PageHeader from '@/components/layout/PageHeader';
 import MetaComponent from '@/components/common/MetaComponent';
@@ -206,21 +207,14 @@ export default function SellerOrderDetailPage() {
               <div className="col-md-4">
                 <label className="form-label small text-secondary">New Status</label>
                 {allowedTransitions.length > 0 ? (
-                  <div className="select-custom">
-                    <select
-                      className="tf-select"
-                      value={selectedStatus}
-                      onChange={(e) => setSelectedStatus(e.target.value)}
-                      disabled={saving}
-                      aria-label="Select new order status"
-                    >
-                      {STATUS_OPTIONS.map((opt) => (
-                        <option key={opt.value} value={opt.value}>
-                          {opt.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <CustomSelect
+                    name="order-status"
+                    options={STATUS_OPTIONS}
+                    value={selectedStatus}
+                    onChange={(e) => setSelectedStatus(e.target.value)}
+                    placeholder="Select status"
+                    disabled={saving}
+                  />
                 ) : (
                   <div className="text-secondary small">No status changes available.</div>
                 )}
