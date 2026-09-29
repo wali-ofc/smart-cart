@@ -1,8 +1,28 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
-import { slides } from "@/data/heroslides";
 import { Link } from "react-router-dom";
 import React from "react";
+
+const slides = [
+  {
+    imgSrc: "/images/slider/bellroy-desktop.jpg",
+    mobileImgSrc: "/images/slider/bellroy-mobile.jpg",
+    title: "CARRY SMART.\nMOVE FREE.\nGO FAR.",
+    text: "",
+    btnText: "BESTSELLERS",
+    linkTo: "/products",
+  },
+  {
+    imgSrc: "/images/slider/bellroy-slide3-desktop.jpg",
+    mobileImgSrc: "/images/slider/bellroy-slide3-mobile.jpg",
+    title: "WE'VE GOT\nYOUR BACK",
+    text: "",
+    btnText: "SHOP BACKPACKS",
+    // No backpack SKU in the seeded catalog; Fashion & Apparel is the nearest
+    // real destination (Shopper, $120.95). Keeps the frozen CTA copy intact.
+    linkTo: "/category/Fashion%20%26%20Apparel",
+  },
+];
 
 export default function Hero() {
   return (

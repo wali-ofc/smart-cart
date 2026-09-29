@@ -15,7 +15,7 @@
 | `productGallery.js`, `gallery.js` | image galleries | shopDetails/gallery |
 | `shop.js` | shop demo settings | shop layout components |
 | `categories.js`, `brands.js`, `brandList.js` | filters, brand lists | shop sidebars, home |
-| `banner.js`, `heroslides.jsx` | hero/banner data | home + modals |
+| `banner.js` | hero/banner data | home + modals |
 | `menu.jsx` | nav menu structure (updated by `update_nav.cjs`) | headers/Nav |
 | `blogs.js` | 6 demo blog posts (per recent commits) | blog pages |
 | `faqs.js`, `process.js`, `features.jsx`, `marquees.js`, `socials.js`, `testimonials.js`, `footerLinks.js` | marketing content | common/home components |
@@ -39,6 +39,7 @@
 ## ANTI-PATTERNS
 
 - **Static catalog files were REMOVED (2026-09-08, alignment rework)** — `products.js`, `singleProductOptions.js`, `shop.js`, `categories.js`, `brands.js`, `brandList.js`, `gallery.js`, `productGallery.js` and their dead variant importers are gone. Storefront product data now comes from the Express API (`@/api/axios`) normalized via `normalizeProduct` in `@/utlis/productMap`; cart/wishlist state lives in `Context.jsx`/`CartContext.jsx`. Do NOT re-create or re-import these deleted data files.
+- **`heroslides.jsx` was REMOVED (2026-09-29)** — it exported 39 slider arrays (the template shipped ~39 demo home pages, one per industry) but only `slides` was ever imported, by `components/home/Hero.jsx`. That array now lives inlined in `Hero.jsx` as a module-scope const; the other 38 exports (furniture, cosmetics, paddle boards, dog accessories, gift cards, ... — none matching the seeded catalog) were deleted with the file. Do NOT re-create it.
 - **Do NOT change product `id`s** — breaking change for localStorage carts and routes (`/product-detail/:id`); ids are MongoDB `_id` strings returned by `normalizeProduct`
 - Adding/removing blog posts must keep ids stable for `/blog-grid` + `/blog-detail/:id`
 - Supabase seed scripts (`scripts/seed-supabase.js`) target a deprecated stack — do not expect this data to exist in MongoDB
