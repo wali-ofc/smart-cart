@@ -5,6 +5,7 @@ export const slides = [
     title: "CARRY SMART.\nMOVE FREE.\nGO FAR.",
     text: "",
     btnText: "BESTSELLERS",
+    linkTo: "/products",
   },
   {
     imgSrc: "/images/slider/bellroy-slide3-desktop.jpg",
@@ -12,6 +13,9 @@ export const slides = [
     title: "WE'VE GOT\nYOUR BACK",
     text: "",
     btnText: "SHOP BACKPACKS",
+    // No backpack SKU in the seeded catalog; Fashion & Apparel is the nearest
+    // real destination (Shopper, $120.95). Keeps the frozen CTA copy intact.
+    linkTo: "/category/Fashion%20%26%20Apparel",
   },
 ];
 

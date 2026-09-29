@@ -190,7 +190,7 @@ export default function Hero() {
                   </h1>
                   <p className="fade-item fade-item-2 bellroy-subtext">{slide.text}</p>
                   <Link
-                    to={`/shop-default`}
+                    to={slide.linkTo || "/products"}
                     className="fade-item fade-item-3 bellroy-btn"
                   >
                     {slide.btnText}
