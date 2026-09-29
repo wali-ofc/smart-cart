@@ -205,9 +205,10 @@ export default function SellerOrderDetailPage() {
                 <div className="fw-6">{STATUS_LABEL[order.status] || order.status}</div>
               </div>
               <div className="col-md-4">
-                <label className="form-label small text-secondary">New Status</label>
+                <label className="form-label small text-secondary" htmlFor="order-detail-status">New Status</label>
                 {allowedTransitions.length > 0 ? (
                   <CustomSelect
+                    id="order-detail-status"
                     name="order-status"
                     options={STATUS_OPTIONS}
                     value={selectedStatus}

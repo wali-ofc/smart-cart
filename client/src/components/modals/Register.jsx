@@ -104,8 +104,9 @@ export default function Register() {
                 <label className="tf-field-label">Password *</label>
               </div>
               <div className="mb-3">
-                <label className="form-label small mb_8">Account type *</label>
+                <label className="form-label small mb_8" htmlFor="register-account-type">Account type *</label>
                 <CustomSelect
+                  id="register-account-type"
                   options={[
                     { value: "customer", label: "Customer" },
                     { value: "seller", label: "Seller" },

@@ -273,6 +273,7 @@ export default function SellerOrdersPage() {
                       <div className="d-flex align-items-center justify-content-between flex-wrap gap-3 mb_20">
                         <h6 className="fw-5 mb-0">All Orders</h6>
                         <CustomSelect
+                          aria-label="Filter orders by status"
                           name="status-filter"
                           options={STATUS_OPTIONS}
                           value={statusFilter}
@@ -402,11 +403,15 @@ export default function SellerOrdersPage() {
                                       <div className="bg-white border rounded-3 p-3">
                                         <div className="row g-3 align-items-end">
                                           <div className="col-md-4">
-                                            <label className="form-label small text-secondary">
+                                            <label
+                                              className="form-label small text-secondary"
+                                              htmlFor={`order-status-${order._id}`}
+                                            >
                                               Order status
                                             </label>
                                             {allowed.length > 0 ? (
                                               <CustomSelect
+                                                id={`order-status-${order._id}`}
                                                 options={[
                                                   {
                                                     value: order.status,
@@ -432,10 +437,14 @@ export default function SellerOrdersPage() {
                                             )}
                                           </div>
                                           <div className="col-md-4">
-                                            <label className="form-label small text-secondary">
+                                            <label
+                                              className="form-label small text-secondary"
+                                              htmlFor={`order-agent-${order._id}`}
+                                            >
                                               Delivery driver (courier)
                                             </label>
                                             <CustomSelect
+                                              id={`order-agent-${order._id}`}
                                               options={agents.map((a) => ({
                                                 value: String(a._id),
                                                 label: a.name || a.email,

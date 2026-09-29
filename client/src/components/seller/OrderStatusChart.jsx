@@ -57,6 +57,7 @@ export default function OrderStatusChart() {
       <div className="d-flex align-items-center justify-content-between flex-wrap gap-3 mb_20">
         <h6 className="fw-5 mb-0">Orders Frequency</h6>
         <CustomSelect
+          aria-label="Orders frequency period"
           options={PERIOD_OPTIONS}
           value={period}
           onChange={(e) => setPeriod(e.target.value)}

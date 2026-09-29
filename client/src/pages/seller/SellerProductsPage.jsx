@@ -282,8 +282,9 @@ export default function SellerProductsPage() {
                   />
                 </div>
                 <div className="col-md-6">
-                  <label className="form-label small mb_8">Category *</label>
+                  <label className="form-label small mb_8" htmlFor="product-category">Category *</label>
                   <CustomSelect
+                    id="product-category"
                     name="category"
                     value={form.category}
                     placeholder="Select category"
