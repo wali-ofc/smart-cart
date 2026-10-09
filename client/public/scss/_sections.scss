@@ -2657,13 +2657,7 @@
     list-style: none;
     position: relative;
     &::before {
-      top: 20px;
-      bottom: 48px;
-      position: absolute;
-      content: " ";
-      width: 2px;
-      left: 10px;
-      border-right: 1px dashed var(--text-2);
+      display: none;
     }
     > li {
       margin-bottom: 15px;
