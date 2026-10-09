@@ -42,7 +42,15 @@ exports.listProducts = async ({
   const query = {};
 
   if (category) query.category = category;
-  if (search) query.$text = { $search: search };
+  if (search) {
+    const safeRegex = new RegExp(search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+    query.$or = [
+      { name: safeRegex },
+      { category: safeRegex },
+      { keywords: safeRegex },
+      { description: safeRegex }
+    ];
+  }
   if (minPrice || maxPrice) {
     query.price = {};
     if (minPrice) query.price.$gte = Number(minPrice);
